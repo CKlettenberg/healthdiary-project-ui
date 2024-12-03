@@ -15,16 +15,14 @@
 </template>
 
 <script>
+import { useAuthStore } from "@/stores/auth";
+
 export default {
-  name: "MenuPage",
   methods: {
     logout() {
-      // Perform any cleanup if needed (e.g., clearing tokens)
-      alert("You have been logged out.");
-      this.$router.push("/"); // Redirect to login screen
-    },
-    goToSettings() {
-      alert("Navigating to Settings"); // Placeholder for navigation
+      const authStore = useAuthStore();
+      authStore.logout();
+      this.$router.push("/");
     },
   },
 };

@@ -4,7 +4,6 @@
       <router-view></router-view>
     </div>
     <div v-else>
-      <ShoppingCart/>
 
     </div>
   </div>
