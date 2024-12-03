@@ -1,67 +1,57 @@
 <template>
-  <div class="login-screen">
-    <h1>Welcome</h1>
-    <div class="content-container">
-      <div v-if="showLoginFields" class="form-container">
-        <input
-            type="text"
-            v-model="username"
-            placeholder="Enter Username"
-            class="input-field"
-        />
-        <input
-            type="password"
-            v-model="password"
-            placeholder="Enter Password"
-            class="input-field"
-        />
-        <button class="submit-btn" @click="login">Submit</button>
-        <p v-if="error" class="error">{{ error }}</p>
+  <div>
+    <h2>Login</h2>
+    <form @submit.prevent="handleLogin">
+      <div>
+        <label for="username">Username:</label>
+        <input v-model="username" type="text" id="username" required />
       </div>
-      <div v-else class="button-container">
-        <button class="login-btn" @click="showLogin">Login</button>
-        <button class="register-btn">Registreeri</button>
+      <div>
+        <label for="password">Password:</label>
+        <input v-model="password" type="password" id="password" required />
       </div>
-    </div>
+      <button type="submit">Login</button>
+    </form>
+    <p v-if="errorMessage" style="color: red">{{ errorMessage }}</p>
   </div>
 </template>
 
 <script>
-import axios from "axios";
-
 export default {
   data() {
     return {
-      showLoginFields: false,
-      username: "",
-      password: "",
-      error: null,
+      username: '',
+      password: '',
+      errorMessage: ''
     };
   },
   methods: {
-    showLogin() {
-      this.showLoginFields = true;
-    },
-    async login() {
+    async handleLogin() {
       try {
-        await axios.post("http://localhost:8080/login", {
-          username: this.username,
-          password: this.password,
+        const response = await fetch('http://localhost:8091/login', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({username: this.username, password: this.password}),
         });
 
-// Use the response (e.g., log the data)
+        if (!response.ok) {
+          throw new Error('Invalid username or password');
+        }
 
-        // On success, redirect to the menu page
-        alert("Login successful!");
-        this.$router.push("/menu");
+        const data = await response.json();
+        console.log('Login successful:', data);
+
+        // Emit a successful login event to the parent component
+        this.$emit('login-success');
+
+        // Optionally store the token in localStorage or sessionStorage
+        localStorage.setItem('token', data.token);
       } catch (error) {
-  if (error.response && error.response.status === 401) {
-  this.error = "Invalid username or password!";
-} else {
-  this.error = "Something went wrong. Please try again.";
-}
-}
-},
-},
+        this.errorMessage = error.message;
+      }
+    }
+  }
 };
 </script>
