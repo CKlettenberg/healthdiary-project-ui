@@ -1,9 +1,18 @@
-import { createRouter, createWebHistory } from 'vue-router';
-import MenuPage from '@/pages/MenuPage.vue'; // Import your home page component
+import { createRouter, createWebHistory } from "vue-router";
+import LoginScreen from "../components/LoginScreen.vue";
+import MenuPage from "../pages/MenuPage.vue";
 
 const routes = [
-    { path: '/', component: MenuPage },
-    // other routes
+    {
+        path: "/",
+        name: "Login",
+        component: LoginScreen,
+    },
+    {
+        path: "/menu",
+        name: "Menu",
+        component: MenuPage,
+    },
 ];
 
 const router = createRouter({

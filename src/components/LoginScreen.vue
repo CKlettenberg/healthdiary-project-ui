@@ -17,41 +17,34 @@
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
   data() {
     return {
-      username: '',
-      password: '',
-      errorMessage: ''
+      username: "",
+      password: "",
+      errorMessage: "",
     };
   },
   methods: {
     async handleLogin() {
       try {
-        const response = await fetch('http://localhost:8091/login', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({username: this.username, password: this.password}),
+        const response = await axios.post("http://localhost:8091/auth/login", {
+          username: this.username,
+          password: this.password,
         });
-
-        if (!response.ok) {
-          throw new Error('Invalid username or password');
-        }
-
-        const data = await response.json();
-        console.log('Login successful:', data);
-
-        // Emit a successful login event to the parent component
-        this.$emit('login-success');
-
-        // Optionally store the token in localStorage or sessionStorage
-        localStorage.setItem('token', data.token);
+        console.log(response.data); // Check if you get a successful response
+        // Navigate to the Menu page
+        this.$router.push("/menu");
       } catch (error) {
-        this.errorMessage = error.message;
+        if (error.response && error.response.status === 401) {
+          this.errorMessage = "Invalid username or password!";
+        } else {
+          this.errorMessage = "Something went wrong. Please try again.";
+        }
       }
-    }
-  }
+    },
+  },
 };
 </script>
