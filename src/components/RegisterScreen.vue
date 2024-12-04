@@ -1,25 +1,26 @@
 <template>
-  <div class="login-screen">
-    <h1 class="title">Tervise Päevik</h1>
+  <div class="register-screen">
+    <h1 class="title">Tervise Päevik - Registreeri</h1>
 
-    <!-- Initial Buttons -->
-    <div v-if="!showLogin" class="button-container">
-      <button class="green-button" @click="toggleLogin">Logi Sisse</button>
-      <button class="secondary-button" @click="goToRegister">Registreeri</button>
-    </div>
-
-    <!-- Login Form -->
-    <form v-if="showLogin" @submit.prevent="handleLogin" class="form-container">
+    <form @submit.prevent="handleRegister" class="form-container">
       <div class="input-group">
         <label for="username" class="label">Kasutaja:</label>
-        <input v-model="username" type="text" id="username" class="input-field" required />
+        <input v-model="user.username" type="text" id="username" class="input-field" required />
       </div>
       <div class="input-group">
         <label for="password" class="label">Parool:</label>
-        <input v-model="password" type="password" id="password" class="input-field" required />
+        <input v-model="user.password" type="password" id="password" class="input-field" required />
       </div>
-      <button type="submit" class="green-button">Logi Sisse</button>
-      <button type="button" class="secondary-button" @click="toggleLogin">Tagasi</button>
+      <div class="input-group">
+        <label for="confirm-password" class="label">Kinnita Parool:</label>
+        <input v-model="confirmPassword" type="password" id="confirm-password" class="input-field" required />
+      </div>
+      <div class="input-group">
+        <label for="email" class="label">E-post (Valikuline):</label>
+        <input v-model="user.email" type="email" id="email" class="input-field" />
+      </div>
+      <button type="submit" class="green-button">Registreeri</button>
+      <button type="button" class="secondary-button" @click="goBack">Tagasi</button>
       <p v-if="errorMessage" class="error-message">{{ errorMessage }}</p>
     </form>
   </div>
@@ -27,48 +28,46 @@
 
 <script>
 import axios from "axios";
-import { useAuthStore } from "@/stores/auth";
 
 export default {
   data() {
     return {
-      username: "",
-      password: "",
+      user: {
+        username: "",
+        password: "",
+        email: "",
+      },
+      confirmPassword: "",
       errorMessage: "",
-      showLogin: false, // Controls visibility of login form
     };
   },
   methods: {
-    toggleLogin() {
-      this.errorMessage = "";
-      this.showLogin = !this.showLogin;
-    },
-    goToRegister() {
-      this.$router.push("/register"); // Navigate to RegisterScreen
-    },
-    async handleLogin() {
-      const authStore = useAuthStore();
+    async handleRegister() {
+      if (this.user.password !== this.confirmPassword) {
+        this.errorMessage = "Paroolid ei klapi!";
+        return;
+      }
       try {
-        const response = await axios.post("http://localhost:8091/auth/login", {
-          username: this.username,
-          password: this.password,
-        });
-        authStore.login(response.data.user); // Update authentication state
-        this.$router.push("/menu"); // Navigate to Menu page
+        await axios.post("http://localhost:8091/api/users/register", this.user);
+        alert("Registreerimine õnnestus! Nüüd saate sisse logida.");
+        this.$router.push("/"); // Navigate back to login screen
       } catch (error) {
         this.errorMessage =
-            error.response && error.response.status === 401
-                ? "Vale kasutajanimi või parool!"
+            error.response && error.response.status === 409
+                ? "Kasutajanimi on juba võetud!"
                 : "Midagi läks valesti. Palun proovi uuesti.";
       }
+    },
+    goBack() {
+      this.$router.push("/"); // Navigate back to the login screen
     },
   },
 };
 </script>
 
 <style scoped>
-/* Styles remain the same */
-.login-screen {
+/* Styles remain the same as the LoginScreen */
+.register-screen {
   display: flex;
   flex-direction: column;
   align-items: center;

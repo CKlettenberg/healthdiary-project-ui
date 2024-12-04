@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from "vue-router";
 import { useAuthStore } from "@/stores/auth";
 import LoginScreen from "@/components/LoginScreen.vue";
 import MenuPage from "@/pages/MenuPage.vue";
+import RegisterScreen from "@/components/RegisterScreen.vue";
 
 const routes = [
     {
@@ -12,6 +13,11 @@ const routes = [
         path: "/menu",
         component: MenuPage,
         meta: { requiresAuth: true },
+    },
+    {
+        path: "/register",
+        name: "Register",
+        component: RegisterScreen,
     },
 ];
 
