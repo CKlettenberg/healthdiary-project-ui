@@ -3,6 +3,7 @@ import { useAuthStore } from "@/stores/auth";
 import LoginScreen from "@/components/LoginScreen.vue";
 import MenuPage from "@/pages/MenuPage.vue";
 import RegisterScreen from "@/components/RegisterScreen.vue";
+import AddPatient from "@/components/AddPatient.vue"; // Import AddPatient component
 
 const routes = [
     {
@@ -19,6 +20,12 @@ const routes = [
         name: "Register",
         component: RegisterScreen,
     },
+    {
+        path: "/add-patient",
+        name: "AddPatient",
+        component: AddPatient,
+        meta: { requiresAuth: true },
+    },
 ];
 
 const router = createRouter({
@@ -28,6 +35,7 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
     const authStore = useAuthStore();
+    // Redirect to login if the route requires authentication and the user isn't authenticated
     if (to.meta.requiresAuth && !authStore.isAuthenticated) {
         next("/");
     } else {

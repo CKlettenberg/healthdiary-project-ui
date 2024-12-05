@@ -32,34 +32,33 @@ import { useAuthStore } from "@/stores/auth";
 export default {
   data() {
     return {
-      username: "",
+      showLogin: false, // Toggle for showing login form
+      username: "", // Changed back to username
       password: "",
       errorMessage: "",
-      showLogin: false, // Controls visibility of login form
     };
   },
   methods: {
     toggleLogin() {
-      this.errorMessage = "";
       this.showLogin = !this.showLogin;
     },
     goToRegister() {
-      this.$router.push("/register"); // Navigate to RegisterScreen
+      this.$router.push("/register"); // Navigate to the registration page
     },
     async handleLogin() {
-      const authStore = useAuthStore();
       try {
         const response = await axios.post("http://localhost:8091/auth/login", {
-          username: this.username,
+          username: this.username, // Send username instead of email
           password: this.password,
         });
-        authStore.login(response.data.user); // Update authentication state
-        this.$router.push("/menu"); // Navigate to Menu page
+
+        const authStore = useAuthStore();
+        authStore.login(response.data);
+        console.log(response)// Save user in authStore
+        this.$router.push("/menu"); // Redirect to Menu Page
+        console.log('here')
       } catch (error) {
-        this.errorMessage =
-            error.response && error.response.status === 401
-                ? "Vale kasutajanimi või parool!"
-                : "Midagi läks valesti. Palun proovi uuesti.";
+        this.errorMessage = "Invalid username or password. Please try again.";
       }
     },
   },
@@ -67,86 +66,5 @@ export default {
 </script>
 
 <style scoped>
-/* Styles remain the same */
-.login-screen {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
-  background-image: url("@/assets/background.png"); /* Background image path */
-  background-size: auto; /* Make the image cover the entire screen */
-  background-position: center; /* Center the image */
-  background-repeat: no-repeat; /* Prevent tiling */
-}
-
-.title {
-  font-size: 2rem;
-  color: #2c3e50;
-  margin-bottom: 20px;
-}
-
-.form-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 15px;
-}
-
-.input-group {
-  width: 100%;
-  max-width: 300px;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-}
-
-.label {
-  font-size: 1rem;
-  margin-bottom: 5px;
-}
-
-.input-field {
-  width: 100%;
-  padding: 10px;
-  border: 1px solid #ddd;
-  border-radius: 25px;
-  font-size: 1rem;
-}
-
-.green-button {
-  background-color: #2ecc71;
-  color: white;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 25px;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: background-color 0.3s;
-}
-
-.green-button:hover {
-  background-color: #27ae60;
-}
-
-.secondary-button {
-  background-color: transparent;
-  color: #2ecc71;
-  padding: 10px 20px;
-  border: 1px solid #2ecc71;
-  border-radius: 25px;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: background-color 0.3s, color 0.3s;
-}
-
-.secondary-button:hover {
-  background-color: #2ecc71;
-  color: white;
-}
-
-.error-message {
-  color: red;
-  margin-top: 10px;
-}
+/* Existing styles */
 </style>
