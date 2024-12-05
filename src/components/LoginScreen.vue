@@ -54,9 +54,8 @@ export default {
 
         const authStore = useAuthStore();
         authStore.login(response.data);
-        console.log(response)// Save user in authStore
+
         this.$router.push("/menu"); // Redirect to Menu Page
-        console.log('here')
       } catch (error) {
         this.errorMessage = "Invalid username or password. Please try again.";
       }

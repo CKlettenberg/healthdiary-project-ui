@@ -3,7 +3,8 @@ import { useAuthStore } from "@/stores/auth";
 import LoginScreen from "@/components/LoginScreen.vue";
 import MenuPage from "@/pages/MenuPage.vue";
 import RegisterScreen from "@/components/RegisterScreen.vue";
-import AddPatient from "@/components/AddPatient.vue"; // Import AddPatient component
+import AddPatient from "@/components/AddPatient.vue";
+import FeverPage from "@/pages/FeverPage.vue";
 
 const routes = [
     {
@@ -12,6 +13,7 @@ const routes = [
     },
     {
         path: "/menu",
+        name: 'Menu',
         component: MenuPage,
         meta: { requiresAuth: true },
     },
@@ -26,6 +28,12 @@ const routes = [
         component: AddPatient,
         meta: { requiresAuth: true },
     },
+    {
+        path: "/fever",
+        name: "FeverRecord",
+        component: FeverPage,
+        meta: { requiresAuth: true },
+},
 ];
 
 const router = createRouter({

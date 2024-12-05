@@ -54,30 +54,36 @@ export default {
   },
   methods: {
     async fetchPatients() {
-      try {
-        const authStore = useAuthStore();
-        const token = authStore.user;
-        console.log(authStore)
+        const token = localStorage.getItem('token');
         if (!token) {
           alert("User not authenticated. Please log in.");
           this.$router.push("/");
           return;
         }
 
-        const response = await axios.get("http://localhost:8091/api/patients", {
+        const api = axios.create({
+          baseURL: 'http://localhost:8091/api',
           headers: {
             Authorization: `Bearer ${token}`,
           },
         });
-        this.patients = response.data;
-        if (this.patients.length > 0) {
-          this.currentPatientIndex = 0;
-          this.showPatientDetails = true;
+
+        const userId = localStorage.getItem('user');
+        if (!userId) {
+          return;
         }
-      } catch (error) {
-        console.error("Error fetching patients:", error);
-        alert("Failed to load patients. Please try again.");
-      }
+        api.get(`/patients/all-patients/by-user-id/${userId}`)
+            .then((response) => {
+              this.patients = response.data;
+              if (this.patients.length > 0) {
+                this.currentPatientIndex = 0;
+                this.showPatientDetails = true;
+              }
+            })
+            .catch((error) => {
+              console.error("Error fetching patients:", error);
+              alert("Failed to load patients. Please try again.");
+            })
     },
     logout() {
       const authStore = useAuthStore();
