@@ -1,9 +1,15 @@
 <template>
-  <div class="patient-page">
+  <div
+      class="patient-page"
+      @touchstart="startTouch"
+      @touchmove="moveTouch"
+      @keydown="handleKeyPress"
+      tabindex="0"
+  >
     <!-- Top Buttons -->
     <div class="top-buttons">
-      <button class="icon-button back" @click="goBack">
-        <i class="fas fa-arrow-left"></i>
+      <button class="icon-button back" @click="goToMenu">
+        <i class="fas fa-home"></i>
       </button>
       <button class="icon-button logout" @click="logout">
         <i class="fas fa-sign-out-alt"></i>
@@ -11,13 +17,20 @@
     </div>
 
     <!-- Patient Details -->
-    <div v-if="Object.keys(patient).length" class="patient-details">
-      <h2 class="title">{{ patient.patientFullName }}</h2>
-      <p><strong>Sünniaeg:</strong> {{ patient.dateOfBirth }}</p>
-      <p><strong>Kaal:</strong> {{ patient.weight }} kg</p>
+    <div class="patient-details">
+      <h1 class="title">{{ currentPatient.patientFullName }}</h1>
+      <p><strong>Sünniaeg:</strong> {{ currentPatient.dateOfBirth }}</p>
+      <p><strong>Kaal:</strong> {{ currentPatient.weight }} kg</p>
     </div>
-    <div v-else class="loading">
-      <p>Loading patient details...</p>
+
+    <!-- Swipe Instructions -->
+    <div class="swipe-instructions">
+      <p>Libistage vasakule või paremale, või vajutage nooleklahve, et vaadata teisi patsiente.</p>
+    </div>
+
+    <!-- Add New Health Info Button -->
+    <div class="add-info-container">
+      <button class="green-button" @click="addHealthInfo">Lisa uus tervise info</button>
     </div>
   </div>
 </template>
@@ -27,14 +40,21 @@ import { useAuthStore } from "@/stores/auth";
 import axios from "axios";
 
 export default {
-  name: "PatientDetails", // Ensure multi-word component naming
+  name: "PatientDetails",
   data() {
     return {
-      patient: {}, // Patient data object
+      patients: [], // List of all patients
+      currentPatientIndex: 0, // Index of the currently displayed patient
+      startX: 0, // Start position for swipe
     };
   },
+  computed: {
+    currentPatient() {
+      return this.patients[this.currentPatientIndex] || {};
+    },
+  },
   methods: {
-    async fetchPatient() {
+    async fetchPatients() {
       const token = localStorage.getItem("token");
       if (!token) {
         alert("User not authenticated. Please log in.");
@@ -42,21 +62,40 @@ export default {
         return;
       }
 
-      const patientId = this.$route.params.patientId; // Fetch patient ID from route
+      const userId = localStorage.getItem("user");
       try {
-        const response = await axios.get(`http://localhost:8091/api/patients/${patientId}`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-        this.patient = response.data;
+        const response = await axios.get(
+            `http://localhost:8091/api/patients/all-patients/by-user-id/${userId}`,
+            {
+              headers: { Authorization: `Bearer ${token}` },
+            }
+        );
+
+        // Sort patients by `lastModified` descending
+        this.patients = response.data.sort(
+            (a, b) => new Date(b.lastModified) - new Date(a.lastModified)
+        );
+
+        // Set the current patient index to the patient ID passed in the route
+        const initialPatientId = parseInt(this.$route.params.patientId, 10);
+        this.currentPatientIndex = this.patients.findIndex(
+            (patient) => patient.id === initialPatientId
+        );
       } catch (error) {
-        console.error("Error fetching patient details:", error);
-        alert("Failed to load patient details. Please try again.");
+        console.error("Error fetching patients:", error);
+        alert("Failed to load patients. Please try again.");
       }
     },
-    goBack() {
-      this.$router.push("/patients");
+    addHealthInfo() {
+      // Navigate to AddNewPatientData.vue with the current patient ID
+      if (this.currentPatient && this.currentPatient.id) {
+        this.$router.push(`/add-health-info/${this.currentPatient.id}`);
+      } else {
+        alert("No valid patient selected.");
+      }
+    },
+    goToMenu() {
+      this.$router.push("/menu");
     },
     logout() {
       const authStore = useAuthStore();
@@ -65,7 +104,7 @@ export default {
     },
   },
   mounted() {
-    this.fetchPatient(); // Fetch patient details when component is mounted
+    this.fetchPatients();
   },
 };
 </script>
@@ -82,20 +121,7 @@ export default {
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-}
-
-.patient-details {
-  text-align: center;
-  color: #ffffff;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.7);
-  margin-top: 50px;
-}
-
-.loading {
-  text-align: center;
-  color: #ffffff;
-  font-size: 1.5rem;
-  margin-top: 50px;
+  outline: none; /* Prevent focus border on some browsers */
 }
 
 .top-buttons {
@@ -118,5 +144,41 @@ export default {
 .icon-button:hover {
   transform: scale(1.2); /* Slight zoom effect */
   color: #2ecc71; /* Green on hover */
+}
+
+.patient-details {
+  text-align: center;
+  color: #ffffff;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.7);
+  margin-top: 50px;
+}
+
+.swipe-instructions {
+  font-size: 1rem;
+  color: #ffffff;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.7);
+  margin-top: 20px;
+  text-align: center;
+}
+
+.add-info-container {
+  margin-top: auto;
+  margin-bottom: 20px;
+}
+
+.green-button {
+  background-color: #2ecc71; /* Green button */
+  color: white;
+  padding: 12px 25px;
+  border: none;
+  border-radius: 25px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+.green-button:hover {
+  background-color: #27ae60; /* Darker green on hover */
+  transform: scale(1.05); /* Slight zoom effect */
 }
 </style>

@@ -32,7 +32,7 @@ import { useAuthStore } from "@/stores/auth";
 export default {
   data() {
     return {
-      showLogin: false, // Toggle for showing login form
+      showLogin: false,
       username: "",
       password: "",
       errorMessage: "",
@@ -43,7 +43,7 @@ export default {
       this.showLogin = !this.showLogin;
     },
     goToRegister() {
-      this.$router.push("/register"); // Navigate to the registration page
+      this.$router.push("/register");
     },
     async handleLogin() {
       try {
@@ -55,7 +55,7 @@ export default {
         const authStore = useAuthStore();
         authStore.login(response.data);
 
-        this.$router.push("/menu"); // Redirect to Menu Page
+        this.$router.push("/menu");
       } catch (error) {
         this.errorMessage = "Invalid username or password. Please try again.";
       }
@@ -65,23 +65,23 @@ export default {
 </script>
 
 <style scoped>
-/* Updated styles */
+
 .login-screen {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   height: 100vh;
-  background-image: url("@/assets/background.png"); /* Background image */
-  background-size: cover; /* Make the image cover the entire screen */
-  background-position: center; /* Center the image */
-  background-repeat: no-repeat; /* Prevent tiling */
+  background-image: url("@/assets/background.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 .title {
   font-size: 2.5rem;
-  color: #ffffff; /* White text for title */
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.7); /* Shadow for contrast */
+  color: #ffffff;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.7);
   margin-bottom: 30px;
 }
 
@@ -109,7 +109,7 @@ export default {
 
 .label {
   font-size: 1.2rem;
-  color: #ffffff; /* White label text */
+  color: #ffffff;
   margin-bottom: 8px;
 }
 
@@ -119,12 +119,12 @@ export default {
   border: 1px solid #ddd;
   border-radius: 25px;
   font-size: 1.1rem;
-  background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent input background */
+  background-color: rgba(255, 255, 255, 0.8);
   color: #333;
 }
 
 .green-button {
-  background-color: #2ecc71; /* Green button color */
+  background-color: #2ecc71;
   color: white;
   padding: 12px 25px;
   border: none;
@@ -135,8 +135,8 @@ export default {
 }
 
 .green-button:hover {
-  background-color: #27ae60; /* Darker green on hover */
-  transform: scale(1.05); /* Slight zoom effect */
+  background-color: #27ae60;
+  transform: scale(1.05);
 }
 
 .secondary-button {
@@ -151,9 +151,9 @@ export default {
 }
 
 .secondary-button:hover {
-  background-color: #2ecc71; /* Green background on hover */
-  color: white; /* White text on hover */
-  transform: scale(1.05); /* Slight zoom effect */
+  background-color: #2ecc71;
+  color: white;
+  transform: scale(1.05);
 }
 
 .error-message {

@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from "vue-router";
-import { useAuthStore } from "@/stores/auth"; // Ensure this points to your Pinia store
+import { useAuthStore } from "@/stores/auth";
 import LoginScreen from "@/components/LoginScreen.vue";
 import MenuPage from "@/pages/MenuPage.vue";
 import RegisterScreen from "@/components/RegisterScreen.vue";
@@ -7,6 +7,7 @@ import AddPatient from "@/components/AddPatient.vue";
 import FeverPage from "@/pages/FeverPage.vue";
 import PatientDetails from "@/pages/PatientDetails.vue";
 import PatientsList from "@/pages/PatientsList.vue";
+import AddNewPatientData from "@/pages/AddNewPatientData.vue";
 
 const routes = [
     {
@@ -41,7 +42,7 @@ const routes = [
         path: "/patient/:patientId",
         name: "PatientDetails",
         component: PatientDetails,
-        props: true, // Pass `patientId` as a prop
+        props: true,
         meta: { requiresAuth: true },
     },
     {
@@ -51,8 +52,14 @@ const routes = [
         meta: { requiresAuth: true },
     },
     {
-        path: "/:pathMatch(.*)*", // Catch-all route
+        path: "/:pathMatch(.*)*",
         redirect: "/",
+    },
+    {
+        path: "/add-health-info/:patientId",
+        name: "AddNewPatientData",
+        component: AddNewPatientData,
+        meta: { requiresAuth: true }, // Optional: Add authentication guard
     },
 ];
 
@@ -61,14 +68,14 @@ const router = createRouter({
     routes,
 });
 
-// Navigation Guard for Authentication
 router.beforeEach((to, from, next) => {
     const authStore = useAuthStore();
-    // Redirect to login if the route requires authentication and the user isn't authenticated
+
+    // If the route requires authentication and the user is not authenticated, redirect to login
     if (to.meta.requiresAuth && !authStore.isAuthenticated) {
-        next({ path: "/", query: { redirect: to.fullPath } }); // Redirect to login with the intended path
+        next({ path: "/", query: { redirect: to.fullPath } });
     } else {
-        next();
+        next(); // Allow navigation if authentication is not required or the user is logged in
     }
 });
 

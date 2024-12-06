@@ -1,6 +1,6 @@
 <template>
   <div class="patients-page">
-    <!-- Top Buttons -->
+
     <div class="top-buttons">
       <button class="icon-button settings" @click="openSettings">
         <i class="fas fa-cog"></i>
@@ -10,17 +10,17 @@
       </button>
     </div>
 
-    <!-- Main Content -->
+
     <div class="menu-content">
       <h1 class="title">Tervise Päevik</h1>
       <div class="action-buttons">
         <button class="green-button" @click="navigateToAddPatient">Lisa Patsient</button>
       </div>
-      <!-- Display message if no patients are available -->
+
       <div v-if="!patients.length" class="no-patients">
         <p>Patsiente pole leitud. Vajutage "Lisa Patsient", et luua uus.</p>
       </div>
-      <!-- Display list of patients -->
+
       <div v-else>
         <h2 class="title">Kõik Patsientid</h2>
         <ul class="patients-list">
@@ -40,7 +40,7 @@ import axios from "axios";
 export default {
   data() {
     return {
-      patients: [], // List of patients
+      patients: [],
     };
   },
   methods: {
@@ -66,7 +66,7 @@ export default {
             Authorization: `Bearer ${token}`,
           },
         });
-        this.patients = response.data; // Populate patients list
+        this.patients = response.data;
       } catch (error) {
         console.error("Error fetching patients:", error);
         alert("Failed to load patients. Please try again.");
@@ -76,7 +76,7 @@ export default {
       this.$router.push("/add-patient");
     },
     viewPatient(patientId) {
-      this.$router.push(`/patient/${patientId}`); // Navigate to patient details
+      this.$router.push(`/patient/${patientId}`);
     },
     logout() {
       const authStore = useAuthStore();
@@ -88,13 +88,13 @@ export default {
     },
   },
   mounted() {
-    this.fetchPatients(); // Fetch patients on page load
+    this.fetchPatients();
   },
 };
 </script>
 
 <style scoped>
-/* Styles for Patients List Page */
+
 .patients-page {
   display: flex;
   flex-direction: column;
