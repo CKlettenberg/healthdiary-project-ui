@@ -11,43 +11,13 @@
       <button class="action-btn">Muuda mõõtmine</button>
       <button class="action-btn">Vaata ajalugu</button>
     </div>
-
-    <!-- Lisa palavikuandmete vorm -->
-    <div v-if="showAddFeverForm" class="add-fever-form">
-      <h2>Lisa uus mõõtmine</h2>
-      <form @submit.prevent="addFeverRecord">
-        <div>
-          <label for="temperature">Temperatuur (°C):</label>
-          <input
-              type="text"
-              id="temperature"
-              v-model="newFeverRecord.temperature"
-              required
-          />
-        </div>
-        <div>
-          <label for="time">Kuupäev ja kellaaeg:</label>
-          <input
-              type="datetime-local"
-              id="time"
-              v-model="newFeverRecord.time"
-              value="defaultDateTime"
-          required
-          />
-        </div>
-        <button type="submit">Salvesta</button>
-        <button type="button" @click="cancelAddFever">Tühista</button>
-      </form>
-    </div>
     <div v-if="feverRecords.length > 0">
       <div>
-        <ul>
           <li v-for="(item, index) in feverRecords" :key="index">
             {{ item.id }}
             {{ item.time }}
             {{ item.temperature }}
           </li>
-        </ul>
       </div>
     </div>
   </div>
@@ -83,19 +53,10 @@ export default {
     },
     async fetchFeverRecords() {
       try {
-        const response = await axios.get("http://localhost:8091/api/fever/all");
+        const response = await axios.get("http://localhost:8091/api/fever/patients/{patientId}/fever-records");
         this.feverRecords = response.data;
       } catch (error) {
         console.error("Viga palavikuandmete laadimisel:", error);
-      }
-    },
-    async addFeverRecord() {
-      try {
-        await axios.post("http://localhost:8091/api/fever/new", this.newFeverRecord);
-        this.fetchFeverRecords(); // Uuenda loend
-        this.cancelAddFever(); // Peida vorm
-      } catch (error) {
-        console.error("Viga palavikuandme lisamisel:", error);
       }
     },
     submitFeverData() {
@@ -119,6 +80,17 @@ export default {
 </script>
 
 <style scoped>
+.fever-page {display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-image: url("@/assets/background.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
 /* Lisa uue palavikuandme vormi stiilid */
 .add-fever-form {
   margin: 20px 0;
@@ -143,7 +115,24 @@ export default {
   border-radius: 5px;
   cursor: pointer;
 }
+.action-buttons {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+}
+.green-button {
+  background-color: #2ecc71; /* Green button */
+  color: white;
+  padding: 12px 25px;
+  border: none;
+  border-radius: 25px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+}
 .add-fever-form button:hover {
-  background-color: #45a049;
+  background-color: #27ae60; /* Darker green on hover */
+  transform: scale(1.05);
 }
 </style>

@@ -27,7 +27,11 @@
     <div class="swipe-instructions">
       <p>Libistage vasakule või paremale, või vajutage nooleklahve, et vaadata teisi patsiente.</p>
     </div>
-
+    <FeverData v-if="currentPatient.id" :patientId="currentPatient.id"/>
+    <!-- Add New Fever Info Button -->
+    <div class="add-info-container">
+      <button class="green-button" @click="addFeverRecord">Lisa uus palaviku info</button>
+    </div>
     <!-- Add New Health Info Button -->
     <div class="add-info-container">
       <button class="green-button" @click="addHealthInfo">Lisa uus tervise info</button>
@@ -38,9 +42,11 @@
 <script>
 import { useAuthStore } from "@/stores/auth";
 import axios from "axios";
+import FeverData from "@/pages/FeverData.vue";
 
 export default {
   name: "PatientDetails",
+  components: {FeverData},
   data() {
     return {
       patients: [], // List of all patients
@@ -50,6 +56,7 @@ export default {
   },
   computed: {
     currentPatient() {
+      console.log(this.patients, 'patients')
       return this.patients[this.currentPatientIndex] || {};
     },
   },
@@ -84,6 +91,14 @@ export default {
       } catch (error) {
         console.error("Error fetching patients:", error);
         alert("Failed to load patients. Please try again.");
+      }
+    },
+    addFeverRecord() {
+      console.log(this.currentPatient)
+      if (this.currentPatient && this.currentPatient.id) {
+        this.$router.push(`/add-fever/${this.currentPatient.id}`);
+      } else {
+        alert("No valid patient selected.");
       }
     },
     addHealthInfo() {

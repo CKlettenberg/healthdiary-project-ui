@@ -8,6 +8,7 @@ import FeverPage from "@/pages/FeverPage.vue";
 import PatientDetails from "@/pages/PatientDetails.vue";
 import PatientsList from "@/pages/PatientsList.vue";
 import AddNewPatientData from "@/pages/AddNewPatientData.vue";
+import AddFeverForm from "@/pages/AddFeverForm.vue";
 
 const routes = [
     {
@@ -33,9 +34,15 @@ const routes = [
         meta: { requiresAuth: true },
     },
     {
-        path: "/fever",
+        path: "/fever/:patientId",
         name: "FeverRecord",
         component: FeverPage,
+        meta: { requiresAuth: true },
+    },
+    {
+        path: "/add-fever/:patientId",
+        name: "AddFeverRecord",
+        component: AddFeverForm,
         meta: { requiresAuth: true },
     },
     {
