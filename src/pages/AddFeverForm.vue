@@ -78,7 +78,7 @@ export default {
         const patientId = this.patientId;
         this.newFeverRecord.patientId = patientId;
         await axios.post("http://localhost:8091/api/fever/new", this.newFeverRecord);
-        this.$emit('fetch-fever', '')
+        this.$emit('fetch-fever', '');
         this.closeModal();
       } catch (error) {
         console.error("Viga palavikuandme lisamisel:", error);

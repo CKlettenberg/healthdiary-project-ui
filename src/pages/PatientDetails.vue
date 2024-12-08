@@ -31,6 +31,7 @@
         v-if="currentPatient.id"
         :patientId="currentPatient.id"
         :feverRecords="feverRecords"
+        @fetch-fever="fetchFeverRecords"
     />
     <!-- Add New Fever Info Button -->
     <div class="add-info-container">

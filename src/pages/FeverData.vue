@@ -1,17 +1,22 @@
 <template>
   <div class="table-container">
-  <h2 class="table-title">Temperature Data</h2>
+  <h2 class="table-title">Temperatuuri ajalugu</h2>
   <table class="custom-table">
     <thead>
     <tr>
-      <th>Temperature (°C)</th>
-      <th>Time</th>
+      <th>Aeg</th>
+      <th>Temperatuur (°C)</th>
+
+      <th>Kustuta</th>
     </tr>
     </thead>
     <tbody>
     <tr v-for="(entry, index) in feverRecords" :key="index">
-      <td>{{ entry.temperature }}</td>
+
       <td>{{ convertToIso(entry.time) }}</td>
+      <td>{{ entry.temperature }} (°C) </td>
+      <td><button @click="deleteFeverRecord(entry.id)">
+        Kustuta</button></td>
     </tr>
     </tbody>
   </table>
@@ -20,15 +25,17 @@
 
 <script>
 
+import axios from "axios";
+
 export default {
-  name: "feverTable",
+  name: "feverData",
   props: {
     feverRecords: {
       type: Array, // Expect an array type
       required: true, // Ensure this prop is mandatory
     },
     patientId: {
-      type: Number,  // TODO muutsin ära Stringist
+      type: Number,
       required: true
     }
   },
@@ -50,9 +57,24 @@ export default {
       } catch {
         return "Invalid date format!";
       }
+    },
+    deleteFeverRecord(id) {
+      const token = localStorage.getItem("token");
+      axios.put(`http://localhost:8091/api/fever/delete/${id}`
+          , {
+       headers: { Authorization: `Bearer ${token}` },
+      })
+          .then(() => {
+            console.log("Andmed edukalt kustutatud:");
+            this.$emit('fetch-fever', '');
+          })
+          .catch(error => {
+            console.error("Viga andmete kustutamisel:", error);
+          });
+    },
     }
   }
-}
+
 </script>
 
 <style scoped>
