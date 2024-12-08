@@ -9,7 +9,7 @@
     </tr>
     </thead>
     <tbody>
-    <tr v-for="(entry, index) in localTableData" :key="index">
+    <tr v-for="(entry, index) in feverRecords" :key="index">
       <td>{{ entry.temperature }}</td>
       <td>{{ convertToIso(entry.time) }}</td>
     </tr>
@@ -19,21 +19,20 @@
 </template>
 
 <script>
-import axios from "axios";
 
 export default {
   name: "feverTable",
   props: {
+    feverRecords: {
+      type: Array, // Expect an array type
+      required: true, // Ensure this prop is mandatory
+    },
     patientId: {
-      type: String,
+      type: Number,  // TODO muutsin ära Stringist
       required: true
     }
   },
-  data() {
-    return {
-      localTableData: [],
-    }
-  },
+
   methods: {
     convertToIso(dateString) {
       try {
@@ -51,20 +50,7 @@ export default {
       } catch {
         return "Invalid date format!";
       }
-    },
-    async fetchFeverRecords() {
-      try {
-        const patientId = this.patientId;
-        const response = await axios.get(`http://localhost:8091/api/fever/patients/${patientId}/fever-records`);
-        this.feverRecords = response.data;
-        this.localTableData = response.data;
-      } catch (error) {
-        console.error("Viga palavikuandmete laadimisel:", error);
-      }
-    },
-  },
-  mounted() {
-    this.fetchFeverRecords();
+    }
   }
 }
 </script>

@@ -13,14 +13,14 @@ import AddFeverForm from "@/pages/AddFeverForm.vue";
 const routes = [
     {
         path: "/",
-        name: "Login",
-        component: LoginScreen,
-    },
-    {
-        path: "/menu",
         name: "Menu",
         component: MenuPage,
         meta: { requiresAuth: true },
+    },
+    {
+        path: "/login",
+        name: "Login",
+        component: LoginScreen,
     },
     {
         path: "/register",
@@ -80,7 +80,7 @@ router.beforeEach((to, from, next) => {
 
     // If the route requires authentication and the user is not authenticated, redirect to login
     if (to.meta.requiresAuth && !authStore.isAuthenticated) {
-        next({ path: "/", query: { redirect: to.fullPath } });
+        next({ path: "/login", query: { redirect: to.fullPath } });
     } else {
         next(); // Allow navigation if authentication is not required or the user is logged in
     }

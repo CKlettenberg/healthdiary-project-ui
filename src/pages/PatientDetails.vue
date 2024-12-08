@@ -6,15 +6,14 @@
       @keydown="handleKeyPress"
       tabindex="0"
   >
-    <!-- Top Buttons -->
-    <div class="top-buttons">
-      <button class="icon-button back" @click="goToMenu">
-        <i class="fas fa-home"></i>
-      </button>
-      <button class="icon-button logout" @click="logout">
-        <i class="fas fa-sign-out-alt"></i>
-      </button>
-    </div>
+
+    <AddFeverData
+        :patientId="currentPatient.id"
+        v-model:isOpen="isModalOpen"
+        @fetch-fever="fetchFeverRecords"
+        ref="modal"
+    />
+
 
     <!-- Patient Details -->
     <div class="patient-details">
@@ -27,7 +26,12 @@
     <div class="swipe-instructions">
       <p>Libistage vasakule või paremale, või vajutage nooleklahve, et vaadata teisi patsiente.</p>
     </div>
-    <FeverData v-if="currentPatient.id" :patientId="currentPatient.id"/>
+    <!-- Fever Data -->
+    <FeverData
+        v-if="currentPatient.id"
+        :patientId="currentPatient.id"
+        :feverRecords="feverRecords"
+    />
     <!-- Add New Fever Info Button -->
     <div class="add-info-container">
       <button class="green-button" @click="addFeverRecord">Lisa uus palaviku info</button>
@@ -40,15 +44,17 @@
 </template>
 
 <script>
-import { useAuthStore } from "@/stores/auth";
 import axios from "axios";
 import FeverData from "@/pages/FeverData.vue";
+import AddFeverData from "@/pages/AddFeverForm.vue";
 
 export default {
   name: "PatientDetails",
-  components: {FeverData},
+  components: {AddFeverData, FeverData},
   data() {
     return {
+      isModalOpen: false,
+      feverRecords: [],
       patients: [], // List of all patients
       currentPatientIndex: 0, // Index of the currently displayed patient
       startX: 0, // Start position for swipe
@@ -74,7 +80,7 @@ export default {
         const response = await axios.get(
             `http://localhost:8091/api/patients/all-patients/by-user-id/${userId}`,
             {
-              headers: { Authorization: `Bearer ${token}` },
+              headers: {Authorization: `Bearer ${token}`},
             }
         );
 
@@ -93,10 +99,22 @@ export default {
         alert("Failed to load patients. Please try again.");
       }
     },
+    async fetchFeverRecords() {
+      if (!this.currentPatient.id) return;
+
+      try {
+        const response = await axios.get(
+            `http://localhost:8091/api/fever/patients/${this.currentPatient.id}/fever-records`
+        );
+        this.feverRecords = response.data;
+      } catch (error) {
+        console.error("Error loading fever records:", error);
+        alert("Failed to load fever records.");
+      }
+    },
     addFeverRecord() {
-      console.log(this.currentPatient)
       if (this.currentPatient && this.currentPatient.id) {
-        this.$router.push(`/add-fever/${this.currentPatient.id}`);
+        this.isModalOpen = true; // Directly set the state to open the modal
       } else {
         alert("No valid patient selected.");
       }
@@ -109,19 +127,13 @@ export default {
         alert("No valid patient selected.");
       }
     },
-    goToMenu() {
-      this.$router.push("/menu");
-    },
-    logout() {
-      const authStore = useAuthStore();
-      authStore.logout();
-      this.$router.push("/");
-    },
   },
-  mounted() {
-    this.fetchPatients();
-  },
-};
+
+  async mounted() {
+    await this.fetchPatients();
+    await this.fetchFeverRecords();
+  }
+}
 </script>
 
 <style scoped>
@@ -139,27 +151,6 @@ export default {
   outline: none; /* Prevent focus border on some browsers */
 }
 
-.top-buttons {
-  display: flex;
-  justify-content: space-between;
-  position: absolute;
-  top: 10px;
-  width: 95%;
-}
-
-.icon-button {
-  background-color: transparent;
-  border: none;
-  color: #ffffff; /* White color for icons */
-  font-size: 1.5rem;
-  cursor: pointer;
-  transition: transform 0.3s, color 0.3s;
-}
-
-.icon-button:hover {
-  transform: scale(1.2); /* Slight zoom effect */
-  color: #2ecc71; /* Green on hover */
-}
 
 .patient-details {
   text-align: center;

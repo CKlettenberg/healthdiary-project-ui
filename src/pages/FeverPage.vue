@@ -1,9 +1,5 @@
 <template>
   <div class="fever-page">
-    <div class="top-buttons">
-      <button class="simple-btn left" @click="goToSettings">Settings</button>
-      <button class="simple-btn right" @click="logout">Logout</button>
-    </div>
     <h1>Palaviku mõõtmiste ajalugu</h1>
     <div class="action-buttons">
       <button class="action-btn" @click="showAddFeverForm = true">Lisa mõõtmine</button>
@@ -24,7 +20,6 @@
 </template>
 
 <script>
-import { useAuthStore } from "@/stores/auth";
 import axios from "axios";
 
 export default {
@@ -46,19 +41,6 @@ export default {
     },
   },
   methods: {
-    logout() {
-      const authStore = useAuthStore();
-      authStore.logout();
-      this.$router.push("/");
-    },
-    async fetchFeverRecords() {
-      try {
-        const response = await axios.get("http://localhost:8091/api/fever/patients/{patientId}/fever-records");
-        this.feverRecords = response.data;
-      } catch (error) {
-        console.error("Viga palavikuandmete laadimisel:", error);
-      }
-    },
     submitFeverData() {
       axios.post('/api/fever', this.feverData)
           .then(response => {
@@ -74,7 +56,6 @@ export default {
     },
   },
   mounted() {
-    this.fetchFeverRecords(); // Laadi andmed kohe, kui komponent on loodud
   },
 };
 </script>

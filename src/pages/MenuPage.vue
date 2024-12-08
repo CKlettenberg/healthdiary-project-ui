@@ -1,34 +1,5 @@
 <template>
   <div class="menu-page" @touchstart="startTouch" @touchmove="moveTouch">
-    <!-- Top Buttons -->
-    <v-container>
-      <v-row justify="space-between">
-        <!-- Settings Button -->
-        <v-col cols="auto">
-          <v-btn
-              elevation="24"
-              size="x-large"
-              color="secondary"
-              @click="openSettings"
-          >
-            Settings
-          </v-btn>
-        </v-col>
-
-        <!-- Logout Button -->
-        <v-col cols="auto">
-          <v-btn
-              elevation="24"
-              size="x-large"
-              color="primary"
-              @click="logout"
-          >
-            Logout
-          </v-btn>
-        </v-col>
-      </v-row>
-    </v-container>
-
     <!-- Main Menu Content -->
     <div class="menu-content">
       <h1 class="title">Tervise Päevik</h1>
@@ -44,7 +15,6 @@
 </template>
 
 <script>
-import { useAuthStore } from "@/stores/auth";
 import axios from "axios";
 
 export default {
@@ -104,11 +74,6 @@ export default {
       } else {
         alert("No patients available.");
       }
-    },
-    logout() {
-      const authStore = useAuthStore();
-      authStore.logout();
-      this.$router.push("/");
     },
     openSettings() {
       alert("Settings page will be implemented soon!");

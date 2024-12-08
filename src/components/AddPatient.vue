@@ -1,16 +1,5 @@
 <template>
   <div class="add-patient-page">
-
-    <div class="top-buttons">
-      <button class="icon-button back" @click="goBack">
-        <i class="fas fa-arrow-left"></i>
-      </button>
-      <button class="icon-button logout" @click="logout">
-        <i class="fas fa-sign-out-alt"></i>
-      </button>
-    </div>
-
-
     <div class="add-patient-form">
       <h2 class="title">Lisa Andmed</h2>
       <form @submit.prevent="handleAddPatient" class="form-container">
@@ -53,7 +42,6 @@
 
 <script>
 import axios from "axios";
-import { useAuthStore } from "@/stores/auth";
 
 export default {
   data() {
@@ -96,11 +84,6 @@ export default {
                 ? "Vigased andmed. Palun kontrollige vormi."
                 : "Midagi läks valesti. Palun proovige uuesti.";
       }
-    },
-    logout() {
-      const authStore = useAuthStore();
-      authStore.logout();
-      this.$router.push("/");
     },
     goBack() {
       this.$router.push("/menu");

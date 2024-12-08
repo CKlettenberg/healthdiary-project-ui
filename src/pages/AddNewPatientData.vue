@@ -1,15 +1,5 @@
 <template>
   <div class="add-data-page">
-    <!-- Top Buttons -->
-    <div class="top-buttons">
-      <button class="icon-button back" @click="goBack">
-        <i class="fas fa-arrow-left"></i>
-      </button>
-      <button class="icon-button logout" @click="logout">
-        <i class="fas fa-sign-out-alt"></i>
-      </button>
-    </div>
-
     <!-- Patient Name and Input Box -->
     <div class="content">
       <h1 class="title">{{ patient.patientFullName }}</h1>
@@ -81,14 +71,6 @@ export default {
         console.error("Error submitting health info:", error);
         alert("Failed to save health info. Please try again.");
       }
-    },
-    goBack() {
-      this.$router.push(`/patient/${this.$route.params.patientId}`); // Return to PatientDetails page
-    },
-    logout() {
-      const authStore = useAuthStore();
-      authStore.logout();
-      this.$router.push("/");
     },
     checkAuthentication() {
       const authStore = useAuthStore();
