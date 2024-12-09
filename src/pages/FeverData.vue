@@ -11,18 +11,20 @@
     </tr>
     </thead>
     <tbody>
-    <tr v-for="(entry, index) in feverRecords" :key="index">
+    <tr v-for="(entry, index) in sortedAndSlicedRecords" :key="index">
 
       <td>{{ convertToIso(entry.time) }}</td>
       <td>{{ entry.temperature }} (°C) </td>
-      <td><button @click="deleteFeverRecord(entry.id)">
+      <td><button class="green-button" @click="deleteFeverRecord(entry.id)">
         Kustuta</button></td>
     </tr>
     </tbody>
   </table>
+    <div class="table-footer" v-if="feverRecords.length > visibleCount">
+      <button class="green-button" @click="showAll">Kuva rohkem</button>
+    </div>
   </div>
 </template>
-
 <script>
 
 import axios from "axios";
@@ -39,7 +41,20 @@ export default {
       required: true
     }
   },
-
+  data() {
+    return {
+      visibleCount: 5,
+    };
+  },
+  computed: {
+    sortedAndSlicedRecords() {
+      // Tagastab andmed tagurpidi järjestuses sorteeritult kronoloogiliselt ja lõikab nähtavate kirjete arvu järgi
+      return this.feverRecords
+          .slice()
+          .sort((a, b) => new Date(b.time) - new Date(a.time))
+          .slice(0, this.visibleCount);
+    },
+  },
   methods: {
     convertToIso(dateString) {
       try {
@@ -72,9 +87,12 @@ export default {
             console.error("Viga andmete kustutamisel:", error);
           });
     },
-    }
-  }
-
+    showAll() {
+      // Suurendab nähtavate ridade arvu
+      this.visibleCount =this.feverRecords.length;
+    },
+    },
+}
 </script>
 
 <style scoped>
@@ -130,4 +148,19 @@ export default {
 .custom-table tr:hover {
   background-color: #e6f7ff;
 }/* Additional Custom Styling if Needed */
+.table-footer {
+  display: flex;
+  justify-content: flex-end; /* Paigutab sisu paremale */
+  margin-top: 10px; /* Lisab vahe tabeli ja nupu vahele */
+}
+.green-button {
+  background-color: #2ecc71; /* Green button */
+  color: white;
+  padding: 7px 13px;
+  border: none;
+  border-radius: 25px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+}
 </style>

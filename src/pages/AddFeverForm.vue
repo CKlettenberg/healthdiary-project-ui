@@ -55,7 +55,7 @@ export default {
   name: 'add-fever-data',
   props: {
     patientId: {
-      type: Number,   // TODO MUUTSIN ISE SIIT Stringist ära
+      type: Number,
       required: true
     },
     isOpen: {
