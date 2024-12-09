@@ -16,7 +16,7 @@
     <AddSymptomsData
         :patientId="currentPatient.id"
         v-model:isOpen="isSymptomsDataModalOpen"
-        @fetch-symptoms="fetchFeverRecords"
+        @fetch-symptoms="fetchTreatmentRecords"
         ref="modal"
     />
 
@@ -44,7 +44,7 @@
     </div>
     <!-- Add New Medicine and Symptoms Info Button -->
     <div class="add-info-container">
-      <button class="green-button" @click="addMedicineAndSymptoms">Lisa uus rohu ja sümptomite info</button>
+      <button class="green-button" @click="addTreatmentRecord">Lisa uus rohu ja sümptomite info</button>
     </div>
     <!-- Add New Health Info Button -->
     <div class="add-info-container">
@@ -57,7 +57,7 @@
 import axios from "axios";
 import FeverData from "@/pages/FeverData.vue";
 import AddFeverData from "@/pages/AddFeverForm.vue";
-import AddSymptomsData from "@/pages/AddSymptomsForm.vue";
+import AddSymptomsData from "@/pages/AddTreatmentForm.vue";
 
 export default {
   name: "PatientDetails",
@@ -67,6 +67,7 @@ export default {
       isFeverDataModalOpen: false,
       isSymptomsDataModalOpen: false,
       feverRecords: [],
+      treatmentRecords: [],
       patients: [], // List of all patients
       currentPatientIndex: 0, // Index of the currently displayed patient
       startX: 0, // Start position for swipe
@@ -131,7 +132,20 @@ export default {
         alert("No valid patient selected.");
       }
     },
-    addMedicineAndSymptoms() {
+    async fetchTreatmentRecords() {
+      if (!this.currentPatient.id) return;
+
+      try {
+        const response = await axios.get(
+            `http://localhost:8091/api/fever/patients/${this.currentPatient.id}/fever-records`
+        );
+        this.feverRecords = response.data;
+      } catch (error) {
+        console.error("Error loading fever records:", error);
+        alert("Failed to load fever records.");
+      }
+    },
+    addTreatmentRecord() {
       if (this.currentPatient && this.currentPatient.id) {
         this.isSymptomsDataModalOpen = true; // Directly set the state to open the modal
       } else {
@@ -151,6 +165,7 @@ export default {
   async mounted() {
     await this.fetchPatients();
     await this.fetchFeverRecords();
+    await this.fetchTreatmentRecords();
   }
 }
 </script>

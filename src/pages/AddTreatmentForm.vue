@@ -3,12 +3,13 @@
     <div class="modal">
       <button class="close-btn" @click="closeModal">X</button>
       <div class="modal-content">
+
         <!-- Palavikurohtude ja sümptomite vorm -->
         <div class="add-treatment-form">
-          <h2>Lisa palavikurohud ja sümptomid</h2>
+          <h2>Valikuline: lisa ravimid ja sümptomid</h2>
           <form @submit.prevent="addTreatmentRecord">
             <div class="form-group">
-              <label for="medicine">Palavikurohud:</label>
+              <label for="medicine">Ravimid::</label>
               <input
                   type="text"
                   id="medicine"
@@ -25,6 +26,16 @@
                   placeholder="Sisesta kogus (nt 1 tablett, 5 ml)"
               />
             </div>
+            <div class="form-group">
+              <label for="time">Kuupäev ja kellaaeg:</label>
+              <input
+                  type="datetime-local"
+                  id="time"
+                  v-model="newTreatmentRecord.time"
+                  placeholder="Sisesta kogus (nt 1 tablett, 5 ml)"
+              />
+            </div>
+
             <div class="form-group symptoms-group">
               <h3>Sümptomid:</h3>
               <div v-for="(symptom, index) in symptomList" :key="index">
@@ -45,10 +56,22 @@
             </div>
           </form>
         </div>
+        <div v-if="getPatientTreatmentRecords.length > 0" class="fever-records">
+          <ul>
+            <li v-for="(item, index) in getPatientTreatmentRecords" :key="index">
+              <span class="record-id">{{ item.id }}</span>
+              <span class="record-medicine">{{ item.medicine }}</span>
+              <span class="record-dosage">{{ item.dosage }}</span>
+              <span class="record-time">{{ item.time }}</span>
+
+            </li>
+          </ul>
+        </div>
       </div>
     </div>
   </div>
 </template>
+
 <script>
 import axios from "axios";
 
@@ -69,18 +92,19 @@ export default {
       newTreatmentRecord: {
         medicine: "",
         symptoms: [],
+        time: ''
       },
-      symptomList: ["Nohu", "Köha", "Iiveldus/oksendamine", "Peavalu", "Liigesvalu", "Kõhuvalu"],
+      symptomList: ["Nohu", "Köha", "Iiveldus/oksendamine", "Peavalu", "Liigesvalu", "Kõhuvalu", "Muu"],
     };
   },
   methods: {
     async addTreatmentRecord() {
       try {
-        const record = {
-          ...this.newTreatmentRecord,
+        const newTreatmentRecord = {
+          newTreatmentRecord: this.newTreatmentRecord,
           patientId: this.patientId,
         };
-        await axios.post("http://localhost:8091/api/treatment/new", record);
+        await axios.post("http://localhost:8091/api/treatment/new", newTreatmentRecord);
         this.$emit("fetch-treatments", ''); // Teavita vanemat uute andmete küsimisest
         this.closeModal();
       } catch (error) {
@@ -88,13 +112,22 @@ export default {
       }
     },
     cancelAddTreatment() {
-      this.newTreatmentRecord.medicine = "";
+      this.newTreatmentRecord.medicine = '';
+      this.newTreatmentRecord.dosage = '';
       this.newTreatmentRecord.symptoms = [];
-      this.closemo();
+      this.newTreatmentRecord.time = '';
+
+      this.closeModal();
+    },
+    openModal() {
+      this.$emit('update:isOpen', true);
     },
     closeModal() {
       this.$emit("update:isOpen", false);
     },
+    getPatientTreatmentRecords() {
+
+    }
   },
 };
 </script>
