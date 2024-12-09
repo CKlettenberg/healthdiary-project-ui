@@ -6,7 +6,6 @@
       @keydown="handleKeyPress"
       tabindex="0"
   >
-
     <AddFeverData
         :patientId="currentPatient.id"
         v-model:isOpen="isFeverDataModalOpen"
@@ -19,7 +18,6 @@
         @fetch-symptoms="fetchTreatmentRecords"
         ref="modal"
     />
-
     <!-- Patient Details -->
     <div class="patient-details">
       <h1 class="title">{{ currentPatient.patientFullName }}</h1>
@@ -50,6 +48,9 @@
     <div class="add-info-container">
       <button class="green-button" @click="addHealthInfo">Lisa uus tervise info</button>
     </div>
+    <div class="edit-patient">
+      <button class="green-button" @click="editPatient">Muuda patsiendi andmeid</button>
+    </div>
   </div>
 </template>
 
@@ -61,7 +62,7 @@ import AddSymptomsData from "@/pages/AddTreatmentForm.vue";
 
 export default {
   name: "PatientDetails",
-  components: {AddSymptomsData, AddFeverData, FeverData},
+  components: { AddSymptomsData, AddFeverData, FeverData},
   data() {
     return {
       isFeverDataModalOpen: false,
@@ -75,7 +76,6 @@ export default {
   },
   computed: {
     currentPatient() {
-      console.log(this.patients, 'patients')
       return this.patients[this.currentPatientIndex] || {};
     },
   },
@@ -93,7 +93,7 @@ export default {
         const response = await axios.get(
             `http://localhost:8091/api/patients/all-patients/by-user-id/${userId}`,
             {
-              headers: {Authorization: `Bearer ${token}`},
+              headers: { Authorization: `Bearer ${token}` },
             }
         );
 
@@ -160,14 +160,20 @@ export default {
         alert("No valid patient selected.");
       }
     },
+    editPatient() {
+      if (this.currentPatient && this.currentPatient.id) {
+        this.$router.push({ name: "EditPatient", params: { patientId: this.currentPatient.id } });
+      } else {
+        alert("No valid patient selected.");
+      }
+    },
   },
-
   async mounted() {
     await this.fetchPatients();
     await this.fetchFeverRecords();
     await this.fetchTreatmentRecords();
-  }
-}
+  },
+};
 </script>
 
 <style scoped>
@@ -185,25 +191,24 @@ export default {
   outline: none; /* Prevent focus border on some browsers */
 }
 
-
 .patient-details {
   text-align: center;
   color: #ffffff;
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.7);
-  margin-top: 50px;
+  margin-top: 40px;
 }
 
 .swipe-instructions {
   font-size: 1rem;
   color: #ffffff;
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.7);
-  margin-top: 20px;
+  margin-top: 10px;
   text-align: center;
 }
 
 .add-info-container {
   margin-top: auto;
-  margin-bottom: 20px;
+  margin-bottom: 5px;
 }
 
 .green-button {
@@ -220,5 +225,10 @@ export default {
 .green-button:hover {
   background-color: #27ae60; /* Darker green on hover */
   transform: scale(1.05); /* Slight zoom effect */
+}
+
+.edit-patient {
+  margin-top: auto;
+  margin-bottom: 50px;
 }
 </style>

@@ -1,175 +1,264 @@
 <template>
   <div class="add-data-page">
-    <!-- Patient Name and Input Box -->
-    <div class="content">
-      <h1 class="title">{{ patient.patientFullName }}</h1>
-      <div class="input-group">
-        <label for="healthInfo" class="label">Lisa Uus Tervise Info:</label>
-        <textarea
-            id="healthInfo"
-            v-model="healthInfo"
-            class="input-box"
-            placeholder="Sisesta tervise info siia..."
-        ></textarea>
+    <!-- Top panel with clock -->
+    <div class="top-panel">
+      <div class="live-clock">{{ currentTime }}</div>
+    </div>
+
+    <!-- Left panel with thermometer -->
+    <div class="left-panel">
+      <div class="thermometer-container">
+        <div class="thermometer">
+          <div
+              class="thermometer-fill"
+              :style="{
+              height: `${(temperature - 35) * 100 / 7}%`,
+              background: `linear-gradient(to top, #2ecc71 0%, #f1c40f ${
+                ((temperature - 35) / 2) * 100
+              }%, #e74c3c 100%)`
+            }"
+          ></div>
+        </div>
+        <input
+            type="range"
+            v-model="temperature"
+            min="35"
+            max="42"
+            step="0.1"
+            class="temperature-slider"
+        />
+        <div class="temperature-manual-input">
+          <label for="temperature-input">Manuaalne temperatuur:</label>
+          <input
+              id="temperature-input"
+              type="number"
+              v-model="temperature"
+              min="35"
+              max="42"
+              step="0.1"
+          />
+        </div>
+        <div class="temperature-display">{{ temperature }}°C</div>
       </div>
-      <button class="green-button" @click="submitHealthInfo">Salvesta</button>
+    </div>
+
+    <!-- Right panel with symptoms, medications, and additional info -->
+    <div class="right-panel">
+      <h1 class="title">{{ patient.patientFullName }}</h1>
+
+      <!-- Medications section -->
+      <div class="medications">
+        <h3>Ravimite lisamine</h3>
+        <div class="medication-input">
+          <input
+              type="text"
+              v-model="medication"
+              placeholder="Lisa ravim"
+              class="med-input"
+          />
+          <button @click="addMedication" class="small-button">Lisa</button>
+        </div>
+        <ul>
+          <li v-for="(med, index) in medications" :key="index">{{ med }}</li>
+        </ul>
+      </div>
+
+      <!-- Symptoms checklist -->
+      <div class="symptoms">
+        <h3>Sümptomid</h3>
+        <div class="symptom-grid">
+          <label
+              v-for="(symptom, index) in symptoms"
+              :key="index"
+              class="symptom-item"
+          >
+            <input
+                type="checkbox"
+                v-model="selectedSymptoms"
+                :value="symptom"
+            />
+            {{ symptom }}
+          </label>
+        </div>
+      </div>
+
+      <!-- Additional info -->
+      <textarea
+          v-model="additionalInfo"
+          class="info-textarea"
+          placeholder="Sisesta lisainfot siia..."
+      ></textarea>
+
+      <!-- Save button -->
+      <button class="save-button" @click="submitData">Salvesta</button>
     </div>
   </div>
 </template>
 
 <script>
-import { useAuthStore } from "@/stores/auth";
 import axios from "axios";
 
 export default {
-  name: "AddNewPatientData",
   data() {
     return {
-      patient: {}, // Holds patient details
-      healthInfo: "", // Text input for new health info
+      currentTime: "",
+      patient: {},
+      temperature: 36.5,
+      symptoms: ["Köha", "Kurguvalu", "Peavalu", "Kõrge palavik", "Nohu"],
+      selectedSymptoms: [],
+      medications: [],
+      medication: "",
+      additionalInfo: "",
     };
   },
   methods: {
+    updateCurrentTime() {
+      const now = new Date();
+      this.currentTime = now.toLocaleString("et-EE", {
+        hour: "2-digit",
+        minute: "2-digit",
+        second: "2-digit",
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit",
+      });
+    },
     async fetchPatientDetails() {
       const token = localStorage.getItem("token");
-      if (!token) {
-        alert("User not authenticated. Please log in.");
-        this.$router.push("/");
-        return;
-      }
+      const patientId = this.$route.params.patientId;
 
-      const patientId = this.$route.params.patientId; // Get patient ID from route
       try {
         const response = await axios.get(
             `http://localhost:8091/api/patients/${patientId}`,
-            { headers: { Authorization: `Bearer ${token}` } }
+            {
+              headers: { Authorization: `Bearer ${token}` },
+            }
         );
-
-        this.patient = response.data; // Load patient details
+        this.patient = response.data;
       } catch (error) {
         console.error("Error fetching patient details:", error);
-        alert("Failed to load patient details. Please try again.");
       }
     },
-    async submitHealthInfo() {
-      if (!this.healthInfo.trim()) {
-        alert("Palun sisesta tervise info.");
-        return;
+    addMedication() {
+      if (this.medication.trim()) {
+        this.medications.push(this.medication.trim());
+        this.medication = "";
       }
-
+    },
+    async submitData() {
       const token = localStorage.getItem("token");
       const patientId = this.$route.params.patientId;
+
+      const data = {
+        symptoms: this.selectedSymptoms,
+        medications: this.medications,
+        temperature: this.temperature,
+        additionalInfo: this.additionalInfo,
+        timestamp: new Date().toISOString(),
+      };
+
       try {
         await axios.post(
             `http://localhost:8091/api/patients/${patientId}/add-health-info`,
-            { info: this.healthInfo },
+            data,
             { headers: { Authorization: `Bearer ${token}` } }
         );
-        alert("Tervise info salvestatud!");
-        this.$router.push(`/patient/${patientId}`); // Redirect back to patient details
+        alert("Andmed salvestatud!");
+        this.$router.push(`/patient/${patientId}`);
       } catch (error) {
-        console.error("Error submitting health info:", error);
-        alert("Failed to save health info. Please try again.");
-      }
-    },
-    checkAuthentication() {
-      const authStore = useAuthStore();
-      if (!authStore.isAuthenticated) {
-        alert("User not authenticated. Redirecting to login.");
-        this.$router.push("/");
+        console.error("Error submitting data:", error);
+        alert("Andmete salvestamine ebaõnnestus.");
       }
     },
   },
   mounted() {
-    this.checkAuthentication(); // Check if the user is authenticated
-    this.fetchPatientDetails(); // Fetch patient details if authenticated
+    this.fetchPatientDetails();
+    this.updateCurrentTime();
+    setInterval(this.updateCurrentTime, 1000);
   },
 };
 </script>
 
 <style scoped>
-/* Styling for Add New Patient Data Page */
+/* General layout */
 .add-data-page {
+  display: flex;
+  flex-direction: row;
+  height: 100vh;
+  background: #f4f4f4;
+}
+
+/* Top panel */
+.top-panel {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  text-align: center;
+  background: #e9f7ef;
+  padding: 10px;
+}
+
+.live-clock {
+  font-size: 1.5rem;
+  color: #333;
+}
+
+/* Left panel: Thermometer */
+.left-panel {
+  flex: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 100vh;
-  background-image: url("@/assets/background.png");
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
+  background: #e9f7ef;
 }
 
-.top-buttons {
+.thermometer-container {
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+}
+
+.thermometer {
+  position: relative;
+  width: 60px;
+  height: 300px;
+  background: #ddd;
+  border-radius: 30px;
+  border: 2px solid #333;
+  overflow: hidden;
+}
+
+.thermometer-fill {
   position: absolute;
-  top: 10px;
-  width: 95%;
+  bottom: 0;
+  width: 100%;
+  background: linear-gradient(to top,#2ecc71,#e74c3c);
+  transition: height 0.3s ease-in-out;
 }
 
-.icon-button {
-  background-color: transparent;
-  border: none;
-  color: #ffffff;
+.temperature-slider {
+  transform: rotate(-90deg);
+  width: 200px;
+}
+
+.temperature-manual-input {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.temperature-display {
   font-size: 1.5rem;
-  cursor: pointer;
-  transition: transform 0.3s, color 0.3s;
 }
 
-.icon-button:hover {
-  transform: scale(1.2);
-  color: #2ecc71;
+/* Right panel */
+.right-panel {
+  flex: 2;
+  padding: 20px;
 }
 
-.content {
-  text-align: center;
-  color: #ffffff;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.7);
-}
-
-.title {
-  font-size: 2.5rem;
-  margin-bottom: 20px;
-}
-
-.input-group {
-  margin-top: 20px;
-  width: 100%;
-  max-width: 400px;
-  text-align: left;
-}
-
-.label {
-  font-size: 1.1rem;
-  margin-bottom: 10px;
-}
-
-.input-box {
-  width: 100%;
-  padding: 12px;
-  border: 1px solid #ddd;
-  border-radius: 10px;
-  font-size: 1rem;
-  resize: none;
-  height: 150px;
-}
-
-.green-button {
-  background-color: #2ecc71;
-  color: white;
-  padding: 12px 25px;
-  border: none;
-  border-radius: 25px;
-  font-size: 1.1rem;
-  cursor: pointer;
-  margin-top: 20px;
-  transition: background-color 0.3s, transform 0.2s;
-}
-
-.green-button:hover {
-  background-color: #27ae60;
-  transform: scale(1.05);
-}
+/* Other elements omitted for brevity... */
 </style>

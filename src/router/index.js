@@ -9,6 +9,7 @@ import PatientDetails from "@/pages/PatientDetails.vue";
 import PatientsList from "@/pages/PatientsList.vue";
 import AddNewPatientData from "@/pages/AddNewPatientData.vue";
 import AddFeverForm from "@/pages/AddFeverForm.vue";
+import EditPatient from "@/pages/EditPatient.vue";
 
 const routes = [
     {
@@ -68,6 +69,14 @@ const routes = [
         component: AddNewPatientData,
         meta: { requiresAuth: true }, // Optional: Add authentication guard
     },
+    {
+        path: "/edit-patient-page/:patientId",
+        name: "EditPatient",
+        component: EditPatient,
+        props: true, // Ensure props are passed to the component
+    }
+
+
 ];
 
 const router = createRouter({
