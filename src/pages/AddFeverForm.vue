@@ -3,49 +3,84 @@
     <div class="modal">
       <button class="close-btn" @click="closeModal">X</button>
       <div class="modal-content">
+        <div class="add-data-page">
 
-
-        <!-- Lisa palavikuandmete vorm -->
-        <div class="add-fever-form">
-          <h2>Lisa uus mõõtmine</h2>
-          <form @submit.prevent="addFeverRecord">
-            <div class="form-group">
-              <label for="temperature">Temperatuur (°C):</label>
+          <div class="left-panel">
+            <div class="thermometer-container">
+              <div class="thermometer">
+                <div
+                    class="thermometer-fill"
+                    :style="{
+              height: `${(newFeverRecord.temperature - 35) * 100 / 7}%`,
+              background: `linear-gradient(to top, #2ecc71 0%, #f1c40f ${
+                ((newFeverRecord.temperature - 35) / 2) * 100
+              }%, #e74c3c 100%)`
+            }"
+                ></div>
+              </div>
               <input
-                  type="text"
-                  id="temperature"
+                  type="range"
                   v-model="newFeverRecord.temperature"
-                  required
+                  min="35"
+                  max="42"
+                  step="0.1"
+                  class="temperature-slider"
               />
+              <div class="temperature-display">{{ newFeverRecord.temperature }}°C</div>
             </div>
-            <div class="form-group">
-              <label for="time">Kuupäev ja kellaaeg:</label>
-              <input
-                  type="datetime-local"
-                  id="time"
-                  v-model="newFeverRecord.time"
-                  required
-              />
+          </div>
+
+          <!-- Right panel with symptoms, medications, and additional info -->
+          <div class="right-panel">
+
+            <!-- Lisa palavikuandmete vorm -->
+            <div class="add-fever-form">
+              <h2>Lisa uus mõõtmine</h2>
+              <form @submit.prevent="addFeverRecord">
+                <div class="form-group">
+                  <label for="temperature">Temperatuur (°C):</label>
+                  <input
+                      type="text"
+                      id="temperature"
+                      v-model="newFeverRecord.temperature"
+                      min="35"
+                      max="42"
+                      step="0.1"
+                      required
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="time">Kuupäev ja kellaaeg:</label>
+                  <input
+                      type="datetime-local"
+                      id="time"
+                      v-model="newFeverRecord.time"
+                      required
+                  />
+                </div>
+                <div class="form-actions">
+                  <button type="submit" class="btn-submit">Salvesta</button>
+                  <button type="button" @click="cancelAddFever" class="btn-cancel">Tühista</button>
+                </div>
+              </form>
             </div>
-            <div class="form-actions">
-              <button type="submit" class="btn-submit">Salvesta</button>
-              <button type="button" @click="cancelAddFever" class="btn-cancel">Tühista</button>
+
+            <div v-if="getPatientFeverRecords.length > 0" class="fever-records">
+              <ul>
+                <li v-for="(item, index) in getPatientFeverRecords" :key="index">
+                  <span class="record-id">{{ item.id }}</span>
+                  <span class="record-time">{{ item.time }}</span>
+                  <span class="record-temperature">{{ item.temperature }} °C</span>
+                </li>
+              </ul>
             </div>
-          </form>
+          </div>
+        </div>
+        </div>
         </div>
 
-        <div v-if="getPatientFeverRecords.length > 0" class="fever-records">
-          <ul>
-            <li v-for="(item, index) in getPatientFeverRecords" :key="index">
-              <span class="record-id">{{ item.id }}</span>
-              <span class="record-time">{{ item.time }}</span>
-              <span class="record-temperature">{{ item.temperature }} °C</span>
-            </li>
-          </ul>
-        </div>
       </div>
-    </div>
-  </div>
+
 </template>
 
 <script>
@@ -66,8 +101,9 @@ export default {
   data() {
     return {
       getPatientFeverRecords: [],
+      temperature: 36.5,
       newFeverRecord: {
-        temperature: '',
+        temperature: 36.5,
         time: ''
       }
     };
@@ -89,6 +125,17 @@ export default {
       this.newFeverRecord.time = '';
       this.closeModal();
     },
+    watch: {
+      // Kui temperatuur muutub termomeetri või liuguri kaudu
+      temperature(newValue) {
+        this.newFeverRecord.temperature = newValue;
+      },
+      // Kui temperatuur muutub vormi sisestusvälja kaudu
+      'newFeverRecord.temperature'(newValue) {
+        this.temperature = newValue;
+      }
+    },
+
     openModal() {
       this.$emit('update:isOpen', true);
     },
@@ -102,6 +149,13 @@ export default {
 </script>
 
 <style>
+.add-data-page {
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+  background: #f4f4f4;
+}
+
 .add-fever-form {
   background-color: #f9f9f9;
   border-radius: 8px;
@@ -219,7 +273,7 @@ li {
   padding: 30px;
   border-radius: 10px;
   width: 90%;
-  max-width: 500px;
+  max-width: 800px;
   position: relative;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   animation: modal-in 0.3s ease-out;
@@ -256,5 +310,57 @@ li {
   margin-top: 20px;
   font-size: 1.1rem;
   color: #555;
+}
+
+.left-panel {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.thermometer-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+}
+
+.thermometer {
+  position: relative;
+  width: 60px;
+  height: 300px;
+  border-radius: 30px;
+  border: 2px solid #333;
+  overflow: hidden;
+}
+
+.thermometer-fill {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  background: linear-gradient(to top, #2ecc71, #e74c3c);
+  transition: height 0.3s ease-in-out;
+}
+
+.temperature-slider {
+  transform: rotate(-90deg);
+  width: 200px;
+}
+
+.temperature-manual-input {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.temperature-display {
+  font-size: 1.5rem;
+}
+
+.right-panel {
+  flex: 2;
+  padding: 20px;
 }
 </style>

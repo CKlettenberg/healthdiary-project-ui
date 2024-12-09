@@ -4,8 +4,8 @@
     <div class="menu-content">
       <h1 class="title">Tervise Päevik</h1>
       <div class="action-buttons">
-        <button class="green-button" @click="navigateToAddPatient">Lisa Patsient</button>
-        <button class="green-button" @click="navigateToPatients">Vaata Patsiente</button>
+        <button class="green-button" @click="navigateToAddPatient">Lisa patsient</button>
+        <button class="green-button" @click="navigateToPatients">Vaata patsiente</button>
       </div>
       <div class="swipe-hint">
         <p>Libistage vasakule, et vaadata kõige hiljutisemat patsienti.</p>
