@@ -11,10 +11,9 @@
                 <div
                     class="thermometer-fill"
                     :style="{
-              height: `${(newFeverRecord.temperature - 35) * 100 / 7}%`,
-              background: `linear-gradient(to top, #2ecc71 0%, #f1c40f ${
-                ((newFeverRecord.temperature - 35) / 2) * 100
-              }%, #e74c3c 100%)`
+                  height: `${(newFeverRecord.temperature - 35) * 100 / 7}%`,
+              background: `linear-gradient(to top, #70ff50, #d12222{
+                {((temperature - 35) / 2) * 100}%, #e74c3c 100%)`
             }"
                 ></div>
               </div>
@@ -76,10 +75,10 @@
             </div>
           </div>
         </div>
-        </div>
-        </div>
-
       </div>
+    </div>
+
+  </div>
 
 </template>
 
@@ -325,38 +324,41 @@ li {
   flex-direction: column;
   align-items: center;
   gap: 5px;
+  position: relative;
 }
 
 .thermometer {
   position: relative;
-  width: 60px;
+  width: 50px;
   height: 300px;
   border-radius: 30px;
   border: 2px solid #333;
   overflow: hidden;
+  background-color: #efebea;
 }
 
 .thermometer-fill {
   position: absolute;
   bottom: 0;
   width: 100%;
-  background: linear-gradient(to top, #2ecc71, #e74c3c);
+  background: linear-gradient(to top, #70ff50, #d12222);
   transition: height 0.3s ease-in-out;
 }
 
 .temperature-slider {
-  transform: rotate(-90deg);
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%) rotate(-90deg);
+  height: 300px;
   width: 200px;
-}
-
-.temperature-manual-input {
-  display: flex;
-  align-items: center;
-  gap: 10px;
+  margin-top: 0;
+  z-index: 2;
 }
 
 .temperature-display {
   font-size: 1.5rem;
+  margin-top: 20px;
 }
 
 .right-panel {
