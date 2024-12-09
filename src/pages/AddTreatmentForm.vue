@@ -94,7 +94,7 @@ export default {
         symptoms: [],
         time: ''
       },
-      symptomList: ["Nohu", "Köha", "Iiveldus/oksendamine", "Peavalu", "Liigesvalu", "Kõhuvalu", "Muu"],
+      symptomList: ["Nohu", "Köha", "Iiveldus/oksendamine", "Peavalu", "Lihasvalu", "Liigesvalu", "Kõhuvalu", "Muu"],
     };
   },
   methods: {

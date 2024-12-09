@@ -4,12 +4,12 @@ import LoginScreen from "@/components/LoginScreen.vue";
 import MenuPage from "@/pages/MenuPage.vue";
 import RegisterScreen from "@/components/RegisterScreen.vue";
 import AddPatient from "@/components/AddPatient.vue";
-import FeverPage from "@/pages/FeverPage.vue";
 import PatientDetails from "@/pages/PatientDetails.vue";
 import PatientsList from "@/pages/PatientsList.vue";
 import AddNewPatientData from "@/pages/AddNewPatientData.vue";
 import AddFeverForm from "@/pages/AddFeverForm.vue";
 import EditPatient from "@/pages/EditPatient.vue";
+import AddTreatmentForm from "@/pages/AddTreatmentForm.vue";
 
 const routes = [
     {
@@ -32,12 +32,6 @@ const routes = [
         path: "/add-patient",
         name: "AddPatient",
         component: AddPatient,
-        meta: { requiresAuth: true },
-    },
-    {
-        path: "/fever/:patientId",
-        name: "FeverRecord",
-        component: FeverPage,
         meta: { requiresAuth: true },
     },
     {
@@ -74,7 +68,13 @@ const routes = [
         name: "EditPatient",
         component: EditPatient,
         props: true, // Ensure props are passed to the component
-    }
+    },
+    {
+    path: "/add-treatment-data",
+    name: "AddTreatment",
+    component: AddTreatmentForm,
+    meta: { requiresAuth: true },
+},
 
 
 ];

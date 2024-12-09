@@ -68,12 +68,14 @@ export default {
 }
 
 .icon-button {
-  background-color: transparent;
+  background-color: #2ecc71; /* Green button */
+  color: white;
+  padding: 12px 25px;
   border: none;
-  color: #ffffff; /* White color for icons */
+  border-radius: 25px;
   font-size: 1.5rem;
   cursor: pointer;
-  transition: transform 0.3s, color 0.3s;
+  transition: background-color 0.3s, transform 0.2s;
 }
 
 .icon-button:hover {

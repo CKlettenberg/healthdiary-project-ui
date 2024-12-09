@@ -1,4 +1,5 @@
-<template><div v-if="treatmentRecords.length > 0" class="treatment-records">
+<template>
+  <div v-if="treatmentRecords.length > 0" class="treatment-records">
   <h2>Palavikurohud ja sümptomid</h2>
   <table>
     <thead>
@@ -6,7 +7,7 @@
       <th>Ravimi nimi</th>
       <th>Kogus</th>
       <th>Sümptomid</th>
-      <th>Aeg</th>
+      <th>Kellaaeg</th>
     </tr>
     </thead>
     <tbody>
