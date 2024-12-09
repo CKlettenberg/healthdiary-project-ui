@@ -9,11 +9,16 @@
 
     <AddFeverData
         :patientId="currentPatient.id"
-        v-model:isOpen="isModalOpen"
+        v-model:isOpen="isFeverDataModalOpen"
         @fetch-fever="fetchFeverRecords"
         ref="modal"
     />
-
+    <AddSymptomsData
+        :patientId="currentPatient.id"
+        v-model:isOpen="isSymptomsDataModalOpen"
+        @fetch-symptoms="fetchFeverRecords"
+        ref="modal"
+    />
 
     <!-- Patient Details -->
     <div class="patient-details">
@@ -37,6 +42,10 @@
     <div class="add-info-container">
       <button class="green-button" @click="addFeverRecord">Lisa uus palaviku info</button>
     </div>
+    <!-- Add New Medicine and Symptoms Info Button -->
+    <div class="add-info-container">
+      <button class="green-button" @click="addMedicineAndSymptoms">Lisa uus rohu ja sümptomite info</button>
+    </div>
     <!-- Add New Health Info Button -->
     <div class="add-info-container">
       <button class="green-button" @click="addHealthInfo">Lisa uus tervise info</button>
@@ -48,13 +57,15 @@
 import axios from "axios";
 import FeverData from "@/pages/FeverData.vue";
 import AddFeverData from "@/pages/AddFeverForm.vue";
+import AddSymptomsData from "@/pages/AddSymptomsForm.vue";
 
 export default {
   name: "PatientDetails",
-  components: {AddFeverData, FeverData},
+  components: {AddSymptomsData, AddFeverData, FeverData},
   data() {
     return {
-      isModalOpen: false,
+      isFeverDataModalOpen: false,
+      isSymptomsDataModalOpen: false,
       feverRecords: [],
       patients: [], // List of all patients
       currentPatientIndex: 0, // Index of the currently displayed patient
@@ -115,7 +126,14 @@ export default {
     },
     addFeverRecord() {
       if (this.currentPatient && this.currentPatient.id) {
-        this.isModalOpen = true; // Directly set the state to open the modal
+        this.isFeverDataModalOpen = true; // Directly set the state to open the modal
+      } else {
+        alert("No valid patient selected.");
+      }
+    },
+    addMedicineAndSymptoms() {
+      if (this.currentPatient && this.currentPatient.id) {
+        this.isSymptomsDataModalOpen = true; // Directly set the state to open the modal
       } else {
         alert("No valid patient selected.");
       }

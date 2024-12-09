@@ -18,6 +18,17 @@
               />
             </div>
 
+            <div class="form-group">
+              <label for="dosage">Ravimi kogus:</label>
+              <input
+                  type="text"
+                  id="dosage"
+                  v-model="newTreatmentRecord.dosage"
+                  placeholder="Sisesta kogus (nt 1 tablett, 5 ml)"
+                  required
+              />
+            </div>
+
             <div class="form-group symptoms-group">
               <h3>Sümptomid:</h3>
               <div v-for="(symptom, index) in symptomList" :key="index">
@@ -46,7 +57,7 @@
 import axios from "axios";
 
 export default {
-  name: "add-treatment-data",
+  name: "add-symptoms-data",
   props: {
     patientId: {
       type: Number,
