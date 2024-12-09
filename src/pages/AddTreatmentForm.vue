@@ -14,10 +14,8 @@
                   id="medicine"
                   v-model="newTreatmentRecord.medicine"
                   placeholder="Sisesta ravimi nimi"
-                  required
               />
             </div>
-
             <div class="form-group">
               <label for="dosage">Ravimi kogus:</label>
               <input
@@ -25,10 +23,8 @@
                   id="dosage"
                   v-model="newTreatmentRecord.dosage"
                   placeholder="Sisesta kogus (nt 1 tablett, 5 ml)"
-                  required
               />
             </div>
-
             <div class="form-group symptoms-group">
               <h3>Sümptomid:</h3>
               <div v-for="(symptom, index) in symptomList" :key="index">
@@ -85,7 +81,7 @@ export default {
           patientId: this.patientId,
         };
         await axios.post("http://localhost:8091/api/treatment/new", record);
-        this.$emit("fetch-treatments", ""); // Teavita vanemat uute andmete küsimisest
+        this.$emit("fetch-treatments", ''); // Teavita vanemat uute andmete küsimisest
         this.closeModal();
       } catch (error) {
         console.error("Viga andmete lisamisel:", error);
@@ -94,7 +90,7 @@ export default {
     cancelAddTreatment() {
       this.newTreatmentRecord.medicine = "";
       this.newTreatmentRecord.symptoms = [];
-      this.closeModal();
+      this.closemo();
     },
     closeModal() {
       this.$emit("update:isOpen", false);
