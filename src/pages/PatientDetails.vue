@@ -12,10 +12,10 @@
         @fetch-fever="fetchFeverRecords"
         ref="modal"
     />
-    <AddSymptomsData
+    <AddTreatmentData
         :patientId="currentPatient.id"
-        v-model:isOpen="isSymptomsDataModalOpen"
-        @fetch-symptoms="fetchTreatmentRecords"
+        v-model:isOpen="isTreatmentDataModalOpen"
+        @fetch-treatments="fetchTreatmentRecords"
         ref="modal"
     />
     <!-- Patient Details -->
@@ -35,6 +35,12 @@
         :patientId="currentPatient.id"
         :feverRecords="feverRecords"
         @fetch-fever="fetchFeverRecords"
+    />
+    <TreatmentData
+        v-if="currentPatient.id"
+        :patientId="currentPatient.id"
+        :treatmentRecords="treatmentRecords"
+        @fetch-treatment="fetchTreatmentRecords"
     />
     <!-- Add New Fever Info Button -->
     <div class="add-info-container">
@@ -58,15 +64,17 @@
 import axios from "axios";
 import FeverData from "@/pages/FeverData.vue";
 import AddFeverData from "@/pages/AddFeverForm.vue";
-import AddSymptomsData from "@/pages/AddTreatmentForm.vue";
+import AddTreatmentData from "@/pages/AddTreatmentForm.vue";
+import TreatmentData from "@/pages/TreatmentData.vue";
+
 
 export default {
   name: "PatientDetails",
-  components: { AddSymptomsData, AddFeverData, FeverData},
+  components: {TreatmentData, AddTreatmentData, AddFeverData, FeverData},  //Siit puudu
   data() {
     return {
       isFeverDataModalOpen: false,
-      isSymptomsDataModalOpen: false,
+      isTreatmentDataModalOpen: false,
       feverRecords: [],
       treatmentRecords: [],
       patients: [], // List of all patients
@@ -137,17 +145,17 @@ export default {
 
       try {
         const response = await axios.get(
-            `http://localhost:8091/api/fever/patients/${this.currentPatient.id}/fever-records`
+            `http://localhost:8091/api/treatment/patients/${this.currentPatient.id}/treatment-records`
         );
-        this.feverRecords = response.data;
+        this.treatmentRecords = response.data;
       } catch (error) {
-        console.error("Error loading fever records:", error);
-        alert("Failed to load fever records.");
+        console.error("Error loading treatment records:", error);
+        alert("Failed to load treatment records.");
       }
     },
     addTreatmentRecord() {
       if (this.currentPatient && this.currentPatient.id) {
-        this.isSymptomsDataModalOpen = true; // Directly set the state to open the modal
+        this.isTreatmentDataModalOpen = true; // Directly set the state to open the modal
       } else {
         alert("No valid patient selected.");
       }

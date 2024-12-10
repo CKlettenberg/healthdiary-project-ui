@@ -21,8 +21,8 @@
     </tbody>
   </table>
     <div class="table-footer" v-if="feverRecords.length > visibleCount">
-      <button class="green-button" @click="showAll">Kuva rohkem</button>
-    </div>
+    <button class="green-button" @click="showAll">Kuva rohkem</button>
+  </div>
   </div>
 </template>
 <script>
@@ -74,7 +74,7 @@ export default {
       }
     },
     deleteFeverRecord(id) {
-      const confirmation = confirm("Olete kindel, et soovite patsiendi kustutada?");
+      const confirmation = confirm("Olete kindel, et soovite palavikku kustutada?");
       if (!confirmation) return;
       const token = localStorage.getItem("token");
       axios.put(`http://localhost:8091/api/fever/delete/${id}`

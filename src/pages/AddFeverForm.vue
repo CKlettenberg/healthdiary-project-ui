@@ -134,7 +134,6 @@ export default {
         this.temperature = newValue;
       }
     },
-
     openModal() {
       this.$emit('update:isOpen', true);
     },
@@ -142,8 +141,6 @@ export default {
       this.$emit('update:isOpen', false);
     }
   },
-  mounted() {
-  }
 };
 </script>
 

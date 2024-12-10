@@ -32,7 +32,7 @@
                   type="datetime-local"
                   id="time"
                   v-model="newTreatmentRecord.time"
-                  placeholder="Sisesta kogus (nt 1 tablett, 5 ml)"
+                  placeholder="Sisesta kellaaeg)"
               />
             </div>
 
@@ -60,9 +60,10 @@
           <ul>
             <li v-for="(item, index) in getPatientTreatmentRecords" :key="index">
               <span class="record-id">{{ item.id }}</span>
+              <span class="record-time">{{ item.time }}</span>
               <span class="record-medicine">{{ item.medicine }}</span>
               <span class="record-dosage">{{ item.dosage }}</span>
-              <span class="record-time">{{ item.time }}</span>
+              <span class="record-symptoms">{{ item.symptoms }}</span>
 
             </li>
           </ul>
@@ -76,7 +77,7 @@
 import axios from "axios";
 
 export default {
-  name: "add-symptoms-data",
+  name: "add-treatment-data",
   props: {
     patientId: {
       type: Number,
@@ -89,10 +90,13 @@ export default {
   },
   data() {
     return {
+      getPatientTreatmentRecords: [],
       newTreatmentRecord: {
-        medicine: "",
+        time: '',
+        medicine: '',
+        dosage: '',
         symptoms: [],
-        time: ''
+
       },
       symptomList: ["Nohu", "Köha", "Iiveldus/oksendamine", "Peavalu", "Lihasvalu", "Liigesvalu", "Kõhuvalu", "Muu"],
     };
@@ -103,6 +107,7 @@ export default {
         const newTreatmentRecord = {
           newTreatmentRecord: this.newTreatmentRecord,
           patientId: this.patientId,
+          timestamp: new Date().toISOString(),
         };
         await axios.post("http://localhost:8091/api/treatment/new", newTreatmentRecord);
         this.$emit("fetch-treatments", ''); // Teavita vanemat uute andmete küsimisest
@@ -112,11 +117,10 @@ export default {
       }
     },
     cancelAddTreatment() {
+      this.newTreatmentRecord.time = '';
       this.newTreatmentRecord.medicine = '';
       this.newTreatmentRecord.dosage = '';
       this.newTreatmentRecord.symptoms = [];
-      this.newTreatmentRecord.time = '';
-
       this.closeModal();
     },
     openModal() {
@@ -125,12 +129,10 @@ export default {
     closeModal() {
       this.$emit("update:isOpen", false);
     },
-    getPatientTreatmentRecords() {
-
     }
-  },
 };
 </script>
+
 <style>
 .add-treatment-form {
   background-color: #f9f9f9;
@@ -165,9 +167,29 @@ h3 {
   font-size: 1rem;
   margin-bottom: 5px;
 }
+input[type="text"], input[type="datetime-local"] {
+  width: 100%;
+  padding: 8px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
 
+input[type="text"]:focus, input[type="datetime-local"]:focus {
+  border-color: #4CAF50;
+  outline: none;
+}
 .form-actions {
   display: flex;
   justify-content: space-between;
+}
+.record-id,
+.record-time,
+.record-medicine,
+.record-dosage,
+.record-symptoms {
+  font-size: 1rem;
+  color: #333;
 }
 </style>
