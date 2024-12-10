@@ -61,10 +61,10 @@ export default {
 
 .top-buttons {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   position: absolute;
-  top: 10px;
-  width: 95%;
+  margin-top: 15px;
+  width: 100%;
 }
 
 .icon-button {
@@ -73,13 +73,17 @@ export default {
   padding: 12px 25px;
   border: none;
   border-radius: 25px;
-  font-size: 1.5rem;
+  font-size: 1rem;
   cursor: pointer;
   transition: background-color 0.3s, transform 0.2s;
+  margin: 0 300px; /* Add spacing between buttons */
+  width: auto; /* Prevent stretching */
+  white-space: nowrap;
 }
 
 .icon-button:hover {
   transform: scale(1.2); /* Slight zoom effect */
   color: #2ecc71; /* Green on hover */
 }
+
 </style>

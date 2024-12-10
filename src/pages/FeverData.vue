@@ -4,18 +4,17 @@
   <table class="custom-table">
     <thead>
     <tr>
-      <th>Aeg</th>
-      <th>Temperatuur (°C)</th>
-
-      <th>Kustuta</th>
+      <th class="header-cell">Aeg</th>
+      <th class="header-cell">Temperatuur (°C)</th>
+      <th class="header-cell">Kustuta</th>
     </tr>
     </thead>
     <tbody>
     <tr v-for="(entry, index) in sortedAndSlicedRecords" :key="index">
 
-      <td>{{ convertToIso(entry.time) }}</td>
-      <td>{{ entry.temperature }} (°C) </td>
-      <td><button class="green-button" @click="deleteFeverRecord(entry.id)">
+      <td class="table-data">{{ convertToIso(entry.time) }}</td>
+      <td class="table-data">{{ entry.temperature }} (°C) </td>
+      <td class="table-data"><button class="delete-button" @click="deleteFeverRecord(entry.id)" >
         Kustuta</button></td>
     </tr>
     </tbody>
@@ -97,6 +96,20 @@ export default {
 }
 </script>
 
+.delete-button {
+  font-size: 18px; /* Your custom font size */
+  color: white;
+  background-color: #2ecc71;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 15px;
+  cursor: pointer;
+}
+
+.delete-button:hover {
+  background-color: #27ae60;
+}
+
 <style scoped>
 /* Container Styles */
 .table-container {
@@ -164,5 +177,29 @@ export default {
   font-size: 1.1rem;
   cursor: pointer;
   transition: background-color 0.3s, transform 0.2s;
+}
+.delete-button {
+  font-size: 16px; /* Your custom font size */
+  color: white;
+  background-color: #2ecc71;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 15px;
+  cursor: pointer;
+}
+
+.delete-button:hover {
+  background-color: #27ae60;
+}
+.header-cell {
+  font-size: 16px; /* Change the font size */
+  text-align: center; /* Align the text (left, center, right) */
+  vertical-align: middle; /* Align vertically (top, middle, bottom) */
+  padding: 10px; /* Adjust padding if needed */
+}
+.table-data{
+  font-size: 16px; /* Change the font size */
+  text-align: center; /* Align the text (left, center, right) */
+  vertical-align: middle;
 }
 </style>

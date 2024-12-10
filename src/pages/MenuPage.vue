@@ -5,7 +5,7 @@
       <h1 class="title">Tervise Päevik</h1>
       <div class="action-buttons">
         <button class="green-button" @click="navigateToAddPatient">Lisa patsient</button>
-        <button class="green-button" @click="navigateToPatients">Vaata patsiente</button>
+        <button class="green-button" @click="navigateToPatients">Kõik patsiendid</button>
       </div>
       <div class="swipe-hint">
         <p>Libistage vasakule, et vaadata kõige hiljutisemat patsienti.</p>
@@ -115,6 +115,7 @@ export default {
 }
 
 .action-buttons {
+  width: 170px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -122,6 +123,7 @@ export default {
 }
 
 .green-button {
+  width: 170px;
   background-color: #2ecc71; /* Green button */
   color: white;
   padding: 12px 25px;

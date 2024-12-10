@@ -8,8 +8,9 @@ import PatientDetails from "@/pages/PatientDetails.vue";
 import PatientsList from "@/pages/PatientsList.vue";
 import AddNewPatientData from "@/pages/AddNewPatientData.vue";
 import AddFeverForm from "@/pages/AddFeverForm.vue";
-import EditPatient from "@/pages/EditPatient.vue";
+
 import AddTreatmentForm from "@/pages/AddTreatmentForm.vue";
+import EditPatient from "@/pages/EditPatient.vue";
 
 const routes = [
     {

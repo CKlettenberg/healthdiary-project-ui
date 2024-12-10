@@ -124,6 +124,8 @@ export default {
 }
 
 .green-button {
+  width: 180px;
+  height: 45px;
   background-color: #2ecc71;
   color: white;
   padding: 12px 25px;
