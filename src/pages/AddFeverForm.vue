@@ -323,39 +323,58 @@ li {
   gap: 5px;
   position: relative;
 }
-
-.thermometer {
-  position: relative;
-  width: 50px;
-  height: 300px;
-  border-radius: 30px;
-  border: 2px solid #333;
-  overflow: hidden;
-  background-color: #efebea;
-}
-
-.thermometer-fill {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  background: linear-gradient(to top, #70ff50, #d12222);
-  transition: height 0.3s ease-in-out;
-}
-
 .temperature-slider {
-  position: absolute;
-  top: 0;
-  left: 50%;
-  transform: translateX(-50%) rotate(-90deg);
-  height: 300px;
-  width: 200px;
-  margin-top: 0;
-  z-index: 2;
+  -webkit-appearance: none;
+  width: 300px; /* Height of the slider when rotated */
+  height: 20px; /* Thickness of the slider */
+  border-style: double;
+  border-width: 5px;
+  background: linear-gradient(to right, #2ecc71, #f1c40f, #e74c3c);
+  /* Gradient */
+  border-radius: 20px;
+  outline: none;
+  cursor: pointer;
+  transform: rotate(-90deg); /* Vertical orientation */
+  margin: 20px 0; /* Space around the slider */
+}
+.temperature-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 20px; /* Thumb width */
+  height: 50px; /* Thumb height */
+  background: radial-gradient(white, black); /* Dark color for the thumb */
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.temperature-slider::-moz-range-thumb {
+  width: 20px; /* Thumb width */
+  height: 50px; /* Thumb height */
+  background: #333; /* Dark color for the thumb */
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+/* Temperature controls */
+.temperature-controls {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.temperature-input {
+  width: 100px;
+  text-align: center;
+  font-size: 1rem;
+  padding: 5px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
 }
 
 .temperature-display {
   font-size: 1.5rem;
-  margin-top: 20px;
+  margin-left: -120px;
+  margin-top: -60px;
 }
 
 .right-panel {

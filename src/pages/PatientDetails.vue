@@ -43,18 +43,18 @@
         @fetch-treatment="fetchTreatmentRecords"
     />
     <!-- Add New Fever Info Button -->
-    <div class="add-info-container">
-      <button class="green-button" @click="addFeverRecord">Lisa uus palaviku info</button>
+    <div class="green-button-container">
+      <button class="green-button" @click="addFeverRecord">Lisa palavik</button>
     </div>
     <!-- Add New Medicine and Symptoms Info Button -->
-    <div class="add-info-container">
-      <button class="green-button" @click="addTreatmentRecord">Lisa uus rohu ja sümptomite info</button>
+    <div class="green-button-container">
+      <button class="green-button" @click="addTreatmentRecord">Lisa rohud/sümptomid</button>
     </div>
     <!-- Add New Health Info Button -->
-    <div class="add-info-container">
+    <div class="green-button-container">
       <button class="green-button" @click="addHealthInfo">Lisa uus tervise info</button>
     </div>
-    <div class="edit-patient">
+    <div class="green-button-container">
       <button class="green-button" @click="editPatient">Muuda patsiendi andmeid</button>
     </div>
   </div>
@@ -193,17 +193,21 @@ export default {
   justify-content: center;
   height: 100vh;
   background-image: url("@/assets/background.png");
-  background-size: cover;
+  background-size: contain;
   background-position: center;
-  background-repeat: no-repeat;
-  outline: none; /* Prevent focus border on some browsers */
+  background-repeat: repeat-y;
+
+
+
+  /* Prevent focus border on some browsers */
 }
 
 .patient-details {
+
   text-align: center;
   color: #ffffff;
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.7);
-  margin-top: 40px;
+  margin-top: 250px;
 }
 
 .swipe-instructions {
@@ -214,9 +218,9 @@ export default {
   text-align: center;
 }
 
-.add-info-container {
-  margin-top: auto;
-  margin-bottom: 5px;
+.green-button-container {
+  gap: 20px;
+  margin-bottom: 40px;
 }
 
 .green-button {
@@ -228,15 +232,11 @@ export default {
   font-size: 1.1rem;
   cursor: pointer;
   transition: background-color 0.3s, transform 0.2s;
+  width: 300px;
 }
 
 .green-button:hover {
   background-color: #27ae60; /* Darker green on hover */
   transform: scale(1.05); /* Slight zoom effect */
-}
-
-.edit-patient {
-  margin-top: auto;
-  margin-bottom: 50px;
 }
 </style>

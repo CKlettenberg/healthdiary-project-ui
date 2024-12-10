@@ -95,8 +95,7 @@ export default {
 }
 
 .input-group {
-  width: 100%;
-  max-width: 300px;
+  width: 250px;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -117,8 +116,12 @@ export default {
   background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent input background */
   color: #333;
 }
+.input-field [placeholder="Username"] {
+  font-family: monospace; /* Example styling */
+}
 
 .green-button {
+  width: 135px;
   background-color: #2ecc71; /* Green button */
   color: white;
   padding: 12px 25px;
@@ -135,6 +138,7 @@ export default {
 }
 
 .secondary-button {
+  width: 135px;
   background-color: transparent;
   color: #2ecc71;
   padding: 12px 25px;

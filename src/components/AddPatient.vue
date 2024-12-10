@@ -169,6 +169,7 @@ export default {
 }
 
 .green-button {
+  gap: 15px;
   background-color: #2ecc71;
   color: white;
   padding: 12px 25px;
