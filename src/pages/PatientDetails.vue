@@ -14,7 +14,7 @@
     />
     <AddSymptoms
         :patientId="currentPatient.id"
-        v-model:isOpen="isSymptomModalOpen"
+        v-model:isOpen="isSymptomDataModalOpen"
         @fetch-symptoms="fetchSymptoms"
         ref="modal"
     />
@@ -146,7 +146,7 @@ export default {
         alert("No valid patient selected.");
       }
     },
-    async fetchSymptom() {
+    async fetchSymptoms() {
       if (!this.currentPatient.id) return;
 
       try {
@@ -185,7 +185,7 @@ export default {
   async mounted() {
     await this.fetchPatients();
     await this.fetchFeverRecords();
-    await this.fetchSymptom();
+    await this.fetchSymptoms();
   },
 };
 </script>

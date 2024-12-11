@@ -9,11 +9,10 @@
         <th>Kustuta</th>
       </tr>
       </thead>
-      <tbody>
+      <tbody v-if="symptoms.length > 0">
       <tr v-for="(record, index) in sortedAndSlicedRecords" :key="index">
         <td>{{ convertToIso(record.timestamp) }}</td>
         <td>{{ record.symptoms.join(', ') }}</td>
-        <td>{{ record.timestamp }}</td>
         <td><button class="green-button" @click="updateSymptom(record.id)">
           Kustuta</button></td>
       </tr>
@@ -52,7 +51,7 @@ export default {
   },
   computed: {
     sortedAndSlicedRecords() {
-      return this.newSymptoms.symptoms
+      return this.symptoms
           .slice()
           .sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp))
           .slice(0, this.visibleCount);
