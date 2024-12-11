@@ -1,5 +1,5 @@
 <template>
-  <div class="patients-page">
+  <div >
     <div class="menu-content">
       <h1 class="title">Tervise päevik</h1>
       <div class="action-buttons">
@@ -74,25 +74,11 @@ export default {
 </script>
 
 <style scoped>
-
-.patients-page {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
-  background-image: url("@/assets/background.png");
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-}
-
-.top-buttons {
-  display: flex;
-  justify-content: space-between;
-  position: absolute;
-  top: 10px;
-  width: 95%;
+.title {
+  font-size: 2.5rem;
+  color: #a1ff2e;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.7); /* Shadow for contrast */
+  margin-bottom: 30px;
 }
 
 .patients-list {

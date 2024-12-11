@@ -1,5 +1,5 @@
 <template>
-  <div class="menu-page" @touchstart="startTouch" @touchmove="moveTouch">
+  <div @touchstart="startTouch" @touchmove="moveTouch">
     <!-- Main Menu Content -->
     <div class="menu-content">
       <h1 class="title">Tervise Päevik</h1>
@@ -87,17 +87,7 @@ export default {
 
 <style scoped>
 /* Styling for Menu Page */
-.menu-page {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
-  background-image: url("@/assets/background.png");
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-}
+
 
 .menu-content {
   display: flex;
@@ -109,7 +99,7 @@ export default {
 
 .title {
   font-size: 2.5rem;
-  color: #ffffff; /* White text */
+  color: #a1ff2e;
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.7); /* Shadow for contrast */
   margin-bottom: 30px;
 }

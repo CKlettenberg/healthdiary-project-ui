@@ -1,5 +1,5 @@
 <template>
-  <div class="patient-page">
+  <div>
     <!-- Patient Details -->
     <div class="patient-details">
       <h1 class="title">Muuda Patsienti</h1>
@@ -132,17 +132,7 @@ export default {
 
 <style scoped>
 /* Add styles from PatientDetails for consistency */
-.patient-page {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
-  background-image: url("@/assets/background.png");
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-}
+
 
 .patient-details {
   text-align: center;

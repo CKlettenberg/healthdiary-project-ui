@@ -51,12 +51,20 @@
                 </div>
                 <div class="form-group">
                   <label for="time">Kuupäev ja kellaaeg:</label>
-                  <input
-                      type="datetime-local"
-                      id="time"
-                      v-model="newFeverRecord.time"
-                      required
-                  />
+                  <div v-if="!isEditingDateTime" class="date-time-display">
+                  <span>{{ formattedDateTime }}</span>
+                  <button type="button" class="btn-edit" @click="isEditingDateTime = true">Muuda</button>
+                    </div>
+                  <div v-else>
+                    <vue3-datepicker
+                        v-model="newFeverRecord.time"
+                        :enable-time-picker="true"
+                        format="dd/mm/yyyy HH:mm"
+                        :append-to-body="true"
+                    placement="bottom-start"
+                    required
+                    />
+                  </div>
                 </div>
 
               <div class="medication-panel">
@@ -94,32 +102,40 @@
 </template>
 
 <script>
+import dayjs from "dayjs";
 import axios from "axios";
+import Vue3Datepicker from "@vuepic/vue-datepicker";
+import "@vuepic/vue-datepicker/dist/main.css";
 
 export default {
-  name: 'add-fever-data',
+  name: "add-fever-data",
+  components: { Vue3Datepicker },
   props: {
     patientId: {
       type: Number,
-      required: true
+      required: true,
     },
     isOpen: {
       type: Boolean,
-      default: false
-    }
+      default: false,
+    },
   },
   data() {
     return {
       patient: {},
-      getPatientFeverRecords: [],
-      temperature: 36.5,
+      isEditingDateTime: false,
       newFeverRecord: {
-        temperature: 36.5,
-        time: '',
-        medicationName: '',
-        medicationDosage: ''
-      }
+        temperature: 36.6,
+        time: dayjs().toISOString(),
+        medicationName: "",
+        medicationDosage: "",
+      },
     };
+  },
+  computed: {
+    formattedDateTime() {
+      return dayjs(this.newFeverRecord.time).format("DD/MM/YYYY HH:mm");
+    },
   },
   methods: {
     async fetchPatientDetails() {
@@ -138,48 +154,36 @@ export default {
         console.error("Error fetching patient details:", error);
       }
     },
-        async addFeverRecord() {
+    async addFeverRecord() {
       try {
         const patientId = this.patientId;
         this.newFeverRecord.patientId = patientId;
         console.log(this.newFeverRecord);
         await axios.post("http://localhost:8091/api/fever/new", this.newFeverRecord);
-        this.$emit('fetch-fever', '');
+        this.$emit("fetch-fever", "");
+        this.newFeverRecord.temperature = 36.6
         this.closeModal();
       } catch (error) {
         console.error("Viga palavikuandmete lisamisel:", error);
       }
     },
     cancelAddFever() {
-      this.newFeverRecord.temperature = '';
-      this.newFeverRecord.time = '';
-      this.newFeverRecord.medicationName = '';
-      this.newFeverRecord.medicationDosage = '';
+      this.newFeverRecord.temperature = 36.5;
+      this.newFeverRecord.time = dayjs().toISOString();
+      this.newFeverRecord.medicationName = "";
+      this.newFeverRecord.medicationDosage = "";
       this.closeModal();
     },
-    watch: {
-      // Kui temperatuur muutub termomeetri või liuguri kaudu
-      temperature(newValue) {
-        this.newFeverRecord.temperature = newValue;
-      },
-      // Kui temperatuur muutub vormi sisestusvälja kaudu
-      'newFeverRecord.temperature'(newValue) {
-        this.temperature = newValue;
-      }
-    },
-    openModal() {
-      this.$emit('update:isOpen', true);
-    },
     closeModal() {
-      this.$emit('update:isOpen', false);
-    }
+      this.$emit("update:isOpen", false);
+    },
   },
   mounted() {
     this.fetchPatientDetails();
-  }
-
+  },
 };
 </script>
+
 
 <style>
 .add-data-page {
@@ -277,7 +281,6 @@ li {
   padding: 10px;
   margin-bottom: 10px;
   border-radius: 4px;
-  display: flex;
   justify-content: space-between;
 }
 

@@ -1,5 +1,5 @@
 <template>
-  <div class="add-data-page">
+  <div>
     <!-- Top panel with clock -->
     <div class="top-panel">
       <div class="live-clock">{{ currentTime }}</div>
@@ -181,12 +181,7 @@ export default {
 
 <style scoped>
 /* General layout */
-.add-data-page {
-  display: flex;
-  flex-direction: row;
-  height: 100vh;
-  background: #f4f4f4;
-}
+
 
 /* Top panel */
 .top-panel {

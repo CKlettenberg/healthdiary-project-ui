@@ -1,5 +1,5 @@
 <template>
-  <div class="add-patient-page">
+  <div class="health-diary-app">
     <div class="add-patient-form">
       <h2 class="title">Lisa Andmed</h2>
       <form @submit.prevent="handleAddPatient" class="form-container">
@@ -7,13 +7,12 @@
           <label for="patientFullName" class="label">Nimi:</label>
           <input
               v-model="patient.patientFullName"
-              type="text"
+              autocomplete="off"
               id="patientFullName"
               class="input-field"
               required
           />
-        </div>
-        <div class="input-group">
+
           <label for="dob" class="label">Sünniaeg:</label>
           <input
               v-model="patient.dateOfBirth"
@@ -22,8 +21,7 @@
               class="input-field"
               required
           />
-        </div>
-        <div class="input-group">
+
           <label for="weight" class="label">Kaal (kg):</label>
           <input
               v-model="patient.weight"
@@ -94,40 +92,6 @@ export default {
 
 <style scoped>
 
-.add-patient-page {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
-  background-image: url("@/assets/background.png");
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-}
-
-.top-buttons {
-  display: flex;
-  justify-content: space-between;
-  position: absolute;
-  top: 10px;
-  width: 95%;
-}
-
-.icon-button {
-  background-color: transparent;
-  border: none;
-  color: #ffffff;
-  font-size: 1.5rem;
-  cursor: pointer;
-  transition: transform 0.3s, color 0.3s;
-}
-
-.icon-button:hover {
-  transform: scale(1.2);
-  color: #2ecc71;
-}
-
 .add-patient-form {
   display: flex;
   flex-direction: column;
@@ -139,10 +103,9 @@ export default {
 
 .title {
   font-size: 2.5rem;
-  color: #ffffff;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.7);
+  color: #a1ff2e;
+  text-shadow: 0 2px 4px rgba(0.4, 0.5, 0.7, 4);
   margin-bottom: 30px;
-  text-align: center;
 }
 
 .input-group {
@@ -150,6 +113,7 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+
 }
 
 .label {
@@ -161,11 +125,11 @@ export default {
 .input-field {
   width: 100%;
   padding: 12px;
-  border: 1px solid #ddd;
   border-radius: 25px;
   font-size: 1.1rem;
   background-color: rgba(255, 255, 255, 0.8);
   color: #333;
+  border-style: double;
 }
 
 .green-button {

@@ -1,0 +1,87 @@
+
+.health-diary-app {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-image: url("@/assets/background.png"); /* Path to your background image */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    position: fixed; /* Keep the background fixed */
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: -1; /* Ensure it's behind the content */
+}
+.router-view-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex; /* Use Flexbox for alignment */
+    flex-direction: column; /* Align items vertically */
+    align-items: center; /* Center items horizontally */
+    overflow-y: auto; /* Enable vertical scrolling */
+    z-index: 1; /* Ensure content is above the background */
+    padding: 20px; /* Optional: Add some padding for better aesthetics */
+    box-sizing: border-box; /* Ensure padding doesn't affect width/height */
+}
+
+/* Utility styles */
+.text-center {
+    text-align: center;
+}
+
+.full-width {
+    width: 100%;
+}
+
+.button {
+    padding: 10px 20px;
+    font-size: 1rem;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+}
+@media (min-width: 768px) and (max-width: 1023px) {
+    .health-diary-app {
+        padding: 20px;
+        background-size: cover;
+    }
+}
+
+/* Styles for Mobile */
+@media (max-width: 767px) {
+    .health-diary-app {
+        padding: 10px;
+        background-size: auto;
+        background-position: top center;
+    }
+}
+
+.icon-button {
+    background-color: #2ecc71; /* Green button */
+    color: white;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 25px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+    margin: 0 300px; /* Add spacing between buttons */
+    width: auto; /* Prevent stretching */
+    white-space: nowrap;
+}
+
+.icon-button:hover {
+    transform: scale(1.1); /* Slight zoom effect */
+}
+
+.top-buttons {
+    display: flex;
+    justify-content: center;
+    position: absolute;
+    width: 100%;
+}
+

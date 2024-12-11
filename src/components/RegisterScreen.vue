@@ -1,23 +1,20 @@
 <template>
-  <div class="register-screen">
+  <div>
     <h1 class="title">Tervise Päevik - Registreeri</h1>
 
     <form @submit.prevent="handleRegister" class="form-container">
       <div class="input-group">
         <label for="username" class="label">Kasutaja:</label>
-        <input v-model="user.username" type="text" id="username" class="input-field" required />
-      </div>
-      <div class="input-group">
+        <input v-model="user.username" autocomplete="off" id="username" class="input-field" required/>
+
         <label for="password" class="label">Parool:</label>
-        <input v-model="user.password" type="password" id="password" class="input-field" required />
-      </div>
-      <div class="input-group">
+        <input v-model="user.password" type="password" id="password" class="input-field" required/>
+
         <label for="confirm-password" class="label">Kinnita Parool:</label>
-        <input v-model="confirmPassword" type="password" id="confirm-password" class="input-field" required />
-      </div>
-      <div class="input-group">
+        <input v-model="confirmPassword" type="password" id="confirm-password" class="input-field" required/>
+
         <label for="email" class="label">E-post (Valikuline):</label>
-        <input v-model="user.email" type="email" id="email" class="input-field" />
+        <input v-model="user.email" type="email" id="email" class="input-field"/>
       </div>
       <button type="submit" class="green-button">Registreeri</button>
       <button type="button" class="secondary-button" @click="goBack">Tagasi</button>
@@ -66,23 +63,10 @@ export default {
 </script>
 
 <style scoped>
-/* Updated styles matching the LoginScreen */
-.register-screen {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
-  background-image: url("@/assets/background.png"); /* Background image */
-  background-size: cover; /* Cover the entire screen */
-  background-position: center; /* Center the image */
-  background-repeat: no-repeat; /* Prevent tiling */
-}
-
 .title {
-  font-size: 2.5rem;
-  color: #ffffff; /* White text for title */
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.7); /* Shadow for contrast */
+  font-size: 3rem;
+  color: #a1ff2e;
+  text-shadow: 0 2px 4px rgba(0.4, 0.5, 0.7, 4);
   margin-bottom: 30px;
 }
 
@@ -103,19 +87,20 @@ export default {
 
 .label {
   font-size: 1.2rem;
-  color: #ffffff; /* White label text */
+  color: black;
   margin-bottom: 8px;
 }
 
 .input-field {
   width: 100%;
   padding: 12px;
-  border: 1px solid #ddd;
   border-radius: 25px;
   font-size: 1.1rem;
   background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent input background */
   color: #333;
+  border-style: double;
 }
+
 .input-field [placeholder="Username"] {
   font-family: monospace; /* Example styling */
 }

@@ -1,6 +1,5 @@
 <template>
   <div
-      class="patient-page"
       @touchstart="startTouch"
       @touchmove="moveTouch"
       @keydown="handleKeyPress"
@@ -45,16 +44,7 @@
     <!-- Add New Fever and Medication Info Button -->
     <div class="green-button-container">
       <button class="green-button" @click="addFeverRecord">Lisa palavik</button>
-    </div>
-    <!-- Add New Symptoms Info Button -->
-    <div class="green-button-container">
       <button class="green-button" @click="addSymptom">Lisa sümptomid</button>
-    </div>
-    <!-- Add New Health Info Button -->
-    <div class="green-button-container">
-      <button class="green-button" @click="addHealthInfo">Lisa uus tervise info</button>
-    </div>
-    <div class="green-button-container">
       <button class="green-button" @click="editPatient">Muuda patsiendi andmeid</button>
     </div>
   </div>
@@ -192,28 +182,11 @@ export default {
 
 <style scoped>
 /* Styling for Patient Details Page */
-.patient-page {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
-  background-image: url("@/assets/background.png");
-  background-size: contain;
-  background-position: center;
-  background-repeat: repeat-y;
-
-
-
-  /* Prevent focus border on some browsers */
-}
-
 .patient-details {
-
-  text-align: center;
-  color: #ffffff;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.7);
-  margin-top: 250px;
+    font-size: 1rem;
+    color: black;
+    margin-bottom: 30px;
+    text-align: center;
 }
 
 .swipe-instructions {
@@ -225,8 +198,11 @@ export default {
 }
 
 .green-button-container {
+  display: flex;
+  flex-direction: column; /* Stack buttons vertically */
+  align-items: center; /* Align buttons horizontally in the center */
   gap: 20px;
-  margin-bottom: 40px;
+  margin-top: 30px;/* Add spacing between buttons */
 }
 
 .green-button {
@@ -239,10 +215,11 @@ export default {
   cursor: pointer;
   transition: background-color 0.3s, transform 0.2s;
   width: 300px;
+
 }
 
 .green-button:hover {
   background-color: #27ae60; /* Darker green on hover */
-  transform: scale(1.05); /* Slight zoom effect */
+  transform: scale(1.1); /* Slight zoom effect */
 }
 </style>
