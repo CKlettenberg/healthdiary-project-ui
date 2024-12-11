@@ -63,8 +63,8 @@
 <script>
 import axios from "axios";
 import FeverData from "@/pages/FeverData.vue";
-import AddFeverData from "@/pages/AddFeverForm.vue";
-import AddSymptoms from "@/pages/AddSymptomForm.vue";
+import AddFeverData from "@/pages/AddFeverModal.vue";
+import AddSymptoms from "@/pages/AddSymptomModal.vue";
 import SymptomsData from "@/pages/SymptomsData.vue";
 
 

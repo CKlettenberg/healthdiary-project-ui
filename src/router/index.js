@@ -7,10 +7,10 @@ import AddPatient from "@/components/AddPatient.vue";
 import PatientDetails from "@/pages/PatientDetails.vue";
 import PatientsList from "@/pages/PatientsList.vue";
 import AddNewPatientData from "@/pages/AddNewPatientData.vue";
-import AddFeverForm from "@/pages/AddFeverForm.vue";
+import AddFeverForm from "@/pages/AddFeverModal.vue";
 
 import EditPatient from "@/pages/EditPatient.vue";
-import AddSymptomForm from "@/pages/AddSymptomForm.vue";
+import AddSymptomForm from "@/pages/AddSymptomModal.vue";
 
 const routes = [
     {
