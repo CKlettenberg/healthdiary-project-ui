@@ -1,5 +1,5 @@
 <template>
-  <div class="login-screen">
+  <div >
     <h1 class="title">Tervise Päevik</h1>
 
     <!-- Initial Buttons -->
@@ -12,16 +12,9 @@
     <form v-if="showLogin" @submit.prevent="handleLogin" class="form-container">
       <div class="input-group">
         <label for="username" class="label">Kasutaja:</label>
-        <input v-model="username" type="text" id="username" class="input-field" required/>
-      </div>
-      <div class="input-group">
+        <input v-model="username"  id="username" class="input-field" required/>
         <label for="password" class="label">Parool:</label>
-        <input v-model="password" type="password" id="password" style="width: 200px; padding: 12px;
-  border: 1px solid #ddd;
-  border-radius: 25px;
-  font-size: 1.1rem;
-  background-color: rgba(255, 255, 255, 0.8);
-  color: #333;" required/>
+        <input v-model="password" type="password" id="password" class="input-field" required/>
       </div>
       <button type="submit" class="green-button">Logi Sisse</button>
       <button type="button" class="secondary-button" @click="toggleLogin">Tagasi</button>
@@ -71,18 +64,6 @@ export default {
 
 <style scoped>
 
-.login-screen {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
-  background-image: url("@/assets/background.png");
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-}
-
 .title {
   font-size: 3rem;
   color: #a1ff2e;
@@ -115,18 +96,18 @@ export default {
 
 .label {
   font-size: 1.2rem;
-  color: #ffffff;
+  color: black;
   margin-bottom: 8px;
 }
 
 .input-field {
   width: 100%;
   padding: 12px;
-  border: 1px solid #ddd;
   border-radius: 25px;
   font-size: 1.1rem;
-  background-color: rgba(255, 255, 255, 0.8);
+  background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent input background */
   color: #333;
+  border-style: double;
 }
 
 .green-button {
@@ -141,15 +122,17 @@ export default {
   transition: background-color 0.3s, transform 0.2s;
 }
 
+
 .green-button:hover {
   background-color: #27ae60;
   transform: scale(1.05);
 }
 
+
 .secondary-button {
   width: 135px;
-  background-color: transparent;
-  color: #2ecc71;
+  background-color: #2ecc71;
+  color: white;
   padding: 12px 25px;
   border: 2px solid #2ecc71;
   border-radius: 25px;

@@ -1,15 +1,17 @@
 <template>
-  <div id="app">
+
+  <div class="health-diary-app">
     <!-- Top Buttons -->
-    <div class="top-buttons" v-if="isAuthenticated">
-      <button class="icon-button back" @click="goToMenu">
-        <i class="fas fa-home"></i>Pealeht
-      </button>
-      <button class="icon-button logout" @click="handleLogout">
-        <i class="fas fa-sign-out-alt"></i>Logi välja
-      </button>
-    </div>
-    <div v-if="!isLoggedIn">
+
+    <div v-if="!isLoggedIn" class="router-view-container">
+      <div v-if="isAuthenticated" class="top-buttons">
+        <button class="icon-button back" @click="goToMenu">
+          <i class="fas fa-home"></i>Pealeht
+        </button>
+        <button class="icon-button logout" @click="handleLogout">
+          <i class="fas fa-sign-out-alt"></i>Logi välja
+        </button>
+      </div>
       <router-view></router-view>
     </div>
     <div v-else>
@@ -25,6 +27,7 @@ import {useAuthStore} from "@/stores/auth";
 import {useRouter} from "vue-router";
 
 export default {
+  name: "App",
   components: {},
   setup() {
     const router = useRouter(); // Use useRouter here
@@ -57,33 +60,3 @@ export default {
   },
 };
 </script>
-<style>
-
-.top-buttons {
-  display: flex;
-  justify-content: center;
-  position: absolute;
-  margin-top: 15px;
-  width: 100%;
-}
-
-.icon-button {
-  background-color: #2ecc71; /* Green button */
-  color: white;
-  padding: 12px 25px;
-  border: none;
-  border-radius: 25px;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: background-color 0.3s, transform 0.2s;
-  margin: 0 300px; /* Add spacing between buttons */
-  width: auto; /* Prevent stretching */
-  white-space: nowrap;
-}
-
-.icon-button:hover {
-  transform: scale(1.2); /* Slight zoom effect */
-  color: #2ecc71; /* Green on hover */
-}
-
-</style>
