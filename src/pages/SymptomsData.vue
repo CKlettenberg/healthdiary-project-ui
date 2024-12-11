@@ -43,18 +43,16 @@ export default {
   data() {
     return {
       visibleCount: 2,
-      newsymptom: {
-        medicine: "",
-        dosage: "",
+      newSymptoms: {
         symptoms: [],
         timestamp: "", // Lisatakse automaatselt
       },
-      symptomList: ["Nohu", "Köha", "Iiveldus/oksendamine", "Peavalu", "Liigesvalu", "Kõhuvalu"],
+      symptomList: ["Nohu", "Köha", "Iiveldus/oksendamine", "Peavalu", "Liigesvalu", "Kõhuvalu", "Muu"],
     };
   },
   computed: {
     sortedAndSlicedRecords() {
-      return this.symptoms
+      return this.newSymptoms.symptoms
           .slice()
           .sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp))
           .slice(0, this.visibleCount);

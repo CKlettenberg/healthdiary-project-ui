@@ -31,6 +31,7 @@
 
           <!-- Right panel with symptoms, medications, and additional info -->
           <div class="right-panel">
+            <h1 class="title">{{ patient.patientFullName }}</h1>
 
             <!-- Lisa palavikuandmete vorm -->
             <div class="add-fever-form">
@@ -57,25 +58,35 @@
                       required
                   />
                 </div>
+
+              <div class="medication-panel">
+                <div class="form-group">
+                  <label for="medicationName">Manustatud palaviku alandajat:</label>
+                  <input placeholder="ravimi nimetus või toimeaine"
+                      type="text"
+                      id="medicationName"
+                      v-model="newFeverRecord.medicationName"
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="medicationDosage">Manustatud palaviku alandaja doos:</label>
+                  <input placeholder="ravimi annus (näiteks 20 ml,  1 tablett 500 mg)"
+                         type="text"
+                         id="medicationDosage"
+                         v-model="newFeverRecord.medicationDosage"
+                  />
+              </div>
+              </div>
                 <div class="form-actions">
                   <button type="submit" class="btn-submit">Salvesta</button>
                   <button type="button" @click="cancelAddFever" class="btn-cancel">Tühista</button>
                 </div>
               </form>
-            </div>
 
-            <div v-if="getPatientFeverRecords.length > 0" class="fever-records">
-              <ul>
-                <li v-for="(item, index) in getPatientFeverRecords" :key="index">
-                  <span class="record-id">{{ item.id }}</span>
-                  <span class="record-time">{{ item.time }}</span>
-                  <span class="record-temperature">{{ item.temperature }} °C</span>
-                </li>
-              </ul>
-            </div>
           </div>
         </div>
       </div>
+    </div>
     </div>
 
   </div>
@@ -99,29 +110,51 @@ export default {
   },
   data() {
     return {
+      patient: {},
       getPatientFeverRecords: [],
       temperature: 36.5,
       newFeverRecord: {
         temperature: 36.5,
-        time: ''
+        time: '',
+        medicationName: '',
+        medicationDosage: ''
       }
     };
   },
   methods: {
-    async addFeverRecord() {
+    async fetchPatientDetails() {
+      const token = localStorage.getItem("token");
+      const patientId = this.$route.params.patientId;
+
+      try {
+        const response = await axios.get(
+            `http://localhost:8091/api/patients/${patientId}`,
+            {
+              headers: { Authorization: `Bearer ${token}` },
+            }
+        );
+        this.patient = response.data;
+      } catch (error) {
+        console.error("Error fetching patient details:", error);
+      }
+    },
+        async addFeverRecord() {
       try {
         const patientId = this.patientId;
         this.newFeverRecord.patientId = patientId;
+        console.log(this.newFeverRecord);
         await axios.post("http://localhost:8091/api/fever/new", this.newFeverRecord);
         this.$emit('fetch-fever', '');
         this.closeModal();
       } catch (error) {
-        console.error("Viga palavikuandme lisamisel:", error);
+        console.error("Viga palavikuandmete lisamisel:", error);
       }
     },
     cancelAddFever() {
       this.newFeverRecord.temperature = '';
       this.newFeverRecord.time = '';
+      this.newFeverRecord.medicationName = '';
+      this.newFeverRecord.medicationDosage = '';
       this.closeModal();
     },
     watch: {
@@ -141,6 +174,10 @@ export default {
       this.$emit('update:isOpen', false);
     }
   },
+  mounted() {
+    this.fetchPatientDetails();
+  }
+
 };
 </script>
 

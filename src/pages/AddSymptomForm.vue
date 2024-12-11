@@ -5,15 +5,15 @@
       <div class="modal-content">
 
         <!-- Palavikurohtude ja sümptomite vorm -->
-        <div class="add-treatment-form">
+        <div class="add-symptom-form">
           <h2>Valikuline: lisa ravimid ja sümptomid</h2>
-          <form @submit.prevent="addTreatmentRecord">
+          <form @submit.prevent="addSymptom">
             <div class="form-group">
               <label for="medicine">Ravimid::</label>
               <input
                   type="text"
                   id="medicine"
-                  v-model="newTreatmentRecord.medicine"
+                  v-model="newSymptom.medicine"
                   placeholder="Sisesta ravimi nimi"
               />
             </div>
@@ -22,7 +22,7 @@
               <input
                   type="text"
                   id="dosage"
-                  v-model="newTreatmentRecord.dosage"
+                  v-model="newSymptom.dosage"
                   placeholder="Sisesta kogus (nt 1 tablett, 5 ml)"
               />
             </div>
@@ -31,7 +31,7 @@
               <input
                   type="datetime-local"
                   id="time"
-                  v-model="newTreatmentRecord.time"
+                  v-model="newSymptom.time"
                   placeholder="Sisesta kellaaeg)"
               />
             </div>
@@ -42,7 +42,7 @@
                 <label>
                   <input
                       type="checkbox"
-                      v-model="newTreatmentRecord.symptoms"
+                      v-model="newSymptom.symptoms"
                       :value="symptom"
                   />
                   {{ symptom }}
@@ -52,13 +52,13 @@
 
             <div class="form-actions">
               <button type="submit" class="btn-submit">Salvesta</button>
-              <button type="button" @click="cancelAddTreatment" class="btn-cancel">Tühista</button>
+              <button type="button" @click="cancelAddSymptom" class="btn-cancel">Tühista</button>
             </div>
           </form>
         </div>
-        <div v-if="getPatientTreatmentRecords.length > 0" class="fever-records">
+        <div v-if="getPatientSymptoms.length > 0" class="fever-records">
           <ul>
-            <li v-for="(item, index) in getPatientTreatmentRecords" :key="index">
+            <li v-for="(item, index) in getPatientSymptoms" :key="index">
               <span class="record-id">{{ item.id }}</span>
               <span class="record-time">{{ item.time }}</span>
               <span class="record-medicine">{{ item.medicine }}</span>
@@ -77,7 +77,7 @@
 import axios from "axios";
 
 export default {
-  name: "add-treatment-data",
+  name: "add-symptom-data",
   props: {
     patientId: {
       type: Number,
@@ -90,8 +90,8 @@ export default {
   },
   data() {
     return {
-      getPatientTreatmentRecords: [],
-      newTreatmentRecord: {
+      getPatientSymptoms: [],
+      newSymptom: {
         time: '',
         medicine: '',
         dosage: '',
@@ -102,25 +102,25 @@ export default {
     };
   },
   methods: {
-    async addTreatmentRecord() {
+    async addSymptom() {
       try {
-        const newTreatmentRecord = {
-          newTreatmentRecord: this.newTreatmentRecord,
+        const newSymptom = {
+          newSymptom: this.newSymptom,
           patientId: this.patientId,
           timestamp: new Date().toISOString(),
         };
-        await axios.post("http://localhost:8091/api/treatment/new", newTreatmentRecord);
-        this.$emit("fetch-treatments", ''); // Teavita vanemat uute andmete küsimisest
+        await axios.post("http://localhost:8091/api/symptom/new", newSymptom);
+        this.$emit("fetch-symptoms", ''); // Teavita vanemat uute andmete küsimisest
         this.closeModal();
       } catch (error) {
         console.error("Viga andmete lisamisel:", error);
       }
     },
-    cancelAddTreatment() {
-      this.newTreatmentRecord.time = '';
-      this.newTreatmentRecord.medicine = '';
-      this.newTreatmentRecord.dosage = '';
-      this.newTreatmentRecord.symptoms = [];
+    cancelAddSymptom() {
+      this.newSymptom.time = '';
+      this.newSymptom.medicine = '';
+      this.newSymptom.dosage = '';
+      this.newSymptom.symptoms = [];
       this.closeModal();
     },
     openModal() {
@@ -134,7 +134,7 @@ export default {
 </script>
 
 <style>
-.add-treatment-form {
+.add-symptom-form {
   background-color: #f9f9f9;
   border-radius: 8px;
   padding: 20px;

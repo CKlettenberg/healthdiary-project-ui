@@ -4,8 +4,10 @@
   <table class="custom-table">
     <thead>
     <tr>
-      <th class="header-cell">Aeg</th>
+      <th class="header-cell">Kellaaeg</th>
       <th class="header-cell">Temperatuur (°C)</th>
+      <th class="header-cell">Manustatud ravimi nimetus</th>
+      <th class="header-cell">Manustatud ravimi doos</th>
       <th class="header-cell">Kustuta</th>
     </tr>
     </thead>
@@ -14,6 +16,8 @@
 
       <td class="table-data">{{ convertToIso(entry.time) }}</td>
       <td class="table-data">{{ entry.temperature }} (°C) </td>
+      <td class="table-data">{{ entry.medicationName }} </td>
+      <td class="table-data">{{ entry.medicationDosage }} </td>
       <td class="table-data"><button class="delete-button" @click="deleteFeverRecord(entry.id)" >
         Kustuta</button></td>
     </tr>

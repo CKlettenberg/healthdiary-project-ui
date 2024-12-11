@@ -9,8 +9,8 @@ import PatientsList from "@/pages/PatientsList.vue";
 import AddNewPatientData from "@/pages/AddNewPatientData.vue";
 import AddFeverForm from "@/pages/AddFeverForm.vue";
 
-import AddTreatmentForm from "@/pages/AddTreatmentForm.vue";
 import EditPatient from "@/pages/EditPatient.vue";
+import AddSymptomForm from "@/pages/AddSymptomForm.vue";
 
 const routes = [
     {
@@ -71,9 +71,9 @@ const routes = [
         props: true, // Ensure props are passed to the component
     },
     {
-    path: "/add-treatment-data",
-    name: "AddTreatment",
-    component: AddTreatmentForm,
+    path: "/add-symptoms",
+    name: "AddSymptoms",
+    component: AddSymptomForm,
     meta: { requiresAuth: true },
 },
 

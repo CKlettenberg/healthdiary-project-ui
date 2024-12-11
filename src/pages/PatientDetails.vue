@@ -12,10 +12,10 @@
         @fetch-fever="fetchFeverRecords"
         ref="modal"
     />
-    <AddTreatmentData
+    <AddSymptoms
         :patientId="currentPatient.id"
-        v-model:isOpen="isTreatmentDataModalOpen"
-        @fetch-treatments="fetchTreatmentRecords"
+        v-model:isOpen="isSymptomModalOpen"
+        @fetch-symptoms="fetchSymptoms"
         ref="modal"
     />
     <!-- Patient Details -->
@@ -36,19 +36,19 @@
         :feverRecords="feverRecords"
         @fetch-fever="fetchFeverRecords"
     />
-    <TreatmentData
+    <SymptomsData
         v-if="currentPatient.id"
         :patientId="currentPatient.id"
-        :treatmentRecords="treatmentRecords"
-        @fetch-treatment="fetchTreatmentRecords"
+        :symptoms="SymptomsData"
+        @fetch-symptom="fetchSymptoms"
     />
-    <!-- Add New Fever Info Button -->
+    <!-- Add New Fever and Medication Info Button -->
     <div class="green-button-container">
       <button class="green-button" @click="addFeverRecord">Lisa palavik</button>
     </div>
-    <!-- Add New Medicine and Symptoms Info Button -->
+    <!-- Add New Symptoms Info Button -->
     <div class="green-button-container">
-      <button class="green-button" @click="addTreatmentRecord">Lisa rohud/sümptomid</button>
+      <button class="green-button" @click="addSymptom">Lisa sümptomid</button>
     </div>
     <!-- Add New Health Info Button -->
     <div class="green-button-container">
@@ -64,25 +64,31 @@
 import axios from "axios";
 import FeverData from "@/pages/FeverData.vue";
 import AddFeverData from "@/pages/AddFeverForm.vue";
-import AddTreatmentData from "@/pages/AddTreatmentForm.vue";
-import TreatmentData from "@/pages/TreatmentData.vue";
+import AddSymptoms from "@/pages/AddSymptomForm.vue";
+import SymptomsData from "@/pages/SymptomsData.vue";
 
 
 export default {
   name: "PatientDetails",
-  components: {TreatmentData, AddTreatmentData, AddFeverData, FeverData},  //Siit puudu
+  components: {AddSymptoms, AddFeverData, FeverData, SymptomsData},  //Siit puudu
   data() {
     return {
       isFeverDataModalOpen: false,
-      isTreatmentDataModalOpen: false,
+      isSymptomDataModalOpen: false,
+        newSymptoms: {
+          symptoms: [],
+          timestamp: ""
+        },
       feverRecords: [],
-      treatmentRecords: [],
       patients: [], // List of all patients
       currentPatientIndex: 0, // Index of the currently displayed patient
       startX: 0, // Start position for swipe
     };
   },
   computed: {
+    SymptomsData() {
+      return SymptomsData
+    },
     currentPatient() {
       return this.patients[this.currentPatientIndex] || {};
     },
@@ -140,22 +146,22 @@ export default {
         alert("No valid patient selected.");
       }
     },
-    async fetchTreatmentRecords() {
+    async fetchSymptom() {
       if (!this.currentPatient.id) return;
 
       try {
         const response = await axios.get(
-            `http://localhost:8091/api/treatment/patients/${this.currentPatient.id}/treatment-records`
+            `http://localhost:8091/api/symptoms/patients/${this.currentPatient.id}/symptom-records`
         );
-        this.treatmentRecords = response.data;
+        this.newSymptoms.symptom = response.data;
       } catch (error) {
-        console.error("Error loading treatment records:", error);
-        alert("Failed to load treatment records.");
+        console.error("Error loading symptoms records:", error);
+        alert("Failed to load symptoms records.");
       }
     },
-    addTreatmentRecord() {
+    addSymptom() {
       if (this.currentPatient && this.currentPatient.id) {
-        this.isTreatmentDataModalOpen = true; // Directly set the state to open the modal
+        this.isSymptomDataModalOpen = true; // Directly set the state to open the modal
       } else {
         alert("No valid patient selected.");
       }
@@ -179,7 +185,7 @@ export default {
   async mounted() {
     await this.fetchPatients();
     await this.fetchFeverRecords();
-    await this.fetchTreatmentRecords();
+    await this.fetchSymptom();
   },
 };
 </script>
