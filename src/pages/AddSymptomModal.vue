@@ -3,73 +3,49 @@
     <div class="modal">
       <button class="close-btn" @click="closeModal">X</button>
       <div class="modal-content">
-
-        <!-- Palavikurohtude ja sümptomite vorm -->
+        <!-- Sümptomite vorm -->
         <div class="add-symptom-form">
-          <h2>Valikuline: lisa ravimid ja sümptomid</h2>
-          <form @submit.prevent="addSymptom">
-            <div class="form-group">
-              <label for="medicine">Ravimid::</label>
-              <input
-                  type="text"
-                  id="medicine"
-                  v-model="newSymptom.medicine"
-                  placeholder="Sisesta ravimi nimi"
-              />
-            </div>
-            <div class="form-group">
-              <label for="dosage">Ravimi kogus:</label>
-              <input
-                  type="text"
-                  id="dosage"
-                  v-model="newSymptom.dosage"
-                  placeholder="Sisesta kogus (nt 1 tablett, 5 ml)"
-              />
-            </div>
+          <h2>Valikuline: lisa sümptomid</h2>
+          <form @submit.prevent="saveSymptoms">
+            <div class="form-group symptoms-group">
+              <h3>Sümptomid:</h3>
+                <label for="symptoms">Tee oma valik:</label>
+              <div v-for="(symptom, index) in symptomList" :key="index">
+                  <label class="hover-over-label">
+                    <input type="checkbox" v-model="newSymptom.symptoms" :value="symptom" />
+                    {{ symptom.name }}
+                  </label>
+
+              </div>
+              <label v-if="hasOther()" for="other-symptom">Sisesta kirjeldus:</label>
+              <input type="text" v-if="hasOther()" v-model="newSymptom.otherSymptom"/>
+              </div>
             <div class="form-group">
               <label for="time">Kuupäev ja kellaaeg:</label>
               <input
                   type="datetime-local"
                   id="time"
                   v-model="newSymptom.time"
-                  placeholder="Sisesta kellaaeg)"
+                  placeholder="Sisesta kuupäev ja kellaaeg"
+                  required
               />
             </div>
-
-            <div class="form-group symptoms-group">
-              <h3>Sümptomid:</h3>
-              <div v-for="(symptom, index) in symptomList" :key="index">
-                <label>
-                  <input
-                      type="checkbox"
-                      v-model="newSymptom.symptoms"
-                      :value="symptom"
-                  />
-                  {{ symptom }}
-                </label>
-              </div>
-            </div>
-
             <div class="form-actions">
-              <button type="submit" class="btn-submit">Salvesta</button>
-              <button type="button" @click="cancelAddSymptom" class="btn-cancel">Tühista</button>
+              <button type="button" @click="saveSymptoms" class="btn-submit">
+                Salvesta
+              </button>
+              <button
+                  type="button"
+                  @click="cancelSaveSymptoms"
+                  class="btn-cancel"
+              >
+                Tühista
+              </button>
             </div>
           </form>
-        </div>
-        <div v-if="getPatientSymptoms.length > 0" class="fever-records">
-          <ul>
-            <li v-for="(item, index) in getPatientSymptoms" :key="index">
-              <span class="record-id">{{ item.id }}</span>
-              <span class="record-time">{{ item.time }}</span>
-              <span class="record-medicine">{{ item.medicine }}</span>
-              <span class="record-dosage">{{ item.dosage }}</span>
-              <span class="record-symptoms">{{ item.symptoms }}</span>
-
-            </li>
-          </ul>
-        </div>
       </div>
     </div>
+  </div>
   </div>
 </template>
 
@@ -90,47 +66,70 @@ export default {
   },
   data() {
     return {
-      getPatientSymptoms: [],
       newSymptom: {
-        time: '',
-        medicine: '',
-        dosage: '',
+        time: "",
+        patientId: this.patientId || null,
         symptoms: [],
-
+        otherSymptom: ''
       },
-      symptomList: ["Nohu", "Köha", "Iiveldus/oksendamine", "Peavalu", "Lihasvalu", "Liigesvalu", "Kõhuvalu", "Muu"],
+      symptomList: [
+        {id: 1, name: "Nohu"},
+        {id: 2, name: "Köha"},
+        {id: 3, name: "Peavalu"},
+        {id: 4, name: "Lihasvalu"},
+        {id: 5, name: "Kõhuvalu"},
+        {id: 6, name: "Iiveldus/oksendamine"},
+        {id: 7, name: "Muu"},
+      ]
     };
   },
   methods: {
-    async addSymptom() {
+    async saveSymptoms() {
+      console.log(this.newSymptom)
+      if (!this.newSymptom.symptoms || this.newSymptom.symptoms.length === 0) {
+        alert("Please select at least one symptom.");
+        return;
+      }
+      console.log(this.newSymptom)
+      if (!this.newSymptom.time) {
+        alert("Please provide valid timestamps.");
+        return;
+      }
       try {
-        const newSymptom = {
-          newSymptom: this.newSymptom,
-          patientId: this.patientId,
-          timestamp: new Date().toISOString(),
-        };
-        await axios.post("http://localhost:8091/api/symptom/new", newSymptom);
-        this.$emit("fetch-symptoms", ''); // Teavita vanemat uute andmete küsimisest
+        await axios.post(`http://localhost:8091/api/symptoms/new`,
+            {
+              specificSymptomList: this.newSymptom.symptoms,
+              otherSymptom: this.newSymptom.otherSymptom,
+              time: this.newSymptom.time,
+              patientId: this.patientId,
+            }
+        );
+        this.newSymptom.time = "";
+        this.newSymptom.symptoms = [];
         this.closeModal();
+        this.$emit("fetch-symptoms", ""); // Notify parent to refresh data
       } catch (error) {
-        console.error("Viga andmete lisamisel:", error);
+        console.error("Error saving symptom:", error.response?.data || error.message);
+        alert("Error saving symptom.");
       }
     },
-    cancelAddSymptom() {
-      this.newSymptom.time = '';
-      this.newSymptom.medicine = '';
-      this.newSymptom.dosage = '';
+    hasOther() {
+      return this.newSymptom.symptoms.some(sym => sym.name === 'Muu');
+    },
+    cancelSaveSymptoms() {
+      // Reset symptom form fields
+      this.newSymptom.time = "";
       this.newSymptom.symptoms = [];
       this.closeModal();
     },
     openModal() {
-      this.$emit('update:isOpen', true);
+      this.$emit("update:isOpen", true);
     },
     closeModal() {
       this.$emit("update:isOpen", false);
     },
-    }
-};
+  }
+}
 </script>
 
 <style>
@@ -167,29 +166,60 @@ h3 {
   font-size: 1rem;
   margin-bottom: 5px;
 }
-input[type="text"], input[type="datetime-local"] {
-  width: 100%;
-  padding: 8px;
-  font-size: 1rem;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  box-sizing: border-box;
-}
 
-input[type="text"]:focus, input[type="datetime-local"]:focus {
-  border-color: #4CAF50;
-  outline: none;
-}
 .form-actions {
   display: flex;
   justify-content: space-between;
 }
-.record-id,
-.record-time,
-.record-medicine,
-.record-dosage,
-.record-symptoms {
-  font-size: 1rem;
-  color: #333;
+
+label {
+  display: flex;
+  align-items: center;
+  font-size: 16px;
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+
+/* Style the checkbox itself */
+input[type="checkbox"] {
+  margin-right: 10px;
+  accent-color: #4CAF50; /* Change color of checkbox (green in this case) */
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+}
+
+/* Optional: Add a hover effect on the label */
+.hover-over-label:hover {
+  background-color: #f1f1f1;
+  border-radius: 5px;
+  padding: 5px;
+}
+
+input[type="text"], input[type="password"], input[type="email"], input[type="number"] {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-top: 5px;
+  box-sizing: border-box; /* Ensures padding is included in width */
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Focus effect */
+input[type="text"]:focus, input[type="password"]:focus, input[type="email"]:focus, input[type="number"]:focus {
+  border-color: #4CAF50; /* Change border color on focus */
+  box-shadow: 0 0 5px rgba(76, 175, 80, 0.5); /* Add glow effect on focus */
+  outline: none; /* Remove default focus outline */
+}
+
+/* Optional: Style for invalid input */
+input:invalid {
+  border-color: #f44336; /* Red border for invalid input */
+}
+
+input:valid {
+  border-color: #4CAF50; /* Green border for valid input */
 }
 </style>

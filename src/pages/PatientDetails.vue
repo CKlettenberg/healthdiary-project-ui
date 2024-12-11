@@ -39,16 +39,16 @@
     <SymptomsData
         v-if="currentPatient.id"
         :patientId="currentPatient.id"
-        :symptoms="SymptomsData"
+        :symptoms="symptomsData"
         @fetch-symptom="fetchSymptoms"
     />
     <!-- Add New Fever and Medication Info Button -->
     <div class="green-button-container">
-      <button class="green-button" @click="addFeverRecord">Lisa palavik</button>
+      <button class="green-button" @click="addFeverRecord">Lisa palavik ja manustatud rohud</button>
     </div>
     <!-- Add New Symptoms Info Button -->
     <div class="green-button-container">
-      <button class="green-button" @click="addSymptom">Lisa sümptomid</button>
+      <button class="green-button" @click="saveSymptoms">Lisa sümptomid</button>
     </div>
     <!-- Add New Health Info Button -->
     <div class="green-button-container">
@@ -73,12 +73,9 @@ export default {
   components: {AddSymptoms, AddFeverData, FeverData, SymptomsData},  //Siit puudu
   data() {
     return {
+      symptomsData: [],
       isFeverDataModalOpen: false,
       isSymptomDataModalOpen: false,
-        newSymptoms: {
-          symptoms: [],
-          timestamp: ""
-        },
       feverRecords: [],
       patients: [], // List of all patients
       currentPatientIndex: 0, // Index of the currently displayed patient
@@ -86,9 +83,6 @@ export default {
     };
   },
   computed: {
-    SymptomsData() {
-      return SymptomsData
-    },
     currentPatient() {
       return this.patients[this.currentPatientIndex] || {};
     },
@@ -153,13 +147,13 @@ export default {
         const response = await axios.get(
             `http://localhost:8091/api/symptoms/patients/${this.currentPatient.id}/symptom-records`
         );
-        this.newSymptoms.symptom = response.data;
+        this.symptomsData = response.data;
       } catch (error) {
         console.error("Error loading symptoms records:", error);
         alert("Failed to load symptoms records.");
       }
     },
-    addSymptom() {
+    saveSymptoms() {
       if (this.currentPatient && this.currentPatient.id) {
         this.isSymptomDataModalOpen = true; // Directly set the state to open the modal
       } else {

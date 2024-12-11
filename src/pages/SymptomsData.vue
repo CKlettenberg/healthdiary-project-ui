@@ -12,7 +12,7 @@
       <tbody v-if="symptoms.length > 0">
       <tr v-for="(record, index) in sortedAndSlicedRecords" :key="index">
         <td>{{ convertToIso(record.timestamp) }}</td>
-        <td>{{ record.symptoms.join(', ') }}</td>
+        <td>{{ record.name }}</td>
         <td><button class="green-button" @click="updateSymptom(record.id)">
           Kustuta</button></td>
       </tr>
@@ -41,16 +41,12 @@ export default {
   },
   data() {
     return {
-      visibleCount: 2,
-      newSymptoms: {
-        symptoms: [],
-        timestamp: "", // Lisatakse automaatselt
-      },
-      symptomList: ["Nohu", "Köha", "Iiveldus/oksendamine", "Peavalu", "Liigesvalu", "Kõhuvalu", "Muu"],
+      visibleCount: 2
     };
   },
   computed: {
     sortedAndSlicedRecords() {
+      console.log(this.symptoms)
       return this.symptoms
           .slice()
           .sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp))
