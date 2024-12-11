@@ -74,7 +74,7 @@ export default {
       const confirmation = confirm("Olete kindel, et soovite andmeid kustutada?");
       if (!confirmation) return;
       const token = localStorage.getItem("token");
-      axios.put(`http://localhost:8091/api/symptom/delete/${id}`, {}
+      axios.put(`http://localhost:8091/api/symptoms/delete/${id}`, {}
           , {
             headers: { Authorization: `Bearer ${token}` },
           })
