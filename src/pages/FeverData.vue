@@ -1,31 +1,31 @@
 <template>
   <div class="table-container">
-  <h2 class="table-title">Temperatuuri ajalugu</h2>
-  <table class="custom-table">
-    <thead>
-    <tr>
-      <th class="header-cell">Kellaaeg</th>
-      <th class="header-cell">Temperatuur (°C)</th>
-      <th class="header-cell">Manustatud ravimi nimetus</th>
-      <th class="header-cell">Manustatud ravimi doos</th>
-      <th class="header-cell">Kustuta</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr v-for="(entry, index) in sortedAndSlicedRecords" :key="index">
+    <h2 class="table-title">Temperatuur ja ravimid</h2>
+    <table class="custom-table">
+      <thead>
+      <tr>
+        <th class="header-cell">Kellaaeg</th>
+        <th class="header-cell">Temperatuur (°C)</th>
+        <th class="header-cell">Ravimi nimetus</th>
+        <th class="header-cell">Ravimi doos</th>
+        <th class="header-cell">Kustuta</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr v-for="(entry, index) in sortedAndSlicedRecords" :key="index">
 
-      <td class="table-data">{{ convertToIso(entry.time) }}</td>
-      <td class="table-data">{{ entry.temperature }} (°C) </td>
-      <td class="table-data">{{ entry.medicationName }} </td>
-      <td class="table-data">{{ entry.medicationDosage }} </td>
-      <td class="table-data"><button class="delete-button" @click="deleteFeverRecord(entry.id)" >
-        Kustuta</button></td>
-    </tr>
-    </tbody>
-  </table>
+        <td class="table-data">{{ convertToIso(entry.time) }}</td>
+        <td class="table-data">{{ entry.temperature }} (°C) </td>
+        <td class="table-data">{{ entry.medicationName }} </td>
+        <td class="table-data">{{ entry.medicationDosage }} </td>
+        <td class="table-data"><button class="delete-button" @click="deleteFeverRecord(entry.id)" >
+          Kustuta</button></td>
+      </tr>
+      </tbody>
+    </table>
     <div class="table-footer" v-if="feverRecords.length > visibleCount">
-    <button class="green-button" @click="showAll">Kuva rohkem</button>
-  </div>
+      <button class="green-button" @click="showAll">Kuva rohkem</button>
+    </div>
   </div>
 </template>
 <script>
@@ -82,8 +82,8 @@ export default {
       const token = localStorage.getItem("token");
       axios.put(`http://localhost:8091/api/fever/delete/${id}`
           , {
-       headers: { Authorization: `Bearer ${token}` },
-      })
+            headers: { Authorization: `Bearer ${token}` },
+          })
           .then(() => {
             console.log("Andmed edukalt kustutatud:");
             this.$emit('fetch-fever', '');
@@ -96,22 +96,22 @@ export default {
       // Suurendab nähtavate ridade arvu
       this.visibleCount =this.feverRecords.length;
     },
-    },
+  },
 }
 </script>
 
 .delete-button {
-  font-size: 18px; /* Your custom font size */
-  color: white;
-  background-color: #2ecc71;
-  border: none;
-  border-radius: 5px;
-  padding: 10px 15px;
-  cursor: pointer;
+font-size: 18px; /* Your custom font size */
+color: white;
+background-color: #2ecc71;
+border: none;
+border-radius: 5px;
+padding: 10px 15px;
+cursor: pointer;
 }
 
 .delete-button:hover {
-  background-color: #27ae60;
+background-color: #27ae60;
 }
 
 <style scoped>
