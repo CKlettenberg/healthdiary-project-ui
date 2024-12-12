@@ -23,10 +23,19 @@
       <p><strong>Sünniaeg:</strong> {{ currentPatient.dateOfBirth }}</p>
       <p><strong>Kaal:</strong> {{ currentPatient.weight }} kg</p>
     </div>
+    <div class="green-button-container">
+      <button class="green-button" @click="editPatient">Muuda patsiendi andmeid</button>
+    </div>
 
     <!-- Swipe Instructions -->
     <div class="swipe-instructions">
       <p>Libistage vasakule või paremale, või vajutage nooleklahve, et vaadata teisi patsiente.</p>
+    </div>
+    <div class="green-button-container">
+      <button class="green-button" @click="addFeverRecord">Lisa palavik ja ravimid</button>
+    </div>
+    <div class="green-button-container">
+      <button class="green-button" @click="saveSymptoms">Lisa sümptomid</button>
     </div>
     <!-- Fever Data -->
     <FeverData
@@ -41,21 +50,7 @@
         :symptoms="symptomsData"
         @fetch-symptom="fetchSymptoms"
     />
-    <!-- Add New Fever and Medication Info Button -->
-    <div class="green-button-container">
-      <button class="green-button" @click="addFeverRecord">Lisa palavik ja manustatud rohud</button>
-    </div>
-    <!-- Add New Symptoms Info Button -->
-    <div class="green-button-container">
-      <button class="green-button" @click="saveSymptoms">Lisa sümptomid</button>
-    </div>
-    <!-- Add New Health Info Button -->
-    <div class="green-button-container">
-      <button class="green-button" @click="addHealthInfo">Lisa uus tervise info</button>
-    </div>
-    <div class="green-button-container">
-      <button class="green-button" @click="editPatient">Muuda patsiendi andmeid</button>
-    </div>
+
   </div>
 </template>
 
@@ -186,10 +181,10 @@ export default {
 <style scoped>
 /* Styling for Patient Details Page */
 .patient-details {
-    font-size: 1rem;
-    color: black;
-    margin-bottom: 30px;
-    text-align: center;
+  font-size: 1rem;
+  color: black;
+  margin-bottom: 30px;
+  text-align: center;
 }
 
 .swipe-instructions {
