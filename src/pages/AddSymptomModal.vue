@@ -149,19 +149,6 @@ export default {
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-h2 {
-  font-size: 1.8rem;
-  color: #333;
-  margin-bottom: 20px;
-  text-align: center;
-}
-
-h3 {
-  font-size: 1.2rem;
-  margin-bottom: 10px;
-  color: #555;
-}
-
 .symptoms-group {
   margin-bottom: 15px;
 }
@@ -173,55 +160,138 @@ h3 {
   margin-bottom: 5px;
 }
 
+h2 {
+  font-size: 1.8rem;
+  color: #333;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+label {
+  display: block;
+  font-size: 1rem;
+  color: #555;
+  margin-bottom: 5px;
+}
+
+input[type="text"], input[type="datetime-local"] {
+  width: 100%;
+  padding: 8px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+input[type="text"]:focus, input[type="datetime-local"]:focus {
+  border-color: #4CAF50;
+  outline: none;
+}
+
 .form-actions {
   display: flex;
   justify-content: space-between;
 }
 
-label {
-  display: flex;
-  align-items: center;
-  font-size: 16px;
-  margin-bottom: 10px;
+button {
+  padding: 10px 20px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 4px;
   cursor: pointer;
+  transition: background-color 0.3s;
 }
 
-input[type="checkbox"] {
-  margin-right: 10px;
-  accent-color: #4CAF50;
-  width: 20px;
-  height: 20px;
-  cursor: pointer;
+.btn-submit {
+  background-color: #4CAF50;
+  color: white;
 }
 
-.hover-over-label:hover {
+.btn-submit:hover {
+  background-color: #45a049;
+}
+
+.btn-cancel {
+  background-color: #f44336;
+  color: white;
+}
+
+.btn-cancel:hover {
+  background-color: #e53935;
+}
+
+ul {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+li {
   background-color: #f1f1f1;
-  border-radius: 5px;
-  padding: 5px;
-}
-
-input[type="text"], input[type="password"], input[type="email"], input[type="number"] {
-  width: 100%;
   padding: 10px;
-  font-size: 16px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  margin-top: 5px;
-  box-sizing: border-box;
-  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  margin-bottom: 10px;
+  border-radius: 4px;
+  justify-content: space-between;
 }
 
-input[type="text"]:focus, input[type="password"]:focus, input[type="email"]:focus, input[type="number"]:focus {
-  border-color: #4CAF50;
-  box-shadow: 0 0 5px rgba(76, 175, 80, 0.5);
-  outline: none;
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6); /* Slightly darker for better contrast */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000; /* Ensure the modal stays on top */
 }
 
-input:invalid {
-  border-color: #f44336;
+.modal {
+  background: #ffffff;
+  padding: 30px;
+  border-radius: 10px;
+  width: 90%;
+  max-width: 800px;
+  position: relative;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  animation: modal-in 0.3s ease-out;
 }
 
-input:valid {
-  border-color: #4CAF50;
+@keyframes modal-in {
+  from {
+    transform: scale(0.9);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
 }
+
+.close-btn {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  border: none;
+  background: transparent;
+  font-size: 20px;
+  color: #888;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+
+.close-btn:hover {
+  color: #333; /* Darker color on hover */
+}
+
+.modal-content {
+  margin-top: 20px;
+  font-size: 1.1rem;
+  color: #555;
+}
+
 </style>
