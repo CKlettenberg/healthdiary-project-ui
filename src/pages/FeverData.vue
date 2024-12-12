@@ -106,6 +106,7 @@ export default {
 }
 </script>
 
+<style>
 .delete-button {
 font-size: 18px; /* Your custom font size */
 color: white;
@@ -120,7 +121,6 @@ cursor: pointer;
 background-color: #27ae60;
 }
 
-<style scoped>
 /* Container Styles */
 .table-container {
   max-width: 600px;
