@@ -89,9 +89,6 @@ export default {
     };
   },
   computed: {
-    dayjs() {
-      return dayjs
-    },
     formattedDateTime() {
       return dayjs(this.newSymptom.time).format("DD/MM/YYYY HH:mm");
     },
