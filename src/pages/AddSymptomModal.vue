@@ -22,13 +22,33 @@
               </div>
             <div class="form-group">
               <label for="time">Kuupäev ja kellaaeg:</label>
-              <input
-                  type="datetime-local"
-                  id="time"
-                  v-model="newSymptom.time"
-                  placeholder="Sisesta kuupäev ja kellaaeg"
-                  required
-              />
+              <div v-if="!isEditingDateTime" class="date-time-display">
+                <span>{{ formattedDateTime }}</span>
+                <button
+                    type="button"
+                    class="btn-edit"
+                    @click="isEditingDateTime = true"
+                >
+                  Muuda
+                </button>
+              </div>
+              <div v-else>
+                <vue3-datepicker
+                    v-model="newSymptom.time"
+                    :enable-time-picker="true"
+                    format="dd/mm/yyyy HH:mm"
+                    :append-to-body="true"
+                    placement="bottom-start"
+                    required
+                />
+                <button
+                    type="button"
+                    class="btn-edit"
+                    @click="isEditingDateTime = false"
+                >
+                  Salvesta
+                </button>
+              </div>
             </div>
             <div class="form-actions">
               <button type="button" @click="saveSymptoms" class="btn-submit">
@@ -51,9 +71,14 @@
 
 <script>
 import axios from "axios";
+import Vue3Datepicker from "@vuepic/vue-datepicker";
+import "@vuepic/vue-datepicker/dist/main.css";
+import dayjs from "dayjs";
+
 
 export default {
   name: "add-symptom-data",
+  components: { Vue3Datepicker },
   props: {
     patientId: {
       type: Number,
@@ -66,22 +91,28 @@ export default {
   },
   data() {
     return {
+      isEditingDateTime: false, // Controls whether the datepicker is visible
       newSymptom: {
-        time: "",
+        time: dayjs().format("YYYY-MM-DDTHH:mm"), // Default to local time in ISO format
         patientId: this.patientId || null,
         symptoms: [],
-        otherSymptom: ''
+        otherSymptom: "",
       },
       symptomList: [
-        {id: 1, name: "Nohu"},
-        {id: 2, name: "Köha"},
-        {id: 3, name: "Peavalu"},
-        {id: 4, name: "Lihasvalu"},
-        {id: 5, name: "Kõhuvalu"},
-        {id: 6, name: "Iiveldus/oksendamine"},
-        {id: 7, name: "Muu"},
-      ]
+        { id: 1, name: "Nohu" },
+        { id: 2, name: "Köha" },
+        { id: 3, name: "Peavalu" },
+        { id: 4, name: "Lihasvalu" },
+        { id: 5, name: "Kõhuvalu" },
+        { id: 6, name: "Iiveldus/oksendamine" },
+        { id: 7, name: "Muu" },
+      ],
     };
+  },
+  computed: {
+    formattedDateTime() {
+      return dayjs(this.newSymptom.time).format("DD/MM/YYYY HH:mm");
+    },
   },
   methods: {
     async saveSymptoms() {
@@ -104,8 +135,9 @@ export default {
               patientId: this.patientId,
             }
         );
-        this.newSymptom.time = "";
+        this.newSymptom.time = dayjs().format("YYYY-MM-DDTHH:mm"); // Reset to current local time
         this.newSymptom.symptoms = [];
+        this.isEditingDateTime = false; // Reset edit state
         this.closeModal();
         this.$emit("fetch-symptoms", ""); // Notify parent to refresh data
       } catch (error) {
@@ -117,13 +149,10 @@ export default {
       return this.newSymptom.symptoms.some(sym => sym.name === 'Muu');
     },
     cancelSaveSymptoms() {
-      // Reset symptom form fields
-      this.newSymptom.time = "";
+      this.newSymptom.time = dayjs().format("YYYY-MM-DDTHH:mm"); // Reset to local time
       this.newSymptom.symptoms = [];
+      this.isEditingDateTime = false; // Reset edit state
       this.closeModal();
-    },
-    openModal() {
-      this.$emit("update:isOpen", true);
     },
     closeModal() {
       this.$emit("update:isOpen", false);
