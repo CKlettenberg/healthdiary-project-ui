@@ -7,7 +7,7 @@
       </div>
 
       <div v-if="!patients.length" class="no-patients">
-        <p>Patsiente pole leitud. Vajutage "Lisa patsient", et luua uus.</p>
+        <p>Patsiente pole leitud. Vajutage "Lisa patsient", et luua uus patsient.</p>
       </div>
 
       <div v-else>

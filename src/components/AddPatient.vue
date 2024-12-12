@@ -31,7 +31,7 @@
               required
           />
         </div>
-        <button type="submit" class="green-button">Salvesta Patsient</button>
+        <button type="submit" class="green-button">Salvesta patsient</button>
       </form>
       <p v-if="errorMessage" class="error-message">{{ errorMessage }}</p>
     </div>

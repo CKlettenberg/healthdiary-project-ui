@@ -7,9 +7,9 @@ import AddPatient from "@/components/AddPatient.vue";
 import PatientDetails from "@/pages/PatientDetails.vue";
 import PatientsList from "@/pages/PatientsList.vue";
 import AddFeverForm from "@/pages/AddFeverModal.vue";
-
 import EditPatient from "@/pages/EditPatient.vue";
 import AddSymptomForm from "@/pages/AddSymptomModal.vue";
+import PdfGenerator from "@/components/PdfGenerator.vue";
 
 const routes = [
     {
@@ -68,7 +68,14 @@ const routes = [
     name: "AddSymptoms",
     component: AddSymptomForm,
     meta: { requiresAuth: true },
-},
+    },
+    {
+        path: '/pdf',
+        name: 'PdfViewer',
+        component: PdfGenerator,
+        meta: { requiresAuth: true },
+    },
+
 
 
 ];

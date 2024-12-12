@@ -2,7 +2,7 @@
   <div>
     <!-- Patient Details -->
     <div class="patient-details">
-      <h1 class="title">Muuda Patsienti</h1>
+      <h1 class="title">Muuda patsienti</h1>
       <h1 class="title">{{ patient.patientFullName }}</h1>
       <p><strong>Sünniaeg:</strong> {{ patient.dateOfBirth }}</p>
       <p><strong>Kaal:</strong> {{ patient.weight }} kg</p>

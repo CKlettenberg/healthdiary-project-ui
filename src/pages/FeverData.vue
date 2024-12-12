@@ -1,6 +1,9 @@
 <template>
   <div class="table-container">
-    <h2 class="table-title">Temperatuur ja ravimid</h2>
+    <h2 class="table-title">Temperatuur ja ravimid</h2> <div>
+    <PdfGenerator />
+  </div>
+
     <table class="custom-table">
       <thead>
       <tr>
@@ -23,17 +26,20 @@
       </tr>
       </tbody>
     </table>
+
     <div class="table-footer" v-if="feverRecords.length > visibleCount">
       <button class="green-button" @click="showAll">Kuva rohkem</button>
     </div>
   </div>
 </template>
-<script>
 
+<script>
 import axios from "axios";
+import PdfGenerator from "@/components/PdfGenerator.vue";
 
 export default {
   name: "feverData",
+  components: {PdfGenerator},
   props: {
     feverRecords: {
       type: Array, // Expect an array type
