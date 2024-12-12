@@ -1,19 +1,18 @@
 <template>
   <div class="table-container">
-    <h2 class="table-title">Sümptomid</h2>
     <table class="custom-table">
       <thead>
       <tr>
         <th>Kellaaeg</th>
         <th>Sümptomid</th>
-        <th>Kustuta</th>
+        <th></th>
       </tr>
       </thead>
       <tbody v-if="symptoms.length > 0">
       <tr v-for="(record, index) in sortedAndSlicedRecords" :key="index">
         <td>{{ convertToIso(record.timestamp) }}</td>
         <td>{{ record.name }}</td>
-        <td><button class="green-button" @click="updateSymptom(record.id)">
+        <td><button class="delete-button" @click="updateSymptom(record.id)">
           Kustuta</button></td>
       </tr>
       </tbody>
@@ -98,7 +97,7 @@ export default {
 .delete-button {
   font-size: 18px; /* Your custom font size */
   color: white;
-  background-color: #2ecc71;
+  background-color: #22df74;
   border: none;
   border-radius: 5px;
   padding: 10px 15px;
@@ -106,7 +105,7 @@ export default {
 }
 
 .delete-button:hover {
-  background-color: #27ae60;
+  background-color: #aa1a1a;
 }
 
 /* Container Styles */
@@ -119,15 +118,6 @@ export default {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   background-color: #ffffff;
 }
-
-/* Title Styles */
-.table-title {
-  font-size: 1.5rem;
-  text-align: center;
-  margin-bottom: 16px;
-  color: #333;
-}
-
 /* Table Styles */
 .custom-table {
   width: 100%;
@@ -145,8 +135,10 @@ export default {
 /* Header Row Styles */
 .custom-table th {
   background-color: #2ecc71;
+  text-align: center;
   color: #ffffff;
   font-weight: bold;
+  font-size: 1.3rem;
 }
 
 /* Body Row Styles */
@@ -176,28 +168,6 @@ export default {
   cursor: pointer;
   transition: background-color 0.3s, transform 0.2s;
 }
-.delete-button {
-  font-size: 16px; /* Your custom font size */
-  color: white;
-  background-color: #2ecc71;
-  border: none;
-  border-radius: 5px;
-  padding: 10px 15px;
-  cursor: pointer;
-}
 
-.delete-button:hover {
-  background-color: #27ae60;
-}
-.header-cell {
-  font-size: 16px; /* Change the font size */
-  text-align: center; /* Align the text (left, center, right) */
-  vertical-align: middle; /* Align vertically (top, middle, bottom) */
-  padding: 10px; /* Adjust padding if needed */
-}
-.table-data{
-  font-size: 16px; /* Change the font size */
-  text-align: center; /* Align the text (left, center, right) */
-  vertical-align: middle;
-}
+
 </style>

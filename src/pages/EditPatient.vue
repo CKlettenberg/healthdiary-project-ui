@@ -81,6 +81,7 @@ export default {
             { headers: { Authorization: `Bearer ${token}` } }
         );
         this.patient = response.data;
+        this.updatePatient = response.data;
       } catch (error) {
         console.error("Error fetching patient details:", error);
         alert("Failed to load patient details. Please try again.");

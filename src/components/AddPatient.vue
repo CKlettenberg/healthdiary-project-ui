@@ -1,7 +1,7 @@
 <template>
   <div class="health-diary-app">
     <div class="add-patient-form">
-      <h2 class="title">Lisa Andmed</h2>
+      <h2 class="title">Lisa uue patsiendi andmed</h2>
       <form @submit.prevent="handleAddPatient" class="form-container">
         <div class="input-group">
           <label for="patientFullName" class="label">Nimi:</label>
@@ -118,7 +118,7 @@ export default {
 
 .label {
   font-size: 1.2rem;
-  color: #ffffff;
+  color: #0e0c0c;
   margin-bottom: 8px;
 }
 
