@@ -49,7 +49,7 @@ export default {
   },
   methods: {
     goToMenu() {
-      this.$router.push("/menu");
+      this.$router.push("/patients");
     }
   },
   computed: {
