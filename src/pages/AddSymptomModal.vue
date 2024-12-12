@@ -138,7 +138,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
 .add-symptom-form {
   background-color: #f9f9f9;
   border-radius: 8px;
