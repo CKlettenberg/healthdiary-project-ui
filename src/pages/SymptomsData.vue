@@ -46,7 +46,6 @@ export default {
   },
   computed: {
     sortedAndSlicedRecords() {
-      console.log(this.symptoms)
       return this.symptoms
           .slice()
           .sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp))
@@ -79,7 +78,6 @@ export default {
             headers: {Authorization: `Bearer ${token}`},
           })
           .then(() => {
-            console.log("Andmed edukalt kustutatud:");
             this.$emit('fetch-symptom', '');
           })
           .catch(error => {

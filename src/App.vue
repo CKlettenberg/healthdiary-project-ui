@@ -34,7 +34,6 @@ export default {
     const authStore = useAuthStore();
 
     const handleLogout = () => {
-      console.log('logging out', router)
       authStore.logout(router); // Pass the router instance to the store's logout action
     };
 
