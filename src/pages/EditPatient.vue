@@ -18,7 +18,7 @@
               type="text"
               id="name"
               class="input-field"
-              required
+
           />
         </div>
         <div class="input-group">
@@ -42,7 +42,7 @@
         <button type="submit" class="green-button">Salvesta</button>
       </form>
       <!-- Delete Patient Button -->
-      <button class="red-button" @click="deletePatient">Kustuta Patsient</button>
+      <button class="red-button" @click="deletePatient">Kustuta patsient</button>
     </div>
   </div>
 </template>
