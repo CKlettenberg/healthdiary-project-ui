@@ -88,11 +88,14 @@ export default {
     },
     async submitUpdate() {
       const token = localStorage.getItem("token");
-      if (!this.updatePatient.patientFullName || !this.updatePatient.dateOfBirth || !this.updatePatient.weight) {
-        alert("Palun täida kõik vajalikud väljad.");
+      if (
+          !this.updatePatient.patientFullName &&
+          !this.updatePatient.dateOfBirth &&
+          !this.updatePatient.weight
+      ) {
+        alert("Palun täida vähemalt üks väli.");
         return;
       }
-
       try {
         await axios.put(
             `http://localhost:8091/api/patients/${this.patientId}`,
