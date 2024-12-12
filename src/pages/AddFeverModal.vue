@@ -56,7 +56,7 @@
                     <vue3-datepicker
                         v-model="newFeverRecord.time"
                         :enable-time-picker="true"
-                        format="dd/mm/yyyy HH:mm"
+                        format="dd/MM/yyyy HH:mm"
                         :append-to-body="true"
                         placement="bottom-start"
                         required
