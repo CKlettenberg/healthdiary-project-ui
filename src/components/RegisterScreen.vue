@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1 class="title">Tervise Päevik - Registreeri</h1>
+    <h1 class="title">Tervise päevik - registreeri</h1>
 
     <form @submit.prevent="handleRegister" class="form-container">
       <div class="input-group">
@@ -10,10 +10,10 @@
         <label for="password" class="label">Parool:</label>
         <input v-model="user.password" type="password" id="password" class="input-field" required/>
 
-        <label for="confirm-password" class="label">Kinnita Parool:</label>
+        <label for="confirm-password" class="label">Kinnita parool:</label>
         <input v-model="confirmPassword" type="password" id="confirm-password" class="input-field" required/>
 
-        <label for="email" class="label">E-post (Valikuline):</label>
+        <label for="email" class="label">E-post (valikuline):</label>
         <input v-model="user.email" type="email" id="email" class="input-field"/>
       </div>
       <button type="submit" class="green-button">Registreeri</button>

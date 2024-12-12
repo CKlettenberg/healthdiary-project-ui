@@ -4,13 +4,11 @@
       <button class="close-btn" @click="closeModal">X</button>
       <div class="modal-content">
         <div class="add-data-page">
-
           <div class="left-panel">
             <div class="thermometer-container">
               <div class="thermometer">
-                <div
-                    class="thermometer-fill"
-                    :style="{
+                <div class="thermometer-fill"
+                     :style="{
                   height: `${(newFeverRecord.temperature - 35) * 100 / 7}%`,
               background: `linear-gradient(to top, #70ff50, #d12222{
                 {((temperature - 35) / 2) * 100}%, #e74c3c 100%)`
@@ -29,7 +27,6 @@
             </div>
           </div>
 
-          <!-- Right panel with symptoms, medications, and additional info -->
           <div class="right-panel">
             <h1 class="title">{{ patient.patientFullName }}</h1>
 
@@ -52,51 +49,48 @@
                 <div class="form-group">
                   <label for="time">Kuupäev ja kellaaeg:</label>
                   <div v-if="!isEditingDateTime" class="date-time-display">
-                  <span>{{ formattedDateTime }}</span>
-                  <button type="button" class="btn-edit" @click="isEditingDateTime = true">Muuda</button>
-                    </div>
+                    <span>{{ formattedDateTime }}</span>
+                    <button type="button" class="btn-edit" @click="isEditingDateTime = true">Muuda</button>
+                  </div>
                   <div v-else>
                     <vue3-datepicker
                         v-model="newFeverRecord.time"
                         :enable-time-picker="true"
                         format="dd/mm/yyyy HH:mm"
                         :append-to-body="true"
-                    placement="bottom-start"
-                    required
+                        placement="bottom-start"
+                        required
                     />
                   </div>
                 </div>
-
-              <div class="medication-panel">
-                <div class="form-group">
-                  <label for="medicationName">Manustatud palaviku alandajat:</label>
-                  <input placeholder="ravimi nimetus või toimeaine"
-                      type="text"
-                      id="medicationName"
-                      v-model="newFeverRecord.medicationName"
-                  />
+                <div class="medication-panel">
+                  <div class="form-group">
+                    <label for="medicationName">Manustatud palaviku alandajat:</label>
+                    <input placeholder="ravimi nimetus või toimeaine"
+                           type="text"
+                           id="medicationName"
+                           v-model="newFeverRecord.medicationName"
+                    />
+                  </div>
+                  <div class="form-group">
+                    <label for="medicationDosage">Manustatud palaviku alandaja doos:</label>
+                    <input placeholder="ravimi annus (näiteks 20 ml,  1 tablett 500 mg)"
+                           type="text"
+                           id="medicationDosage"
+                           v-model="newFeverRecord.medicationDosage"
+                    />
+                  </div>
                 </div>
-                <div class="form-group">
-                  <label for="medicationDosage">Manustatud palaviku alandaja doos:</label>
-                  <input placeholder="ravimi annus (näiteks 20 ml,  1 tablett 500 mg)"
-                         type="text"
-                         id="medicationDosage"
-                         v-model="newFeverRecord.medicationDosage"
-                  />
-              </div>
-              </div>
                 <div class="form-actions">
                   <button type="submit" class="btn-submit">Salvesta</button>
                   <button type="button" @click="cancelAddFever" class="btn-cancel">Tühista</button>
                 </div>
               </form>
-
+            </div>
           </div>
         </div>
       </div>
     </div>
-    </div>
-
   </div>
 
 </template>
@@ -109,7 +103,7 @@ import "@vuepic/vue-datepicker/dist/main.css";
 
 export default {
   name: "add-fever-data",
-  components: { Vue3Datepicker },
+  components: {Vue3Datepicker},
   props: {
     patientId: {
       type: Number,
@@ -141,12 +135,11 @@ export default {
     async fetchPatientDetails() {
       const token = localStorage.getItem("token");
       const patientId = this.$route.params.patientId;
-
       try {
         const response = await axios.get(
             `http://localhost:8091/api/patients/${patientId}`,
             {
-              headers: { Authorization: `Bearer ${token}` },
+              headers: {Authorization: `Bearer ${token}`},
             }
         );
         this.patient = response.data;
@@ -158,7 +151,6 @@ export default {
       try {
         const patientId = this.patientId;
         this.newFeverRecord.patientId = patientId;
-        console.log(this.newFeverRecord);
         await axios.post("http://localhost:8091/api/fever/new", this.newFeverRecord);
         this.$emit("fetch-fever", "");
         this.newFeverRecord.temperature = 36.6
@@ -184,8 +176,7 @@ export default {
 };
 </script>
 
-
-<style>
+<style scoped>
 .add-data-page {
   display: flex;
   flex-direction: row;
@@ -267,10 +258,6 @@ button {
   background-color: #e53935;
 }
 
-.fever-records {
-  margin-top: 30px;
-}
-
 ul {
   list-style-type: none;
   padding-left: 0;
@@ -282,13 +269,6 @@ li {
   margin-bottom: 10px;
   border-radius: 4px;
   justify-content: space-between;
-}
-
-.record-id,
-.record-time,
-.record-temperature {
-  font-size: 1rem;
-  color: #333;
 }
 
 .modal-overlay {
@@ -363,6 +343,7 @@ li {
   gap: 5px;
   position: relative;
 }
+
 .temperature-slider {
   -webkit-appearance: none;
   width: 300px; /* Height of the slider when rotated */
@@ -377,6 +358,7 @@ li {
   transform: rotate(-90deg); /* Vertical orientation */
   margin: 20px 0; /* Space around the slider */
 }
+
 .temperature-slider::-webkit-slider-thumb {
   -webkit-appearance: none;
   width: 20px; /* Thumb width */
@@ -392,23 +374,6 @@ li {
   background: #333; /* Dark color for the thumb */
   border-radius: 10px;
   cursor: pointer;
-}
-
-/* Temperature controls */
-.temperature-controls {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 10px;
-}
-
-.temperature-input {
-  width: 100px;
-  text-align: center;
-  font-size: 1rem;
-  padding: 5px;
-  border: 1px solid #ddd;
-  border-radius: 5px;
 }
 
 .temperature-display {

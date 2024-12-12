@@ -5,15 +5,16 @@
       <tr>
         <th>Kellaaeg</th>
         <th>Sümptomid</th>
-        <th></th>
+        <th>Kustuta</th>
       </tr>
       </thead>
       <tbody v-if="symptoms.length > 0">
       <tr v-for="(record, index) in sortedAndSlicedRecords" :key="index">
         <td>{{ convertToIso(record.timestamp) }}</td>
         <td>{{ record.name }}</td>
-        <td><button class="delete-button" @click="updateSymptom(record.id)">
-          Kustuta</button></td>
+        <td>
+          <button class="delete-button" @click="updateSymptom(record.id)">Kustuta</button>
+        </td>
       </tr>
       </tbody>
     </table>
@@ -22,16 +23,16 @@
     </div>
   </div>
 </template>
-<script>
 
+<script>
 import axios from "axios";
 
 export default {
   name: "symptomData",
   props: {
     symptoms: {
-      type: Array, // Expect an array type
-      required: true, // Ensure this prop is mandatory
+      type: Array,
+      required: true,
     },
     patientId: {
       type: Number,
@@ -75,7 +76,7 @@ export default {
       const token = localStorage.getItem("token");
       axios.put(`http://localhost:8091/api/symptoms/delete/${id}`, {}
           , {
-            headers: { Authorization: `Bearer ${token}` },
+            headers: {Authorization: `Bearer ${token}`},
           })
           .then(() => {
             console.log("Andmed edukalt kustutatud:");
@@ -86,16 +87,15 @@ export default {
           });
     },
     showAll() {
-      // Suurendab nähtavate ridade arvu
-      this.visibleCount =this.symptoms.length;
+      this.visibleCount = this.symptoms.length;
     },
   },
 };
 </script>
 
-<style>
+<style scoped>
 .delete-button {
-  font-size: 18px; /* Your custom font size */
+  font-size: 18px;
   color: white;
   background-color: #22df74;
   border: none;
@@ -108,7 +108,6 @@ export default {
   background-color: #aa1a1a;
 }
 
-/* Container Styles */
 .table-container {
   max-width: 600px;
   margin: 20px auto;
@@ -118,30 +117,29 @@ export default {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   background-color: #ffffff;
 }
-/* Table Styles */
+
 .custom-table {
   width: 100%;
   border-collapse: collapse;
-  text-align: left;
-  font-size: 0.9rem;
 }
 
 .custom-table th,
 .custom-table td {
   padding: 12px 16px;
   border: 1px solid #ddd;
+  text-align: center;
+  font-size: 17px;
+  vertical-align: middle;
 }
 
-/* Header Row Styles */
 .custom-table th {
   background-color: #2ecc71;
   text-align: center;
   color: #ffffff;
   font-weight: bold;
-  font-size: 1.3rem;
+  font-size: 19px;
 }
 
-/* Body Row Styles */
 .custom-table tr:nth-child(odd) {
   background-color: #f9f9f9;
 }
@@ -152,14 +150,16 @@ export default {
 
 .custom-table tr:hover {
   background-color: #e6f7ff;
-}/* Additional Custom Styling if Needed */
+}
+
 .table-footer {
   display: flex;
-  justify-content: flex-end; /* Paigutab sisu paremale */
-  margin-top: 10px; /* Lisab vahe tabeli ja nupu vahele */
+  justify-content: space-around;
+  margin-top: 10px;
 }
+
 .green-button {
-  background-color: #2ecc71; /* Green button */
+  background-color: #2ecc71;
   color: white;
   padding: 7px 13px;
   border: none;
@@ -168,6 +168,4 @@ export default {
   cursor: pointer;
   transition: background-color 0.3s, transform 0.2s;
 }
-
-
 </style>

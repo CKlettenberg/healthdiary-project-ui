@@ -61,7 +61,6 @@ export default {
         this.errorMessage = "Kasutaja ei ole autentitud. Palun logige sisse.";
         return;
       }
-
       try {
         const payload = {
           ...this.patient,

@@ -3,69 +3,48 @@
     <div class="modal">
       <button class="close-btn" @click="closeModal">X</button>
       <div class="modal-content">
-        <!-- Sümptomite vorm -->
         <div class="add-symptom-form">
-          <h2>Valikuline: lisa sümptomid</h2>
+          <h2>Lisa sümptomid</h2>
           <form @submit.prevent="saveSymptoms">
             <div class="form-group symptoms-group">
               <h3>Sümptomid:</h3>
-                <label for="symptoms">Tee oma valik:</label>
+              <label for="symptoms">Tee oma valik:</label>
               <div v-for="(symptom, index) in symptomList" :key="index">
-                  <label class="hover-over-label">
-                    <input type="checkbox" v-model="newSymptom.symptoms" :value="symptom" />
-                    {{ symptom.name }}
-                  </label>
-
+                <label class="hover-over-label">
+                  <input type="checkbox" v-model="newSymptom.symptoms" :value="symptom"/>{{ symptom.name }}
+                </label>
               </div>
               <label v-if="hasOther()" for="other-symptom">Sisesta kirjeldus:</label>
               <input type="text" v-if="hasOther()" v-model="newSymptom.otherSymptom"/>
-              </div>
+            </div>
             <div class="form-group">
               <label for="time">Kuupäev ja kellaaeg:</label>
               <div v-if="!isEditingDateTime" class="date-time-display">
                 <span>{{ formattedDateTime }}</span>
-                <button
-                    type="button"
-                    class="btn-edit"
-                    @click="isEditingDateTime = true"
-                >
-                  Muuda
+                <button type="button" class="btn-edit"
+                        @click="isEditingDateTime = true">Muuda
                 </button>
               </div>
               <div v-else>
                 <vue3-datepicker
                     v-model="newSymptom.time"
                     :enable-time-picker="true"
-                    format="dd/mm/yyyy HH:mm"
+                    format="dd/MM/yyyy HH:mm"
                     :append-to-body="true"
                     placement="bottom-start"
                     required
                 />
-                <button
-                    type="button"
-                    class="btn-edit"
-                    @click="isEditingDateTime = false"
-                >
-                  Salvesta
-                </button>
+                <button type="button" class="btn-edit" @click="isEditingDateTime = false">Salvesta</button>
               </div>
             </div>
             <div class="form-actions">
-              <button type="button" @click="saveSymptoms" class="btn-submit">
-                Salvesta
-              </button>
-              <button
-                  type="button"
-                  @click="cancelSaveSymptoms"
-                  class="btn-cancel"
-              >
-                Tühista
-              </button>
+              <button type="button" @click="saveSymptoms" class="btn-submit">Salvesta</button>
+              <button type="button" @click="cancelSaveSymptoms" class="btn-cancel">Tühista</button>
             </div>
           </form>
+        </div>
       </div>
     </div>
-  </div>
   </div>
 </template>
 
@@ -78,7 +57,7 @@ import dayjs from "dayjs";
 
 export default {
   name: "add-symptom-data",
-  components: { Vue3Datepicker },
+  components: {Vue3Datepicker},
   props: {
     patientId: {
       type: Number,
@@ -93,19 +72,19 @@ export default {
     return {
       isEditingDateTime: false, // Controls whether the datepicker is visible
       newSymptom: {
-        time: dayjs().format("YYYY-MM-DDTHH:mm"), // Default to local time in ISO format
+        time: dayjs().format("YYYY-MM-DD HH:mm"), // Default to local time in ISO format
         patientId: this.patientId || null,
         symptoms: [],
         otherSymptom: "",
       },
       symptomList: [
-        { id: 1, name: "Nohu" },
-        { id: 2, name: "Köha" },
-        { id: 3, name: "Peavalu" },
-        { id: 4, name: "Lihasvalu" },
-        { id: 5, name: "Kõhuvalu" },
-        { id: 6, name: "Iiveldus/oksendamine" },
-        { id: 7, name: "Muu" },
+        {id: 1, name: "Nohu"},
+        {id: 2, name: "Köha"},
+        {id: 3, name: "Peavalu"},
+        {id: 4, name: "Lihasvalu"},
+        {id: 5, name: "Kõhuvalu"},
+        {id: 6, name: "Iiveldus/oksendamine"},
+        {id: 7, name: "Muu"},
       ],
     };
   },
@@ -116,12 +95,10 @@ export default {
   },
   methods: {
     async saveSymptoms() {
-      console.log(this.newSymptom)
       if (!this.newSymptom.symptoms || this.newSymptom.symptoms.length === 0) {
         alert("Please select at least one symptom.");
         return;
       }
-      console.log(this.newSymptom)
       if (!this.newSymptom.time) {
         alert("Please provide valid timestamps.");
         return;
@@ -135,11 +112,11 @@ export default {
               patientId: this.patientId,
             }
         );
-        this.newSymptom.time = dayjs().format("YYYY-MM-DDTHH:mm"); // Reset to current local time
+        this.newSymptom.time = dayjs().format("YYYY-MM-DDTHH:mm");
         this.newSymptom.symptoms = [];
-        this.isEditingDateTime = false; // Reset edit state
+        this.isEditingDateTime = false;
         this.closeModal();
-        this.$emit("fetch-symptoms", ""); // Notify parent to refresh data
+        this.$emit("fetch-symptoms", "");
       } catch (error) {
         console.error("Error saving symptom:", error.response?.data || error.message);
         alert("Error saving symptom.");
@@ -161,7 +138,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .add-symptom-form {
   background-color: #f9f9f9;
   border-radius: 8px;
@@ -209,16 +186,14 @@ label {
   cursor: pointer;
 }
 
-/* Style the checkbox itself */
 input[type="checkbox"] {
   margin-right: 10px;
-  accent-color: #4CAF50; /* Change color of checkbox (green in this case) */
+  accent-color: #4CAF50;
   width: 20px;
   height: 20px;
   cursor: pointer;
 }
 
-/* Optional: Add a hover effect on the label */
 .hover-over-label:hover {
   background-color: #f1f1f1;
   border-radius: 5px;
@@ -232,23 +207,21 @@ input[type="text"], input[type="password"], input[type="email"], input[type="num
   border: 1px solid #ccc;
   border-radius: 5px;
   margin-top: 5px;
-  box-sizing: border-box; /* Ensures padding is included in width */
+  box-sizing: border-box;
   transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-/* Focus effect */
 input[type="text"]:focus, input[type="password"]:focus, input[type="email"]:focus, input[type="number"]:focus {
-  border-color: #4CAF50; /* Change border color on focus */
-  box-shadow: 0 0 5px rgba(76, 175, 80, 0.5); /* Add glow effect on focus */
-  outline: none; /* Remove default focus outline */
+  border-color: #4CAF50;
+  box-shadow: 0 0 5px rgba(76, 175, 80, 0.5);
+  outline: none;
 }
 
-/* Optional: Style for invalid input */
 input:invalid {
-  border-color: #f44336; /* Red border for invalid input */
+  border-color: #f44336;
 }
 
 input:valid {
-  border-color: #4CAF50; /* Green border for valid input */
+  border-color: #4CAF50;
 }
 </style>

@@ -1,23 +1,19 @@
 <template>
-  <div
-      @touchstart="startTouch"
+  <div @touchstart="startTouch"
       @touchmove="moveTouch"
       @keydown="handleKeyPress"
-      tabindex="0"
-  >
+      tabindex="0" >
     <AddFeverData
         :patientId="currentPatient.id"
         v-model:isOpen="isFeverDataModalOpen"
         @fetch-fever="fetchFeverRecords"
-        ref="modal"
-    />
+        ref="modal" />
     <AddSymptoms
         :patientId="currentPatient.id"
         v-model:isOpen="isSymptomDataModalOpen"
         @fetch-symptoms="fetchSymptoms"
-        ref="modal"
-    />
-    <!-- Patient Details -->
+        ref="modal" />
+
     <div class="patient-details">
       <h1 class="title">{{ currentPatient.patientFullName }}</h1>
       <p><strong>Sünniaeg:</strong> {{ currentPatient.dateOfBirth }}</p>
@@ -27,7 +23,6 @@
       <button class="green-button" @click="editPatient">Muuda patsiendi andmeid</button>
     </div>
 
-    <!-- Swipe Instructions -->
     <div class="swipe-instructions">
       <p>Libistage vasakule või paremale, või vajutage nooleklahve, et vaadata teisi patsiente.</p>
     </div>
@@ -37,20 +32,17 @@
     <div class="green-button-container">
       <button class="green-button" @click="saveSymptoms">Lisa sümptomid</button>
     </div>
-    <!-- Fever Data -->
+
     <FeverData
         v-if="currentPatient.id"
-        :patientId="currentPatient.id"
+        :patient="currentPatient"
         :feverRecords="feverRecords"
-        @fetch-fever="fetchFeverRecords"
-    />
+        @fetch-fever="fetchFeverRecords" />
     <SymptomsData
         v-if="currentPatient.id"
         :patientId="currentPatient.id"
         :symptoms="symptomsData"
-        @fetch-symptom="fetchSymptoms"
-    />
-
+        @fetch-symptom="fetchSymptoms" />
   </div>
 </template>
 
@@ -71,9 +63,9 @@ export default {
       isFeverDataModalOpen: false,
       isSymptomDataModalOpen: false,
       feverRecords: [],
-      patients: [], // List of all patients
-      currentPatientIndex: 0, // Index of the currently displayed patient
-      startX: 0, // Start position for swipe
+      patients: [],
+      currentPatientIndex: 0,
+      startX: 0,
     };
   },
   computed: {
@@ -89,22 +81,16 @@ export default {
         this.$router.push("/");
         return;
       }
-
       const userId = localStorage.getItem("user");
       try {
         const response = await axios.get(
             `http://localhost:8091/api/patients/all-patients/by-user-id/${userId}`,
-            {
-              headers: { Authorization: `Bearer ${token}` },
+            { headers: {Authorization: `Bearer ${token}`},
             }
         );
-
-        // Sort patients by `lastModified` descending
         this.patients = response.data.sort(
             (a, b) => new Date(b.lastModified) - new Date(a.lastModified)
         );
-
-        // Set the current patient index to the patient ID passed in the route
         const initialPatientId = parseInt(this.$route.params.patientId, 10);
         this.currentPatientIndex = this.patients.findIndex(
             (patient) => patient.id === initialPatientId
@@ -116,7 +102,6 @@ export default {
     },
     async fetchFeverRecords() {
       if (!this.currentPatient.id) return;
-
       try {
         const response = await axios.get(
             `http://localhost:8091/api/fever/patients/${this.currentPatient.id}/fever-records`
@@ -136,7 +121,6 @@ export default {
     },
     async fetchSymptoms() {
       if (!this.currentPatient.id) return;
-
       try {
         const response = await axios.get(
             `http://localhost:8091/api/symptoms/patients/${this.currentPatient.id}/symptom-records`
@@ -149,22 +133,14 @@ export default {
     },
     saveSymptoms() {
       if (this.currentPatient && this.currentPatient.id) {
-        this.isSymptomDataModalOpen = true; // Directly set the state to open the modal
-      } else {
-        alert("No valid patient selected.");
-      }
-    },
-    addHealthInfo() {
-      // Navigate to AddNewPatientData.vue with the current patient ID
-      if (this.currentPatient && this.currentPatient.id) {
-        this.$router.push(`/add-health-info/${this.currentPatient.id}`);
+        this.isSymptomDataModalOpen = true;
       } else {
         alert("No valid patient selected.");
       }
     },
     editPatient() {
       if (this.currentPatient && this.currentPatient.id) {
-        this.$router.push({ name: "EditPatient", params: { patientId: this.currentPatient.id } });
+        this.$router.push({name: "EditPatient", params: {patientId: this.currentPatient.id}});
       } else {
         alert("No valid patient selected.");
       }
@@ -179,7 +155,6 @@ export default {
 </script>
 
 <style scoped>
-/* Styling for Patient Details Page */
 .patient-details {
   font-size: 1rem;
   color: black;
@@ -197,14 +172,14 @@ export default {
 
 .green-button-container {
   display: flex;
-  flex-direction: column; /* Stack buttons vertically */
-  align-items: center; /* Align buttons horizontally in the center */
+  flex-direction: column;
+  align-items: center;
   gap: 20px;
-  margin-top: 30px;/* Add spacing between buttons */
+  margin-top: 30px;
 }
 
 .green-button {
-  background-color: #2ecc71; /* Green button */
+  background-color: #2ecc71;
   color: white;
   padding: 12px 25px;
   border: none;
@@ -213,11 +188,10 @@ export default {
   cursor: pointer;
   transition: background-color 0.3s, transform 0.2s;
   width: 300px;
-
 }
 
 .green-button:hover {
-  background-color: #27ae60; /* Darker green on hover */
-  transform: scale(1.1); /* Slight zoom effect */
+  background-color: #27ae60;
+  transform: scale(1.1);
 }
 </style>

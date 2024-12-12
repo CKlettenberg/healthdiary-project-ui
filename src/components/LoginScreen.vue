@@ -1,10 +1,10 @@
 <template>
-  <div >
-    <h1 class="title">Tervise Päevik</h1>
+  <div>
+    <h1 class="title">TERVISE PÄEVIK</h1>
 
     <!-- Initial Buttons -->
     <div v-if="!showLogin" class="button-container">
-      <button class="green-button" @click="toggleLogin">Logi Sisse</button>
+      <button class="green-button" @click="toggleLogin">Logi sisse</button>
       <button class="secondary-button" @click="goToRegister">Registreeri</button>
     </div>
 
@@ -12,11 +12,11 @@
     <form v-if="showLogin" @submit.prevent="handleLogin" class="form-container">
       <div class="input-group">
         <label for="username" class="label">Kasutaja:</label>
-        <input v-model="username"  id="username" class="input-field" required/>
+        <input v-model="username" id="username" class="input-field" required/>
         <label for="password" class="label">Parool:</label>
         <input v-model="password" type="password" id="password" class="input-field" required/>
       </div>
-      <button type="submit" class="green-button">Logi Sisse</button>
+      <button type="submit" class="green-button">Logi sisse</button>
       <button type="button" class="secondary-button" @click="toggleLogin">Tagasi</button>
       <p v-if="errorMessage" class="error-message">{{ errorMessage }}</p>
     </form>
@@ -67,13 +67,11 @@ export default {
 .title {
   font-size: 3rem;
   color: #a1ff2e;
-  text-shadow: 0 2px 4px  rgba(0.4, 0.5, 0.7, 4);
+  text-shadow: 0 2px 4px rgba(0.4, 0.5, 0.7, 4);
   margin-bottom: 30px;
-
 }
 
 .button-container {
-
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -122,12 +120,10 @@ export default {
   transition: background-color 0.3s, transform 0.2s;
 }
 
-
 .green-button:hover {
   background-color: #27ae60;
   transform: scale(1.05);
 }
-
 
 .secondary-button {
   width: 135px;

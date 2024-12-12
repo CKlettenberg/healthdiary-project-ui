@@ -1,5 +1,5 @@
-import { createRouter, createWebHistory } from "vue-router";
-import { useAuthStore } from "@/stores/auth";
+import {createRouter, createWebHistory} from "vue-router";
+import {useAuthStore} from "@/stores/auth";
 import LoginScreen from "@/components/LoginScreen.vue";
 import MenuPage from "@/pages/MenuPage.vue";
 import RegisterScreen from "@/components/RegisterScreen.vue";
@@ -9,14 +9,13 @@ import PatientsList from "@/pages/PatientsList.vue";
 import AddFeverForm from "@/pages/AddFeverModal.vue";
 import EditPatient from "@/pages/EditPatient.vue";
 import AddSymptomForm from "@/pages/AddSymptomModal.vue";
-import PdfGenerator from "@/components/PdfGenerator.vue";
 
 const routes = [
     {
         path: "/",
         name: "Menu",
         component: MenuPage,
-        meta: { requiresAuth: true },
+        meta: {requiresAuth: true},
     },
     {
         path: "/login",
@@ -32,26 +31,26 @@ const routes = [
         path: "/add-patient",
         name: "AddPatient",
         component: AddPatient,
-        meta: { requiresAuth: true },
+        meta: {requiresAuth: true},
     },
     {
         path: "/add-fever/:patientId",
         name: "AddFeverRecord",
         component: AddFeverForm,
-        meta: { requiresAuth: true },
+        meta: {requiresAuth: true},
     },
     {
         path: "/patient/:patientId",
         name: "PatientDetails",
         component: PatientDetails,
         props: true,
-        meta: { requiresAuth: true },
+        meta: {requiresAuth: true},
     },
     {
         path: "/patients",
         name: "PatientsList",
         component: PatientsList,
-        meta: { requiresAuth: true },
+        meta: {requiresAuth: true},
     },
     {
         path: "/:pathMatch(.*)*",
@@ -61,23 +60,14 @@ const routes = [
         path: "/edit-patient-page/:patientId",
         name: "EditPatient",
         component: EditPatient,
-        props: true, // Ensure props are passed to the component
+        props: true,
     },
     {
-    path: "/add-symptoms",
-    name: "AddSymptoms",
-    component: AddSymptomForm,
-    meta: { requiresAuth: true },
-    },
-    {
-        path: '/pdf',
-        name: 'PdfViewer',
-        component: PdfGenerator,
-        meta: { requiresAuth: true },
-    },
-
-
-
+        path: "/add-symptoms",
+        name: "AddSymptoms",
+        component: AddSymptomForm,
+        meta: {requiresAuth: true},
+    }
 ];
 
 const router = createRouter({
@@ -88,11 +78,10 @@ const router = createRouter({
 router.beforeEach((to, from, next) => {
     const authStore = useAuthStore();
 
-    // If the route requires authentication and the user is not authenticated, redirect to login
     if (to.meta.requiresAuth && !authStore.isAuthenticated) {
-        next({ path: "/login", query: { redirect: to.fullPath } });
+        next({path: "/login", query: {redirect: to.fullPath}});
     } else {
-        next(); // Allow navigation if authentication is not required or the user is logged in
+        next();
     }
 });
 

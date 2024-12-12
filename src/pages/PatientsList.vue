@@ -1,5 +1,5 @@
 <template>
-  <div >
+  <div>
     <div class="menu-content">
       <h1 class="title">Tervise päevik</h1>
       <div class="action-buttons">
@@ -39,7 +39,6 @@ export default {
         this.$router.push("/");
         return;
       }
-
       const userId = localStorage.getItem("user");
       if (!userId) {
         console.error("User ID is missing.");
@@ -47,7 +46,6 @@ export default {
         this.$router.push("/");
         return;
       }
-
       try {
         const response = await axios.get(`http://localhost:8091/api/patients/all-patients/by-user-id/${userId}`, {
           headers: {

@@ -1,6 +1,5 @@
 <template>
   <div>
-    <!-- Patient Details -->
     <div class="patient-details">
       <h1 class="title">Muuda patsienti</h1>
       <h1 class="title">{{ patient.patientFullName }}</h1>
@@ -8,7 +7,6 @@
       <p><strong>Kaal:</strong> {{ patient.weight }} kg</p>
     </div>
 
-    <!-- Edit Form -->
     <div class="content">
       <form @submit.prevent="submitUpdate">
         <div class="input-group">
@@ -17,9 +15,7 @@
               v-model="updatePatient.patientFullName"
               type="text"
               id="name"
-              class="input-field"
-
-          />
+              class="input-field"/>
         </div>
         <div class="input-group">
           <label for="dob" class="label">Sünniaeg:</label>
@@ -27,8 +23,7 @@
               v-model="updatePatient.dateOfBirth"
               type="date"
               id="dob"
-              class="input-field"
-          />
+              class="input-field"/>
         </div>
         <div class="input-group">
           <label for="weight" class="label">Kaal (kg):</label>
@@ -36,12 +31,14 @@
               v-model="updatePatient.weight"
               type="number"
               id="weight"
-              class="input-field"
-          />
+              class="input-field"/>
         </div>
         <button type="submit" class="green-button">Salvesta</button>
       </form>
-      <!-- Delete Patient Button -->
+      <br>
+      <button class="green-button" @click="navigateBack">Tagasi</button>
+      <br>
+
       <button class="red-button" @click="deletePatient">Kustuta patsient</button>
     </div>
   </div>
@@ -56,7 +53,7 @@ export default {
   data() {
     return {
       patient: {},
-      updatePatient : {}// Holds patient details
+      updatePatient: {}// Holds patient details
     };
   },
   methods: {
@@ -67,21 +64,19 @@ export default {
         this.$router.push("/patients"); // Redirect to patients list
         return;
       }
-
       const token = localStorage.getItem("token");
       if (!token) {
         alert("User not authenticated. Please log in.");
         this.$router.push("/login");
         return;
       }
-
       try {
         const response = await axios.get(
             `http://localhost:8091/api/patients/${this.patientId}`,
-            { headers: { Authorization: `Bearer ${token}` } }
+            {headers: {Authorization: `Bearer ${token}`}}
         );
         this.patient = response.data;
-        this.updatePatient = response.data;
+        this.updatePatient = JSON.parse(JSON.stringify(this.patient));
       } catch (error) {
         console.error("Error fetching patient details:", error);
         alert("Failed to load patient details. Please try again.");
@@ -101,7 +96,7 @@ export default {
         await axios.put(
             `http://localhost:8091/api/patients/${this.patientId}`,
             this.updatePatient,
-            { headers: { Authorization: `Bearer ${token}` } }
+            {headers: {Authorization: `Bearer ${token}`}}
         );
         alert("Patsiendi andmed uuendatud!");
         this.$router.push(`/patient/${this.patientId}`);
@@ -114,11 +109,10 @@ export default {
       const token = localStorage.getItem("token");
       const confirmation = confirm("Olete kindel, et soovite patsiendi kustutada?");
       if (!confirmation) return;
-
       try {
         await axios.delete(
             `http://localhost:8091/api/patients/${this.patientId}`,
-            { headers: { Authorization: `Bearer ${token}` } }
+            {headers: {Authorization: `Bearer ${token}`}}
         );
         alert("Patsient edukalt kustutatud!");
         this.$router.push("/patients");
@@ -127,6 +121,9 @@ export default {
         alert("Patsiendi kustutamine ebaõnnestus. Palun proovige uuesti.");
       }
     },
+    navigateBack() {
+      window.history.back();
+    }
   },
   async mounted() {
     await this.fetchPatientDetails();
@@ -135,13 +132,11 @@ export default {
 </script>
 
 <style scoped>
-/* Add styles from PatientDetails for consistency */
-
 
 .patient-details {
   text-align: center;
-  color: #ffffff;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.7);
+  color: #000000;
+  text-shadow: 0 2px 4px rgba(251, 250, 250, 0.7);
   margin-top: 1px;
 }
 

@@ -1,8 +1,7 @@
 <template>
   <div @touchstart="startTouch" @touchmove="moveTouch">
-    <!-- Main Menu Content -->
     <div class="menu-content">
-      <h1 class="title">Tervise Päevik</h1>
+      <h1 class="title">Tervise päevik</h1>
       <div class="action-buttons">
         <button class="green-button" @click="navigateToAddPatient">Lisa patsient</button>
         <button class="green-button" @click="navigateToPatients">Kõik patsiendid</button>
@@ -20,8 +19,8 @@ import axios from "axios";
 export default {
   data() {
     return {
-      patients: [], // Holds all patients fetched from the backend
-      startX: 0, // Initial touch position for swipe
+      patients: [],
+      startX: 0,
     };
   },
   methods: {
@@ -32,14 +31,11 @@ export default {
         this.$router.push("/");
         return;
       }
-
       const userId = localStorage.getItem("user");
       try {
         const response = await axios.get(`http://localhost:8091/api/patients/all-patients/by-user-id/${userId}`, {
-          headers: { Authorization: `Bearer ${token}` },
+          headers: {Authorization: `Bearer ${token}`},
         });
-
-        // Sort patients by `lastModified` descending
         this.patients = response.data.sort((a, b) => new Date(b.lastModified) - new Date(a.lastModified));
       } catch (error) {
         console.error("Error fetching patients:", error);
@@ -52,13 +48,11 @@ export default {
     moveTouch(event) {
       const endX = event.touches[0].clientX; // Record the ending touch position
       const diffX = this.startX - endX;
-
       if (Math.abs(diffX) > 50) {
         if (diffX > 0) {
-          // Swipe left
           this.navigateToLastModifiedPatient();
         }
-        this.startX = 0; // Reset swipe detection
+        this.startX = 0;
       }
     },
     navigateToAddPatient() {
@@ -80,15 +74,12 @@ export default {
     },
   },
   mounted() {
-    this.fetchPatients(); // Fetch patients on mount
+    this.fetchPatients();
   },
 };
 </script>
 
 <style scoped>
-/* Styling for Menu Page */
-
-
 .menu-content {
   display: flex;
   flex-direction: column;
@@ -100,7 +91,7 @@ export default {
 .title {
   font-size: 2.5rem;
   color: #a1ff2e;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.7); /* Shadow for contrast */
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.7);
   margin-bottom: 30px;
 }
 
@@ -114,7 +105,7 @@ export default {
 
 .green-button {
   width: 170px;
-  background-color: #2ecc71; /* Green button */
+  background-color: #2ecc71;
   color: white;
   padding: 12px 25px;
   border: none;
@@ -125,8 +116,8 @@ export default {
 }
 
 .green-button:hover {
-  background-color: #27ae60; /* Darker green on hover */
-  transform: scale(1.05); /* Slight zoom effect */
+  background-color: #39ae27;
+  transform: scale(1.05);
 }
 
 .swipe-hint {
