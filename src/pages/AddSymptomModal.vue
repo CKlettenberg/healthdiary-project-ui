@@ -88,7 +88,6 @@ export default {
   },
   computed: {
     formattedDateTime() {
-      console.log("Formatted time:", this.newSymptom.time);
       return dayjs(this.newSymptom.time).format("DD/MM/YYYY HH:mm");
     },
   },
