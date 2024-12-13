@@ -34,7 +34,6 @@
                     placement="bottom-start"
                     required
                 />
-                <button type="button" class="btn-edit" @click="isEditingDateTime = false">Salvesta</button>
               </div>
             </div>
             <div class="form-actions">
@@ -54,7 +53,6 @@ import Vue3Datepicker from "@vuepic/vue-datepicker";
 import "@vuepic/vue-datepicker/dist/main.css";
 import dayjs from "dayjs";
 
-
 export default {
   name: "add-symptom-data",
   components: {Vue3Datepicker},
@@ -70,9 +68,9 @@ export default {
   },
   data() {
     return {
-      isEditingDateTime: false, // Controls whether the datepicker is visible
+      isEditingDateTime: false,
       newSymptom: {
-        time: dayjs().format("YYYY-MM-DD HH:mm"), // Default to local time in ISO format
+        time: dayjs().toISOString(),
         patientId: this.patientId || null,
         symptoms: [],
         otherSymptom: "",
@@ -90,6 +88,7 @@ export default {
   },
   computed: {
     formattedDateTime() {
+      console.log("Formatted time:", this.newSymptom.time);
       return dayjs(this.newSymptom.time).format("DD/MM/YYYY HH:mm");
     },
   },
@@ -112,7 +111,7 @@ export default {
               patientId: this.patientId,
             }
         );
-        this.newSymptom.time = dayjs().format("YYYY-MM-DDTHH:mm");
+        this.newSymptom.time = dayjs().toISOString();
         this.newSymptom.symptoms = [];
         this.isEditingDateTime = false;
         this.closeModal();
@@ -126,7 +125,7 @@ export default {
       return this.newSymptom.symptoms.some(sym => sym.name === 'Muu');
     },
     cancelSaveSymptoms() {
-      this.newSymptom.time = dayjs().format("YYYY-MM-DDTHH:mm"); // Reset to local time
+      this.newSymptom.time =  dayjs().toISOString();
       this.newSymptom.symptoms = [];
       this.isEditingDateTime = false; // Reset edit state
       this.closeModal();
