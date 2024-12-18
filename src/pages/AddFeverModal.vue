@@ -137,7 +137,7 @@ export default {
       const patientId = this.$route.params.patientId;
       try {
         const response = await axios.get(
-            `http://localhost:8091/api/patients/${patientId}`,
+            `http://192.168.1.40:8091/api/patients/${patientId}`,
             {
               headers: {Authorization: `Bearer ${token}`},
             }
@@ -151,7 +151,7 @@ export default {
       try {
         const patientId = this.patientId;
         this.newFeverRecord.patientId = patientId;
-        await axios.post("http://localhost:8091/api/fever/new", this.newFeverRecord);
+        await axios.post("http://192.168.1.40:8091/api/fever/new", this.newFeverRecord);
         this.$emit("fetch-fever", "");
         this.newFeverRecord.temperature = 36.6
         this.closeModal();
@@ -387,5 +387,99 @@ li {
   padding: 20px;
 }
 
+@media (max-width: 767px) {
+  .modal {
+    width: 95%;
+    max-width: 95%; /* Ensure it doesn't exceed screen width */
+    height: auto; /* Allow height to adjust */
+    max-height: 90%; /* Limit the height */
+    overflow-y: auto; /* Enable scrolling for content */
+    padding: 20px;
+    border-radius: 8px; /* Slightly smaller radius */
+  }
+
+  .modal-content {
+    font-size: 1rem; /* Adjust font size for readability */
+    margin-top: 10px;
+  }
+
+  .add-data-page {
+    flex-direction: column; /* Stack panels vertically */
+    gap: 20px; /* Add space between panels */
+    height: auto; /* Adjust height based on content */
+  }
+
+  .left-panel,
+  .right-panel {
+    flex: none;
+    width: 100%;
+    padding: 0; /* Remove extra padding */
+    align-items: center;
+    justify-content: center;
+  }
+
+  .thermometer-container {
+    width: 100%;
+    gap: 10px; /* Add spacing between elements */
+  }
+
+  .temperature-slider {
+    width: 100%; /* Make slider responsive */
+    transform: none; /* Reset rotation */
+    margin: 10px 0; /* Adjust spacing */
+  }
+
+  .temperature-display {
+    margin: 0; /* Center the display */
+    text-align: center;
+    font-size: 1.2rem; /* Slightly smaller font */
+  }
+
+  .add-fever-form {
+    width: 100%;
+    max-width: 100%; /* Ensure it fits mobile screens */
+    padding: 10px;
+    box-shadow: none; /* Simplify the design for mobile */
+  }
+
+  h2 {
+    font-size: 1.4rem; /* Adjust title size */
+    margin-bottom: 10px;
+  }
+
+  .form-group label {
+    font-size: 0.9rem; /* Smaller labels */
+  }
+
+  input[type="text"], input[type="datetime-local"] {
+    font-size: 0.9rem; /* Adjust input size */
+    padding: 6px;
+  }
+
+  .form-actions {
+    flex-direction: column; /* Stack buttons vertically */
+    gap: 10px;
+    align-items: stretch;
+  }
+
+  .btn-submit,
+  .btn-cancel {
+    width: 100%; /* Full-width buttons */
+    font-size: 1rem; /* Slightly smaller font */
+    padding: 10px;
+  }
+
+  .temperature-slider::-webkit-slider-thumb,
+  .temperature-slider::-moz-range-thumb {
+    width: 20px; /* Reduce thumb size */
+    height: 20px;
+  }
+
+  .close-btn {
+    font-size: 1.2rem; /* Slightly smaller close button */
+    top: 10px;
+    right: 10px;
+  }
+}
 
 </style>

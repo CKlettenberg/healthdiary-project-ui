@@ -13,11 +13,11 @@
       </thead>
       <tbody>
       <tr v-for="(entry, index) in sortedAndSlicedRecords" :key="index">
-        <td class="table-data">{{ convertToIso(entry.time) }}</td>
-        <td class="table-data">{{ entry.temperature }} (°C)</td>
-        <td class="table-data">{{ entry.medicationName }}</td>
-        <td class="table-data">{{ entry.medicationDosage }}</td>
-        <td class="table-data">
+        <td class="table-data" data-label="Kellaaeg">{{ convertToIso(entry.time) }}</td>
+        <td class="table-data" data-label="Temperatuur (°C)">{{ entry.temperature }} (°C)</td>
+        <td class="table-data" data-label="Ravimi nimetus">{{ entry.medicationName }}</td>
+        <td class="table-data" data-label="Ravimi doos">{{ entry.medicationDosage }}</td>
+        <td class="table-data" data-label="Kustuta">
           <button class="delete-button" @click="deleteFeverRecord(entry.id)">Kustuta</button>
         </td>
       </tr>
@@ -81,7 +81,7 @@ export default {
       const confirmation = confirm("Olete kindel, et soovite palavikku kustutada?");
       if (!confirmation) return;
       const token = localStorage.getItem("token");
-      axios.put(`http://localhost:8091/api/fever/delete/${id}`
+      axios.put(`http://192.168.1.40:8091/api/fever/delete/${id}`
           , {
             headers: {Authorization: `Bearer ${token}`},
           })
@@ -262,4 +262,98 @@ export default {
   text-align: center;
   vertical-align: middle;
 }
+
+@media (max-width: 767px) {
+  .table-container {
+    max-width: 100%;
+    margin: 10px;
+    padding: 12px;
+    border: none; /* Remove border for a cleaner mobile look */
+    box-shadow: none; /* Simplify the layout */
+  }
+
+  .table-title {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+  }
+
+  .custom-table {
+    font-size: 0.8rem;
+    border-collapse: collapse;
+    width: 100%;
+    overflow-x: auto;
+    display: block; /* Allow table to scroll horizontally */
+  }
+
+  .custom-table th,
+  .custom-table td {
+    padding: 8px 10px;
+    text-align: left;
+    word-wrap: break-word;
+  }
+
+  .custom-table th {
+    font-size: 0.9rem;
+  }
+
+  .custom-table tr:hover {
+    background-color: #f2f2f2; /* Subtle hover effect */
+  }
+
+  .header-cell,
+  .table-data {
+    text-align: left;
+    font-size: 0.9rem;
+    padding: 8px;
+  }
+
+  /* Make Delete Button Smaller */
+  .delete-button {
+    font-size: 0.8rem;
+    padding: 6px 10px;
+  }
+
+  /* Adjust Footer Buttons */
+  .table-footer {
+    flex-direction: column; /* Stack buttons vertically */
+    align-items: center;
+    gap: 10px; /* Add space between buttons */
+    margin-top: 15px;
+  }
+
+  .green-button {
+    font-size: 0.9rem;
+    padding: 8px 15px;
+    width: 100%; /* Full width on smaller screens */
+  }
+
+  /* Hide Table Header for Narrow Screens and Stack Data */
+  .custom-table thead {
+    display: none;
+  }
+
+  .custom-table tr {
+    display: flex;
+    flex-direction: column; /* Stack cells vertically */
+    margin-bottom: 10px;
+    border: 1px solid #ddd; /* Add border around each entry */
+    border-radius: 5px;
+    background-color: #fff;
+  }
+
+  .custom-table td {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    border: none; /* Remove inner borders */
+  }
+
+  .custom-table td::before {
+    content: attr(data-label); /* Add label for each cell */
+    font-weight: bold;
+    flex: 0 0 40%;
+    text-align: left;
+  }
+}
+
 </style>
