@@ -1,6 +1,7 @@
 <template>
   <div>
     <h1 class="title">TERVISE PÄEVIK</h1>
+    <h3 class="subtitle"> Palaviku jälgimise abiline</h3>
 
     <!-- Initial Buttons -->
     <div v-if="!showLogin" class="button-container">
@@ -70,7 +71,14 @@ export default {
   text-shadow: 0 2px 4px rgba(0.4, 0.5, 0.7, 4);
   margin-bottom: 30px;
 }
-
+.subtitle {
+  font-size: 1.5rem;
+  color: #8df176;
+  text-shadow: 0 2px 4px rgba(0.4, 0.5, 0.7, 4);
+  margin-bottom: 30px;
+  justify-content: center;
+  display: flex;
+}
 .button-container {
   display: flex;
   flex-direction: column;
@@ -153,6 +161,9 @@ export default {
 @media (max-width: 768px) {
   .title {
     font-size: 2rem;
+  }
+  .subtitle {
+    font-size: 0.7rem;
   }
 
   .input-field {
