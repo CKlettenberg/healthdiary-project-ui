@@ -34,6 +34,7 @@
                     placement="bottom-start"
                     required
                 />
+                <button type="button" class="btn-edit" @click="isEditingDateTime = false">Salvesta</button>
               </div>
             </div>
             <div class="form-actions">
@@ -70,7 +71,7 @@ export default {
     return {
       isEditingDateTime: false,
       newSymptom: {
-        time: dayjs().toISOString(),
+        time: dayjs().format("YYYY-MM-DDTHH:mm"),
         patientId: this.patientId || null,
         symptoms: [],
         otherSymptom: "",
@@ -110,7 +111,7 @@ export default {
               patientId: this.patientId,
             }
         );
-        this.newSymptom.time = dayjs().toISOString();
+        this.newSymptom.time = dayjs().format("YYYY-MM-DDTHH:mm");
         this.newSymptom.symptoms = [];
         this.isEditingDateTime = false;
         this.closeModal();
@@ -124,7 +125,7 @@ export default {
       return this.newSymptom.symptoms.some(sym => sym.name === 'Muu');
     },
     cancelSaveSymptoms() {
-      this.newSymptom.time =  dayjs().toISOString();
+      this.newSymptom.time = dayjs().format("YYYY-MM-DDTHH:mm");
       this.newSymptom.symptoms = [];
       this.isEditingDateTime = false; // Reset edit state
       this.closeModal();
