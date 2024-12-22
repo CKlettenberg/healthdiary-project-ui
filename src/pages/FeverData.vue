@@ -8,7 +8,7 @@
         <th class="header-cell">Temperatuur (°C)</th>
         <th class="header-cell">Ravimi nimetus</th>
         <th class="header-cell">Ravimi doos</th>
-        <th class="header-cell">Kustuta</th>
+        <th class="header-cell">Muuda/kustuta</th>
       </tr>
       </thead>
       <tbody>
@@ -18,7 +18,10 @@
         <td class="table-data" data-label="Ravimi nimetus">{{ entry.medicationName }}</td>
         <td class="table-data" data-label="Ravimi doos">{{ entry.medicationDosage }}</td>
         <td class="table-data" data-label="Kustuta">
-          <button class="delete-button" @click="deleteFeverRecord(entry.id)">Kustuta</button>
+          <div class="edit-buttons">
+            <button class="delete-button" @click="deleteFeverRecord(entry.id)">Muuda</button>
+            <button class="delete-button" @click="deleteFeverRecord(entry.id)">Kustuta</button>
+          </div>
         </td>
       </tr>
       </tbody>
@@ -157,20 +160,6 @@ export default {
 </script>
 
 <style scoped>
-.delete-button {
-  font-size: 18px;
-  color: white;
-  background-color: #2ecc71;
-  border: none;
-  border-radius: 5px;
-  padding: 10px 15px;
-  cursor: pointer;
-}
-
-.delete-button:hover {
-  background-color: #27ae60;
-}
-
 .table-container {
   max-width: 600px;
   margin: 20px auto;
@@ -237,13 +226,18 @@ export default {
 }
 
 .delete-button {
-  font-size: 16px;
+  font-size: 11px;
   color: white;
   background-color: #2ecc71;
   border: none;
   border-radius: 5px;
-  padding: 10px 15px;
+  padding: 4px 8px;
   cursor: pointer;
+}
+
+.edit-buttons {
+  display: flex;
+  justify-content: space-between;
 }
 
 .delete-button:hover {
