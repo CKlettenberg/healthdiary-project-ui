@@ -9,6 +9,7 @@ import PatientsList from "@/pages/PatientsList.vue";
 import AddFeverForm from "@/pages/AddFeverModal.vue";
 import EditPatient from "@/pages/EditPatient.vue";
 import AddSymptomForm from "@/pages/AddSymptomModal.vue";
+import ChangePassword from "@/components/ChangePassword.vue";
 
 const routes = [
     {
@@ -67,7 +68,14 @@ const routes = [
         name: "AddSymptoms",
         component: AddSymptomForm,
         meta: {requiresAuth: true},
+    },
+    {
+        path: "/change-password",
+        name: "ChangePassword",
+        component: ChangePassword,
+        meta: {requiresAuth: true},
     }
+
 ];
 
 const router = createRouter({

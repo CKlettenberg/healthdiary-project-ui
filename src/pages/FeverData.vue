@@ -78,7 +78,7 @@ export default {
       }
     },
     deleteFeverRecord(id) {
-      const confirmation = confirm("Olete kindel, et soovite palavikku kustutada?");
+      const confirmation = confirm("Olete kindel, et soovite andmeid kustutada?");
       if (!confirmation) return;
       const token = localStorage.getItem("token");
       axios.put(`http://192.168.1.40:8091/api/fever/delete/${id}`

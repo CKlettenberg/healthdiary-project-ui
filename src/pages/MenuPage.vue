@@ -9,6 +9,9 @@
       <div class="swipe-hint">
         <p>Libistage vasakule, et vaadata kõige hiljutisemat patsienti.</p>
       </div>
+      <div class="action-buttons">
+        <button class="green-button" @click="navigateToChangePassword">Muuda parooli</button>
+      </div>
     </div>
   </div>
 </template>
@@ -60,6 +63,9 @@ export default {
     },
     navigateToPatients() {
       this.$router.push("/patients");
+    },
+    navigateToChangePassword() {
+      this.$router.push("/change-password");
     },
     navigateToLastModifiedPatient() {
       if (this.patients.length > 0) {
