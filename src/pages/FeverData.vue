@@ -19,7 +19,7 @@
         <td class="table-data" data-label="Ravimi doos">{{ entry.medicationDosage }}</td>
         <td class="table-data" data-label="Kustuta">
           <div class="edit-buttons">
-            <button class="delete-button" @click="deleteFeverRecord(entry.id)">Muuda</button>
+            <button class="delete-button" @click="updateFeverRecord(entry)">Muuda</button>
             <button class="delete-button" @click="deleteFeverRecord(entry.id)">Kustuta</button>
           </div>
         </td>
@@ -95,6 +95,11 @@ export default {
             console.error("Viga andmete kustutamisel:", error);
           });
     },
+    updateFeverRecord(entry) {
+      this.$emit('update-fever', [entry]);
+    },
+
+
     showAll() {
       this.visibleCount = this.feverRecords.length;
     },

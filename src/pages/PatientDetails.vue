@@ -5,6 +5,7 @@
       tabindex="0" >
     <AddFeverData
         :patientId="currentPatient.id"
+        :updateFeverRecord="updateFeverRecord"
         v-model:isOpen="isFeverDataModalOpen"
         @fetch-fever="fetchFeverRecords"
         ref="modal" />
@@ -37,7 +38,8 @@
         v-if="currentPatient.id"
         :patient="currentPatient"
         :feverRecords="feverRecords"
-        @fetch-fever="fetchFeverRecords" />
+        @fetch-fever="fetchFeverRecords"
+        @update-fever="updateFeverRecords"/>
     <SymptomsData
         v-if="currentPatient.id"
         :patientId="currentPatient.id"
@@ -66,6 +68,7 @@ export default {
       patients: [],
       currentPatientIndex: 0,
       startX: 0,
+      updateFeverRecord: null
     };
   },
   computed: {
@@ -145,6 +148,11 @@ export default {
         alert("No valid patient selected.");
       }
     },
+    updateFeverRecords(entry) {
+      this.updateFeverRecord = entry[0];
+      console.log(this.updateFeverRecord, 'kjhuygt')
+      this.isFeverDataModalOpen = true;
+    }
   },
   async mounted() {
     await this.fetchPatients();

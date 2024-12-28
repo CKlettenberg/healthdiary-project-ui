@@ -113,6 +113,10 @@ export default {
       type: Boolean,
       default: false,
     },
+    updateFeverRecord: {
+      type: {},
+      default: null
+    }
   },
   data() {
     return {
@@ -166,12 +170,20 @@ export default {
       this.newFeverRecord.medicationDosage = "";
       this.closeModal();
     },
+    handleUpdateData() {
+      console.log(this.updateFeverRecord);
+      if (this.updateFeverRecord != null) {
+        this.newFeverRecord = this.updateFeverRecord;
+      }
+      console.log(this.newFeverRecord, 'nNewFeverrecord')
+    },
     closeModal() {
       this.$emit("update:isOpen", false);
     },
   },
-  mounted() {
-    this.fetchPatientDetails();
+  async mounted()  {
+    await this.fetchPatientDetails();
+    this.handleUpdateData();
   },
 };
 </script>
