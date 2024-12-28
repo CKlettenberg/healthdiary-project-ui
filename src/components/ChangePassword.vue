@@ -31,6 +31,9 @@
       </div>
       <button type="submit">Parooli muutmine</button>
     </form>
+    <br>
+    <button class="green-button" @click="navigateBack">Tagasi</button>
+    <br>
     <p v-if="errorMessage" class="error">{{ errorMessage }}</p>
     <p v-if="successMessage" class="success">{{ successMessage }}</p>
   </div>
@@ -78,7 +81,11 @@ export default {
           this.successMessage = '';
         }
       },
+      navigateBack() {
+        window.history.back();
+      }
     }
+
     }
 
 </script>

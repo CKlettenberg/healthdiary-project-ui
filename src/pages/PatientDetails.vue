@@ -7,6 +7,7 @@
         :patientId="currentPatient.id"
         :updateFeverRecord="updateFeverRecord"
         v-model:isOpen="isFeverDataModalOpen"
+        @update:isOpen="isModalOpen = $event"
         @fetch-fever="fetchFeverRecords"
         ref="modal" />
     <AddSymptoms

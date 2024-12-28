@@ -19,6 +19,9 @@
         </ul>
       </div>
     </div>
+    <div class="action-buttons">
+      <button class="green-button" @click="navigateBack">Tagasi</button>
+    </div>
   </div>
 </template>
 
@@ -64,7 +67,11 @@ export default {
     viewPatient(patientId) {
       this.$router.push(`/patient/${patientId}`);
     },
+    navigateBack() {
+      window.history.back();
+    }
   },
+
   mounted() {
     this.fetchPatients();
   },
