@@ -49,6 +49,7 @@ export default {
   methods: {
     goToMenu() {
       this.$router.push("/patients");
+      this.$router.push("/");
     }
   },
   computed: {
