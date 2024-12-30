@@ -1,8 +1,8 @@
 <template>
   <div>
     <div class="patient-details">
-      <h1 class="title">Muuda patsienti</h1>
-      <h1 class="title">{{ patient.patientFullName }}</h1>
+      <h2 class="title">Muuda patsienti</h2>
+      <h2><strong>{{ patient.patientFullName }}</strong></h2>
       <p><strong>Sünniaeg:</strong> {{ patient.dateOfBirth }}</p>
       <p><strong>Kaal:</strong> {{ patient.weight }} kg</p>
     </div>
@@ -36,7 +36,7 @@
         <button type="submit" class="green-button">Salvesta</button>
       </form>
       <br>
-      <button class="green-button" @click="navigateBack">Tagasi</button>
+      <button class="secondary-button" @click="navigateBack">Tagasi</button>
       <br>
 
       <button class="red-button" @click="deletePatient">Kustuta patsient</button>
@@ -145,38 +145,6 @@ export default {
   margin-top: 10px;
 }
 
-.input-group {
-  margin-top: 10px;
-  width: 100px;
-  max-width: 400px;
-  text-align: left;
-}
-
-.input-field {
-  width: 200px;
-  padding: 12px;
-  border: 1px solid #ddd;
-  border-radius: 10px;
-  font-size: 1rem;
-}
-
-.green-button {
-  background-color: #2ecc71;
-  color: white;
-  padding: 12px 25px;
-  border: none;
-  border-radius: 25px;
-  font-size: 1.1rem;
-  cursor: pointer;
-  margin-top: 10px;
-  transition: background-color 0.3s, transform 0.2s;
-}
-
-.green-button:hover {
-  background-color: #27ae60;
-  transform: scale(1.05);
-}
-
 .red-button {
   background-color: #e74c3c;
   color: white;
@@ -185,12 +153,12 @@ export default {
   border-radius: 25px;
   font-size: 1.1rem;
   cursor: pointer;
-  margin-top: 10px;
+  margin-top: 30px;
   transition: background-color 0.3s, transform 0.2s;
 }
 
 .red-button:hover {
-  background-color: #c0392b;
+  background-color: #e6a476;
   transform: scale(1.05);
 }
 </style>

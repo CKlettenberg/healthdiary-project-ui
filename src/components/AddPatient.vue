@@ -35,6 +35,9 @@
       </form>
       <p v-if="errorMessage" class="error-message">{{ errorMessage }}</p>
     </div>
+    <div>
+    <button class="secondary-button" @click="navigateBack">Tagasi</button>
+    </div>
   </div>
 </template>
 
@@ -82,7 +85,7 @@ export default {
                 : "Midagi läks valesti. Palun proovige uuesti.";
       }
     },
-    goBack() {
+    navigateBack() {
       this.$router.push("/menu");
     },
   },
@@ -100,73 +103,10 @@ export default {
   max-width: 400px;
 }
 
-.title {
-  font-size: 2.5rem;
-  color: #a1ff2e;
-  text-shadow: 0 2px 4px rgba(0.4, 0.5, 0.7, 4);
-  margin-bottom: 30px;
-}
-
-.input-group {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-
-}
-
-.label {
-  font-size: 1.2rem;
-  color: #0e0c0c;
-  margin-bottom: 8px;
-}
-
-.input-field {
-  width: 100%;
-  padding: 12px;
-  border-radius: 25px;
-  font-size: 1.1rem;
-  background-color: rgba(255, 255, 255, 0.8);
-  color: #333;
-  border-style: double;
-}
-
-.green-button {
-  gap: 15px;
-  background-color: #2ecc71;
-  color: white;
-  padding: 12px 25px;
-  border: none;
-  border-radius: 25px;
-  font-size: 1.1rem;
-  cursor: pointer;
-  transition: background-color 0.3s, transform 0.2s;
-}
-
-.green-button:hover {
-  background-color: #27ae60;
-  transform: scale(1.05);
-}
-
 .error-message {
   color: red;
   font-size: 1rem;
   margin-top: 10px;
   text-align: center;
-}
-
-@media (max-width: 768px) {
-  .title {
-    font-size: 2.4rem;
-    margin-top: 100px;
-  }
-
-  .input-field {
-    font-size: 1.5rem;
-  }
-
-  .green-button {
-    font-size: 1.5rem;
-  }
 }
 </style>

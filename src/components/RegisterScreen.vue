@@ -63,12 +63,6 @@ export default {
 </script>
 
 <style scoped>
-.title {
-  font-size: 3rem;
-  color: #a1ff2e;
-  text-shadow: 0 2px 4px rgba(0.4, 0.5, 0.7, 4);
-  margin-bottom: 30px;
-}
 
 .form-container {
   display: flex;
@@ -78,66 +72,8 @@ export default {
   width: 100%;
 }
 
-.input-group {
-  width: 250px;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-}
-
-.label {
-  font-size: 1.2rem;
-  color: black;
-  margin-bottom: 8px;
-}
-
-.input-field {
-  width: 100%;
-  padding: 12px;
-  border-radius: 25px;
-  font-size: 1.1rem;
-  background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent input background */
-  color: #333;
-  border-style: double;
-}
-
 .input-field [placeholder="Username"] {
   font-family: monospace; /* Example styling */
-}
-
-.green-button {
-  width: 135px;
-  background-color: #2ecc71; /* Green button */
-  color: white;
-  padding: 12px 25px;
-  border: none;
-  border-radius: 25px;
-  font-size: 1.1rem;
-  cursor: pointer;
-  transition: background-color 0.3s, transform 0.2s;
-}
-
-.green-button:hover {
-  background-color: #27ae60; /* Darker green on hover */
-  transform: scale(1.05); /* Slight zoom effect */
-}
-
-.secondary-button {
-  width: 135px;
-  background-color: transparent;
-  color: #2ecc71;
-  padding: 12px 25px;
-  border: 2px solid #2ecc71;
-  border-radius: 25px;
-  font-size: 1.1rem;
-  cursor: pointer;
-  transition: background-color 0.3s, color 0.3s, transform 0.2s;
-}
-
-.secondary-button:hover {
-  background-color: #2ecc71; /* Green background on hover */
-  color: white; /* White text on hover */
-  transform: scale(1.05); /* Slight zoom effect */
 }
 
 .error-message {
@@ -145,22 +81,5 @@ export default {
   font-size: 1rem;
   margin-top: 10px;
   text-align: center;
-}
-
-@media (max-width: 768px) {
-  .title {
-    font-size: 2.5rem;
-   text-align: center;
-  }
-
-  .label,
-  .input-field {
-    font-size: 1.5rem;
-  }
-
-  .green-button,
-  .secondary-button {
-    font-size: 1.2rem;
-  }
 }
 </style>

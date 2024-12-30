@@ -32,7 +32,7 @@
 
             <!-- Lisa palavikuandmete vorm -->
             <div class="add-fever-form">
-              <h2>Lisa uus mõõtmine</h2>
+              <h2>Lisa uus mõõtmine: </h2>
               <form @submit.prevent="addFeverRecord">
                 <div class="form-group">
                   <label for="temperature">Temperatuur (°C):</label>
@@ -65,7 +65,7 @@
                 </div>
                 <div class="medication-panel">
                   <div class="form-group">
-                    <label for="medicationName">Manustatud palaviku alandajat:</label>
+                    <label for="medicationName">Manustatud ravim:</label>
                     <input placeholder="ravimi nimetus või toimeaine"
                            type="text"
                            id="medicationName"
@@ -73,8 +73,8 @@
                     />
                   </div>
                   <div class="form-group">
-                    <label for="medicationDosage">Manustatud palaviku alandaja doos:</label>
-                    <input placeholder="ravimi annus (näiteks 20 ml,  1 tablett 500 mg)"
+                    <label for="medicationDosage">Manustatud ravimi doos:</label>
+                    <input placeholder="ravimi annus (nt 20 ml, 1 tablett 500 mg)"
                            type="text"
                            id="medicationDosage"
                            v-model="newFeverRecord.medicationDosage"
@@ -205,31 +205,24 @@ export default {
   margin: 0 auto;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
-
-h2 {
-  font-size: 1.8rem;
-  color: #333;
-  margin-bottom: 20px;
-  text-align: center;
-}
-
 .form-group {
   margin-bottom: 15px;
 }
 
 label {
   display: block;
-  font-size: 1rem;
-  color: #555;
-  margin-bottom: 5px;
+  font-size: 1.8rem;
+  color: #230101;
+  margin-bottom: 10px;
+  text-align: center;
 }
 
 input[type="text"], input[type="datetime-local"] {
   width: 100%;
-  padding: 8px;
-  font-size: 1rem;
+  padding: 12px;
+  border-radius: 25px;
+  font-size: 1.3rem;
   border: 1px solid #ccc;
-  border-radius: 4px;
   box-sizing: border-box;
 }
 
@@ -244,26 +237,35 @@ input[type="text"]:focus, input[type="datetime-local"]:focus {
 }
 
 button {
-  padding: 10px 20px;
-  font-size: 1rem;
-  border: none;
-  border-radius: 4px;
+  padding: 5px 25px;
+  background-color: #9a9996;
+  font-size: 1.3rem;
+  border: 1px solid #605656;
+  border-radius: 25px;
   cursor: pointer;
   transition: background-color 0.3s;
+  margin-left: 10px;
 }
 
 .btn-submit {
+  padding: 12px 25px;
   background-color: #4CAF50;
   color: white;
+  border: none;
+  border-radius: 25px;
 }
 
 .btn-submit:hover {
-  background-color: #45a049;
+  background-color: #27ae60;
+  transform: scale(1.05);
 }
 
 .btn-cancel {
-  background-color: #f44336;
-  color: white;
+  padding: 12px 25px;
+  background-color: transparent;
+  color: red;
+  border: 1px solid darkred;
+  border-radius: 25px;
 }
 
 .btn-cancel:hover {
@@ -336,8 +338,8 @@ li {
 
 .modal-content {
   margin-top: 20px;
-  font-size: 1.1rem;
-  color: #555;
+  font-size: 1.7rem;
+  color: #f31414;
 }
 
 .left-panel {
@@ -389,7 +391,7 @@ li {
 }
 
 .temperature-display {
-  font-size: 1.5rem;
+  font-size: 1.7rem;
   margin-left: -120px;
   margin-top: -60px;
 }
@@ -411,8 +413,8 @@ li {
   }
 
   .modal-content {
-    font-size: 1rem; /* Adjust font size for readability */
-    margin-top: 10px;
+    font-size: 1.8rem; /* Adjust font size for readability */
+    margin-top: 15px;
   }
 
   .add-data-page {
@@ -444,7 +446,7 @@ li {
   .temperature-display {
     margin: 0; /* Center the display */
     text-align: center;
-    font-size: 1.2rem; /* Slightly smaller font */
+    font-size: 1.5rem; /* Slightly smaller font */
   }
 
   .add-fever-form {
@@ -454,17 +456,13 @@ li {
     box-shadow: none; /* Simplify the design for mobile */
   }
 
-  h2 {
-    font-size: 1.4rem; /* Adjust title size */
-    margin-bottom: 10px;
-  }
 
   .form-group label {
-    font-size: 0.9rem; /* Smaller labels */
+    font-size: 1.3rem; /* Smaller labels */
   }
 
   input[type="text"], input[type="datetime-local"] {
-    font-size: 0.9rem; /* Adjust input size */
+    font-size: 1.3rem; /* Adjust input size */
     padding: 6px;
   }
 
@@ -476,9 +474,9 @@ li {
 
   .btn-submit,
   .btn-cancel {
-    width: 100%; /* Full-width buttons */
-    font-size: 1rem; /* Slightly smaller font */
-    padding: 10px;
+    width: 90%; /* Full-width buttons */
+    font-size: 1.3rem; /* Slightly smaller font */
+    margin-top: 10px
   }
 
   .temperature-slider::-webkit-slider-thumb,

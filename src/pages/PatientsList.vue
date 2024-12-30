@@ -20,7 +20,7 @@
       </div>
     </div>
     <div class="action-buttons">
-      <button class="green-button" @click="navigateBack">Tagasi</button>
+      <button class="secondary-button" @click="navigateBack">Tagasi</button>
     </div>
   </div>
 </template>

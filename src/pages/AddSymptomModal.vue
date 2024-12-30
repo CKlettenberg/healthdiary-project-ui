@@ -155,15 +155,8 @@ export default {
 .symptoms-group label {
   display: flex;
   align-items: center;
-  font-size: 1rem;
-  margin-bottom: 5px;
-}
-
-h2 {
   font-size: 1.8rem;
-  color: #333;
-  margin-bottom: 20px;
-  text-align: center;
+  margin-bottom: 5px;
 }
 
 .form-group {
@@ -179,10 +172,12 @@ label {
 
 input[type="text"], input[type="datetime-local"] {
   width: 100%;
-  padding: 8px;
-  font-size: 1rem;
-  border: 1px solid #ccc;
-  border-radius: 4px;
+  padding: 12px;
+  border-radius: 25px;
+  font-size: 1.3rem;
+  background-color: rgba(255, 255, 255, 0.8);
+  color: #333;
+  border-style: double;
   box-sizing: border-box;
 }
 
@@ -289,8 +284,8 @@ li {
 
 .modal-content {
   margin-top: 20px;
-  font-size: 1.1rem;
-  color: #555;
+  font-size: 1.3rem;
+  color: darkred;
 }
 
 </style>

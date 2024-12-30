@@ -1,38 +1,41 @@
 <template>
   <div class="change-password">
-    <h2>Muuda parool</h2>
+    <h2 class="title">Muuda parool</h2>
     <form @submit.prevent="changePassword">
-      <div>
-        <label for="current-password">Praegune parool</label>
+      <div class="input-group">
+        <label for="current-password" class="label">Praegune parool:</label>
         <input
             id="current-password"
             type="password"
             v-model="currentPassword"
+            class="input-field"
             required
         />
       </div>
       <div>
-        <label for="new-password">Uus parool</label>
+        <label for="new-password" class="label">Uus parool:</label>
         <input
             id="new-password"
             type="password"
             v-model="newPassword"
+            class="input-field"
             required
         />
       </div>
       <div>
-        <label for="confirm-password">Kinnitage uus parool</label>
+        <label for="confirm-password" class="label">Kinnitage uus parool:</label>
         <input
             id="confirm-password"
             type="password"
             v-model="confirmPassword"
+            class="input-field"
             required
         />
       </div>
-      <button type="submit">Parooli muutmine</button>
+      <button class="green-button" type="submit">Parooli muutmine</button>
     </form>
     <br>
-    <button class="green-button" @click="navigateBack">Tagasi</button>
+    <button class="secondary-button" @click="navigateBack">Tagasi</button>
     <br>
     <p v-if="errorMessage" class="error">{{ errorMessage }}</p>
     <p v-if="successMessage" class="success">{{ successMessage }}</p>

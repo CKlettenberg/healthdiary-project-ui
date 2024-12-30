@@ -1,12 +1,12 @@
 <template>
   <div>
     <h1 class="title">TERVISE PÄEVIK</h1>
-    <h3 class="subtitle"> Palaviku jälgimise abiline</h3>
+    <h3 class="subtitle"> Tervise päevik aitab teil hoida silma peal enda ja kogu pere palavikul ja olulistel tervisenäitajatel. </h3>
 
     <!-- Initial Buttons -->
     <div v-if="!showLogin" class="button-container">
       <button class="green-button" @click="toggleLogin">Logi sisse</button>
-      <button class="secondary-button" @click="goToRegister">Registreeri</button>
+      <button class="green-button" @click="goToRegister">Registreeri</button>
     </div>
 
     <!-- Login Form -->
@@ -18,7 +18,7 @@
         <input v-model="password" type="password" id="password" class="input-field" required/>
       </div>
       <button type="submit" class="green-button">Logi sisse</button>
-      <button type="button" class="secondary-button" @click="toggleLogin">Tagasi</button>
+      <button class="secondary-button" @click="toggleLogin">Tagasi</button>
       <p v-if="errorMessage" class="error-message">{{ errorMessage }}</p>
     </form>
   </div>
@@ -66,16 +66,18 @@ export default {
 <style scoped>
 
 .title {
-  font-size: 3rem;
+  font-size: 5rem;
   color: #a1ff2e;
   text-shadow: 0 2px 4px rgba(0.4, 0.5, 0.7, 4);
   margin-bottom: 30px;
 }
 .subtitle {
-  font-size: 1.5rem;
+  font-size: 2.5rem;
   color: #8df176;
   text-shadow: 0 2px 4px rgba(0.4, 0.5, 0.7, 4);
   margin-bottom: 30px;
+  margin-inline: 30px;
+  text-align: center;
   justify-content: center;
   display: flex;
 }
@@ -94,60 +96,26 @@ export default {
 }
 
 .input-group {
-  width: 225px;
+  width: 400px;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
 }
 
-.label {
-  font-size: 1.2rem;
-  color: black;
-  margin-bottom: 8px;
-}
-
-.input-field {
-  width: 100%;
-  padding: 12px;
-  border-radius: 25px;
-  font-size: 1.1rem;
-  background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent input background */
-  color: #333;
-  border-style: double;
-}
-
 .green-button {
-  width: 135px;
+  width: 400px;
   background-color: #2ecc71;
   color: white;
-  padding: 12px 25px;
+  padding: 20px 25px;
   border: none;
   border-radius: 25px;
-  font-size: 1.1rem;
+  font-size: 2.5rem;
   cursor: pointer;
   transition: background-color 0.3s, transform 0.2s;
 }
 
 .green-button:hover {
   background-color: #27ae60;
-  transform: scale(1.05);
-}
-
-.secondary-button {
-  width: 135px;
-  background-color: #2ecc71;
-  color: white;
-  padding: 12px 25px;
-  border: 2px solid #2ecc71;
-  border-radius: 25px;
-  font-size: 1.1rem;
-  cursor: pointer;
-  transition: background-color 0.3s, color 0.3s, transform 0.2s;
-}
-
-.secondary-button:hover {
-  background-color: #2ecc71;
-  color: white;
   transform: scale(1.05);
 }
 
@@ -160,19 +128,19 @@ export default {
 
 @media (max-width: 768px) {
   .title {
-    font-size: 2rem;
+    font-size: 2.7rem;
   }
   .subtitle {
-    font-size: 0.7rem;
+    font-size: 1.8rem;
   }
 
   .input-field {
-    font-size: 1rem;
+    font-size: 1.5rem;
   }
 
   .green-button,
   .secondary-button {
-    font-size: 1rem;
+    font-size: 1.5rem;
   }
 }
 </style>
