@@ -138,4 +138,5 @@ export default {
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.7);
   text-align: center;
 }
+
 </style>

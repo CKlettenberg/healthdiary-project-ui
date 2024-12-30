@@ -46,22 +46,6 @@
     cursor: pointer;
 }
 
-@media (min-width: 768px) and (max-width: 1023px) {
-    .health-diary-app {
-        padding: 20px;
-        background-size: cover;
-    }
-}
-
-/* Styles for Mobile */
-@media (max-width: 767px) {
-    .health-diary-app {
-        padding: 10px;
-        background-size: auto;
-        background-position: top center;
-    }
-}
-
 .icon-button {
     background-color: #2ecc71; /* Green button */
     color: white;
@@ -83,34 +67,78 @@
 .top-buttons {
     display: flex;
     justify-content: center;
-    position: absolute;
+    position: relative;
     width: 100%;
 }
+
 .dropdown-menu {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    background-color: #d11414;
-    border: 1px solid #5a1a73;
     position: absolute;
     top: 100%;
-    left: 0;
-    width: 150px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 0;
+    width: auto;
+    z-index: 1000;
 }
 
 .dropdown-menu li {
     padding: 10px;
     cursor: pointer;
+    width: auto;  /* Ensure full width */
+    background-color: #2ecc71;  /* Default background */
+    border-bottom: 1px solid #ccc;
 }
 
 .dropdown-menu li:hover {
-    background-color: #f0f0f0;
+    background-color: #f39c12;
 }
 
-/* Global Styles for Mobile */
+@media (min-width: 768px) and (max-width: 1023px) {
+    .health-diary-app {
+        padding: 20px;
+        background-size: cover;
+    }
+}
+
+/* Styles for Mobile */
 @media (max-width: 767px) {
-    /* App Container */
+    .dropdown-container {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .dropdown-menu {
+        position: static;
+        padding: 0;
+        top: 100%; /* Ava ülespoole */
+        width: auto; /* Kasuta kogu laius */
+        z-index: 1000;
+        display: flex; /* Use flexbox for vertical alignment */
+        flex-direction: column; /* Stack items vertically */
+    }
+
+    .dropdown-menu li {
+        padding: 10px; /* Add some padding to the items for better click area */
+        text-align: center; /* Optionally, align text */
+    }
+
+    .icon-button {
+        background-color: #2ecc71; /* Green button */
+        color: white;
+        padding: 10px 15px;
+        border: none;
+        border-radius: 25px;
+        font-size: 0.9rem;
+        cursor: pointer;
+        transition: background-color 0.3s, transform 0.2s;
+        width: auto; /* Full width with padding */
+        white-space: nowrap; /* Tekst ei lähe üle ridade */
+        margin: 10px; /* Ruumi nuppude vahel */ /* Kasuta flexboxi */
+        justify-content: center;
+        display: inline-block;
+    }
+
+    .icon-button:hover {
+        transform: scale(1.05); /* Slight hover effect */
+    }
     .health-diary-app {
         padding: 10px;
         background-size: auto;
@@ -142,23 +170,6 @@
         gap: 10px; /* Space between buttons */
         position: static; /* Remove absolute positioning for better stacking */
         width: 100%;
-    }
-
-    .icon-button {
-        background-color: #2ecc71; /* Green button */
-        color: white;
-        padding: 10px 15px;
-        border: none;
-        border-radius: 25px;
-        font-size: 0.9rem;
-        cursor: pointer;
-        transition: background-color 0.3s, transform 0.2s;
-        width: 90%; /* Full width with padding */
-        text-align: center; /* Center text */
-    }
-
-    .icon-button:hover {
-        transform: scale(1.05); /* Slight hover effect */
     }
 
     /* Main Content */

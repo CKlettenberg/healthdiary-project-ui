@@ -157,15 +157,16 @@ export default {
 
 @media (max-width: 768px) {
   .title {
-    font-size: 2rem;
+    font-size: 2.4rem;
+    margin-top: 100px;
   }
 
   .input-field {
-    font-size: 1rem;
+    font-size: 1.5rem;
   }
 
   .green-button {
-    font-size: 1rem;
+    font-size: 1.5rem;
   }
 }
 </style>

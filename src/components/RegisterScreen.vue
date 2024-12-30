@@ -4,7 +4,7 @@
 
     <form @submit.prevent="handleRegister" class="form-container">
       <div class="input-group">
-        <label for="username" class="label">Kasutaja:</label>
+        <label for="username" class="label">Kasutajanimi:</label>
         <input v-model="user.username" autocomplete="off" id="username" class="input-field" required/>
 
         <label for="password" class="label">Parool:</label>
@@ -149,16 +149,18 @@ export default {
 
 @media (max-width: 768px) {
   .title {
-    font-size: 2rem;
+    font-size: 2.5rem;
+   text-align: center;
   }
 
+  .label,
   .input-field {
-    font-size: 1rem;
+    font-size: 1.5rem;
   }
 
   .green-button,
   .secondary-button {
-    font-size: 1rem;
+    font-size: 1.2rem;
   }
 }
 </style>

@@ -4,22 +4,18 @@
 
     <div v-if="!isLoggedIn" class="router-view-container">
       <div v-if="isAuthenticated" class="top-buttons">
-        <button class="icon-button back" @click="goToMenu">
-          <i class="fas fa-home"></i>Pealeht
-        </button>
+        <button class="icon-button" @click="goToMenu">Pealeht</button>
+
         <div class="dropdown-container">
         <!-- Peamine nupp -->
         <button @click="toggleDropdown" class="icon-button">Seaded</button>
         <ul v-if="isDropdownOpen" class="dropdown-menu">
           <li @click="navigateToChangePassword" class="icon-button">Muuda parooli</li>
-          <li @click="handleLogout" class="icon-button logout">Logi välja</li>
+          <li @click="handleLogout" class="icon-button">Logi välja</li>
         </ul>
       </div>
       </div>
       <router-view></router-view>
-    </div>
-    <div v-else>
-
     </div>
   </div>
 </template>
@@ -43,6 +39,7 @@ export default {
       this.$router.push("/patients");
     },
     toggleDropdown() {
+      console.log("Dropdown clicked!");
       this.isDropdownOpen = !this.isDropdownOpen;
     },
     navigateToChangePassword() {
@@ -80,3 +77,4 @@ export default {
   }
   };
 </script>
+
