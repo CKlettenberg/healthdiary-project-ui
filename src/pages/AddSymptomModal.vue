@@ -4,10 +4,9 @@
       <button class="close-btn" @click="closeModal">X</button>
       <div class="modal-content">
         <div class="add-symptom-form">
-          <h2>Lisa sümptomid</h2>
+          <h2>Lisa sümptomid:</h2>
           <form @submit.prevent="saveSymptoms">
             <div class="form-group symptoms-group">
-              <h3>Sümptomid:</h3>
               <label for="symptoms">Tee oma valik:</label>
               <div v-for="(symptom, index) in symptomList" :key="index">
                 <label class="hover-over-label">
@@ -22,8 +21,7 @@
               <div v-if="!isEditingDateTime" class="date-time-display">
                 <span>{{ formattedDateTime }}</span>
                 <button type="button" class="btn-edit"
-                        @click="isEditingDateTime = true">Muuda
-                </button>
+                        @click="isEditingDateTime = true">Muuda</button>
               </div>
               <div v-else>
                 <vue3-datepicker
@@ -32,8 +30,7 @@
                     format="dd/MM/yyyy HH:mm"
                     :append-to-body="true"
                     placement="bottom-start"
-                    required
-                />
+                    required />
                 <button type="button" class="btn-edit" @click="isEditingDateTime = false">Salvesta</button>
               </div>
             </div>
@@ -95,7 +92,7 @@ export default {
   methods: {
     async saveSymptoms() {
       if (!this.newSymptom.symptoms || this.newSymptom.symptoms.length === 0) {
-        alert("Please select at least one symptom.");
+        alert("Lisa vähemalt üks sümptom.");
         return;
       }
       if (!this.newSymptom.time) {
@@ -113,6 +110,7 @@ export default {
         );
         this.newSymptom.time = dayjs().format("YYYY-MM-DDTHH:mm");
         this.newSymptom.symptoms = [];
+        this.newSymptom.otherSymptom = "";
         this.isEditingDateTime = false;
         this.closeModal();
         this.$emit("fetch-symptoms", "");
@@ -127,6 +125,7 @@ export default {
     cancelSaveSymptoms() {
       this.newSymptom.time = dayjs().format("YYYY-MM-DDTHH:mm");
       this.newSymptom.symptoms = [];
+      this.newSymptom.otherSymptom = "";
       this.isEditingDateTime = false; // Reset edit state
       this.closeModal();
     },

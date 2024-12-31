@@ -61,6 +61,7 @@
                         placement="bottom-start"
                         required
                     />
+                    <button type="button" class="btn-edit" @click="isEditingDateTime = false">Salvesta</button>
                   </div>
                 </div>
                 <div class="medication-panel">
@@ -69,16 +70,14 @@
                     <input placeholder="ravimi nimetus või toimeaine"
                            type="text"
                            id="medicationName"
-                           v-model="newFeverRecord.medicationName"
-                    />
+                           v-model="newFeverRecord.medicationName"/>
                   </div>
                   <div class="form-group">
                     <label for="medicationDosage">Manustatud ravimi doos:</label>
                     <input placeholder="ravimi annus (nt 20 ml, 1 tablett 500 mg)"
                            type="text"
                            id="medicationDosage"
-                           v-model="newFeverRecord.medicationDosage"
-                    />
+                           v-model="newFeverRecord.medicationDosage"/>
                   </div>
                 </div>
                 <div class="form-actions">
@@ -113,21 +112,18 @@ export default {
       type: Boolean,
       default: false,
     },
-    updateFeverRecord: {
-      type: {},
-      default: null
-    }
   },
   data() {
     return {
       patient: {},
       isEditingDateTime: false,
       newFeverRecord: {
-        temperature: 36.6,
+        temperature: 36.9,
         time: dayjs().toISOString(),
         medicationName: "",
         medicationDosage: "",
       },
+      updateFeverRecord: null,
     };
   },
   computed: {
@@ -156,15 +152,18 @@ export default {
         const patientId = this.patientId;
         this.newFeverRecord.patientId = patientId;
         await axios.post("http://192.168.1.40:8091/api/fever/new", this.newFeverRecord);
-        this.$emit("fetch-fever", "");
-        this.newFeverRecord.temperature = 36.6
+        this.newFeverRecord.temperature = 36.9;
+        this.newFeverRecord.time = dayjs().toISOString();
+        this.newFeverRecord.medicationName = "";
+        this.newFeverRecord.medicationDosage = "";
         this.closeModal();
+        this.$emit("fetch-fever", "");
       } catch (error) {
         console.error("Viga palavikuandmete lisamisel:", error);
       }
     },
     cancelAddFever() {
-      this.newFeverRecord.temperature = 36.5;
+      this.newFeverRecord.temperature = 36.9;
       this.newFeverRecord.time = dayjs().toISOString();
       this.newFeverRecord.medicationName = "";
       this.newFeverRecord.medicationDosage = "";
