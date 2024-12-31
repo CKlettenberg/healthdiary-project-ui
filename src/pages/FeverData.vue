@@ -19,7 +19,7 @@
         <td class="table-data" data-label="Ravimi doos">{{ entry.medicationDosage }}</td>
         <td class="table-data" data-label="Kustuta">
           <div class="edit-buttons">
-            <button class="delete-button" @click="updateFeverRecord(entry)">Muuda</button>
+            <button class="green-button" @click="updateFeverRecord(entry.id)">Muuda</button>
             <button class="delete-button" @click="deleteFeverRecord(entry.id)">Kustuta</button>
           </div>
         </td>
@@ -47,7 +47,7 @@ export default {
     patient: {
       type: {},
       required: true
-    }
+    },
   },
   data() {
     return {
@@ -219,34 +219,10 @@ export default {
   margin-top: 10px;
 }
 
-.green-button {
-  background-color: #2ecc71;
-  color: white;
-  padding: 7px 13px;
-  border: none;
-  border-radius: 25px;
-  font-size: 1.1rem;
-  cursor: pointer;
-  transition: background-color 0.3s, transform 0.2s;
-}
-
-.delete-button {
-  font-size: 11px;
-  color: white;
-  background-color: #2ecc71;
-  border: none;
-  border-radius: 5px;
-  padding: 4px 8px;
-  cursor: pointer;
-}
 
 .edit-buttons {
   display: flex;
   justify-content: space-between;
-}
-
-.delete-button:hover {
-  background-color: #27ae60;
 }
 
 .header-cell {

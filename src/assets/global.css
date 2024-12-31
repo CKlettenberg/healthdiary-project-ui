@@ -143,6 +143,80 @@ h2 {
     position: relative;
     width: 100%;
 }
+button {
+    padding: 5px 25px;
+    background-color: #4CAF50;
+    color: white;
+    font-size: 1.3rem;
+    border: 1px solid #605656;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-left: 10px;
+}
+button:hover {
+    background-color: #27ae60;
+    transform: scale(1.05);
+}
+
+.btn-submit {
+    padding: 12px 25px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 25px;
+}
+
+.btn-submit:hover {
+    background-color: #27ae60;
+    transform: scale(1.05);
+}
+
+.delete-button {
+    background-color: transparent;
+    color: red;
+    padding: 12px 25px;
+    border: 2px solid darkred;
+    border-radius: 25px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    margin-top: 30px;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.delete-button:hover {
+    background-color: #e53935;
+    transform: scale(1.05);
+}
+
+.btn-cancel {
+    padding: 12px 25px;
+    background-color: transparent;
+    color: red;
+    border: 1px solid darkred;
+    border-radius: 25px;
+}
+
+.btn-cancel:hover {
+    background-color: #e53935;
+}
+
+.close-btn {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    border: none;
+    background: transparent;
+    font-size: 20px;
+    color: #888;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+.close-btn:hover {
+    color: #000000; /* Darker color on hover */
+}
+
 
 .dropdown-menu {
     position: absolute;
@@ -259,6 +333,24 @@ h2 {
     .green-button {
         font-size: 1.5rem;
         margin-top: 20px;
+    }
+    button {
+        font-size: 1.5rem;
+    }
+    .btn-cancel {
+        font-size: 1.5rem;
+    }
+
+    .btn-submit {
+        font-size: 1.5rem;
+    }
+
+    .delete-button {
+        font-size: 1.5rem;
+    }
+
+    .delete-button:hover {
+        background-color: #e53935;
     }
 
     h2 {

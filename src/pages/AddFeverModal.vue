@@ -123,7 +123,12 @@ export default {
         medicationName: "",
         medicationDosage: "",
       },
-      updateFeverRecord: null,
+      updateFeverRecord: {
+        temperature: 36.9,
+        time: dayjs().toISOString(),
+        medicationName: "",
+        medicationDosage: "",
+      },
     };
   },
   computed: {
@@ -171,10 +176,17 @@ export default {
     },
     handleUpdateData() {
       console.log(this.updateFeverRecord);
-      if (this.updateFeverRecord != null) {
-        this.newFeverRecord = this.updateFeverRecord;
+      if (this.updateFeverRecord) {
+        this.newFeverRecord = {...this.updateFeverRecord};
+      } else {
+        this.updateFeverRecord = {
+          temperature: 36.9,
+          time: dayjs().toISOString(),
+          medicationName: "",
+          medicationDosage: "",
+        };
       }
-      console.log(this.newFeverRecord, 'nNewFeverrecord')
+      console.log(this.updateFeverRecord, 'nNewFeverrecord')
     },
     closeModal() {
       this.$emit("update:isOpen", false);
@@ -235,41 +247,6 @@ input[type="text"]:focus, input[type="datetime-local"]:focus {
   justify-content: space-between;
 }
 
-button {
-  padding: 5px 25px;
-  background-color: #9a9996;
-  font-size: 1.3rem;
-  border: 1px solid #605656;
-  border-radius: 25px;
-  cursor: pointer;
-  transition: background-color 0.3s;
-  margin-left: 10px;
-}
-
-.btn-submit {
-  padding: 12px 25px;
-  background-color: #4CAF50;
-  color: white;
-  border: none;
-  border-radius: 25px;
-}
-
-.btn-submit:hover {
-  background-color: #27ae60;
-  transform: scale(1.05);
-}
-
-.btn-cancel {
-  padding: 12px 25px;
-  background-color: transparent;
-  color: red;
-  border: 1px solid darkred;
-  border-radius: 25px;
-}
-
-.btn-cancel:hover {
-  background-color: #e53935;
-}
 
 ul {
   list-style-type: none;

@@ -39,7 +39,7 @@
       <button class="secondary-button" @click="navigateBack">Tagasi</button>
       <br>
 
-      <button class="red-button" @click="deletePatient">Kustuta patsient</button>
+      <button class="delete-button" @click="deletePatient">Kustuta patsient</button>
     </div>
   </div>
 </template>
@@ -145,20 +145,5 @@ export default {
   margin-top: 10px;
 }
 
-.red-button {
-  background-color: #e74c3c;
-  color: white;
-  padding: 12px 25px;
-  border: none;
-  border-radius: 25px;
-  font-size: 1.1rem;
-  cursor: pointer;
-  margin-top: 30px;
-  transition: background-color 0.3s, transform 0.2s;
-}
 
-.red-button:hover {
-  background-color: #e6a476;
-  transform: scale(1.05);
-}
 </style>

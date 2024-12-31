@@ -164,8 +164,8 @@ export default {
 
 label {
   display: block;
-  font-size: 1rem;
-  color: #555;
+  font-size: 1.8rem;
+  color: #070707;
   margin-bottom: 5px;
 }
 
@@ -188,33 +188,6 @@ input[type="text"]:focus, input[type="datetime-local"]:focus {
 .form-actions {
   display: flex;
   justify-content: space-between;
-}
-
-button {
-  padding: 10px 20px;
-  font-size: 1rem;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: background-color 0.3s;
-}
-
-.btn-submit {
-  background-color: #4CAF50;
-  color: white;
-}
-
-.btn-submit:hover {
-  background-color: #45a049;
-}
-
-.btn-cancel {
-  background-color: #f44336;
-  color: white;
-}
-
-.btn-cancel:hover {
-  background-color: #e53935;
 }
 
 ul {
@@ -263,22 +236,6 @@ li {
     transform: scale(1);
     opacity: 1;
   }
-}
-
-.close-btn {
-  position: absolute;
-  top: 15px;
-  right: 15px;
-  border: none;
-  background: transparent;
-  font-size: 20px;
-  color: #888;
-  cursor: pointer;
-  transition: color 0.3s;
-}
-
-.close-btn:hover {
-  color: #333; /* Darker color on hover */
 }
 
 .modal-content {
