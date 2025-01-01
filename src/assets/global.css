@@ -49,28 +49,23 @@
 .icon-button {
     background-color: #2ecc71; /* Green button */
     color: white;
-    padding: 12px 25px;
+    padding: 12px 60px;
     border: none;
     border-radius: 25px;
-    font-size: 1rem;
+    font-size: 2rem;
     cursor: pointer;
     transition: background-color 0.3s, transform 0.2s;
-    margin: 0 300px; /* Add spacing between buttons */
+    margin: 0 100px; /* Add spacing between buttons */
     width: auto; /* Prevent stretching */
     white-space: nowrap;
 }
 
 .icon-button:hover {
+    background-color: #27ae60;
     transform: scale(1.1); /* Slight zoom effect */
 }
 
-.title {
-    font-size: 3rem;
-    color: #a1ff2e;
-    text-shadow: 0 2px 4px rgba(0.4, 0.5, 0.7, 4);
-    margin-bottom: 30px;
-    text-align: center;
-}
+
 .green-button {
     gap: 15px;
     background-color: #2ecc71;
@@ -88,14 +83,14 @@
     background-color: #27ae60;
     transform: scale(1.05);
 }
+
 .secondary-button {
     background-color: transparent;
     color: #2ecc71;
-    padding: 12px 25px;
+    padding: 10px 25px;
     border: 2px solid #2ecc71;
     border-radius: 25px;
     font-size: 1.1rem;
-    margin-top: 20px;
     cursor: pointer;
     transition: background-color 0.3s, color 0.3s, transform 0.2s;
 }
@@ -106,36 +101,6 @@
     transform: scale(1.05); /* Slight zoom effect */
 }
 
-.label {
-    font-size: 1.5rem;
-    color: #0e0c0c;
-    margin-top: 8px;
-    margin-bottom: 8px;
-}
-h2 {
-    font-size: 2rem;
-    color: #000000;
-    margin-bottom: 20px;
-    text-align: center;
-}
-
-.input-group {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-}
-
-.input-field {
-    width: 100%;
-    padding: 12px;
-    border-radius: 25px;
-    font-size: 1.3rem;
-    background-color: rgba(255, 255, 255, 0.8);
-    color: #333;
-    border-style: double;
-    box-sizing: border-box;
-}
 
 .top-buttons {
     display: flex;
@@ -143,6 +108,7 @@ h2 {
     position: relative;
     width: 100%;
 }
+
 button {
     padding: 5px 25px;
     background-color: #4CAF50;
@@ -217,6 +183,52 @@ button:hover {
     color: #000000; /* Darker color on hover */
 }
 
+.action-buttons {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+}
+
+.title {
+    font-size: 3rem;
+    color: #a1ff2e;
+    text-shadow: 0 2px 4px rgba(0.4, 0.5, 0.7, 4);
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.label {
+    font-size: 1.5rem;
+    color: #0e0c0c;
+    margin-top: 8px;
+    margin-bottom: 8px;
+}
+
+h2 {
+    font-size: 2rem;
+    color: #000000;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.input-group {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.input-field {
+    width: 100%;
+    padding: 12px;
+    border-radius: 25px;
+    font-size: 1.3rem;
+    background-color: rgba(255, 255, 255, 0.8);
+    color: #333;
+    border-style: double;
+    box-sizing: border-box;
+}
 
 .dropdown-menu {
     position: absolute;
@@ -277,10 +289,22 @@ button:hover {
         text-align: center; /* Optionally, align text */
     }
 
+    /* Content Container */
+    .router-view-container {
+        position: relative;
+        width: 100%;
+        height: auto; /* Allow height to adjust to content */
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 10px;
+        overflow-y: auto;
+        box-sizing: border-box;
+        gap: 15px; /* Space between elements */
+    }
+
     .icon-button {
-        background-color: #2ecc71; /* Green button */
-        color: white;
-        padding: 10px 15px;
+        padding: 10px 20px;
         border: none;
         border-radius: 25px;
         font-size: 1.5rem;
@@ -297,20 +321,6 @@ button:hover {
         transform: scale(1.05); /* Slight hover effect */
     }
 
-    /* Content Container */
-    .router-view-container {
-        position: relative;
-        width: 100%;
-        height: auto; /* Allow height to adjust to content */
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        padding: 10px;
-        overflow-y: auto;
-        box-sizing: border-box;
-        gap: 15px; /* Space between elements */
-    }
-
     /* Header Buttons */
     .top-buttons {
         display: flex;
@@ -321,6 +331,7 @@ button:hover {
         width: 100%;
         font-size: 1.5rem;
     }
+
     .title {
         font-size: 2.4rem;
         margin-top: 80px;

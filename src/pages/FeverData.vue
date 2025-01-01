@@ -8,7 +8,7 @@
         <th class="header-cell">Temperatuur (°C)</th>
         <th class="header-cell">Ravimi nimetus</th>
         <th class="header-cell">Ravimi doos</th>
-        <th class="header-cell">Muuda/kustuta</th>
+        <th class="header-cell">Kustuta</th>
       </tr>
       </thead>
       <tbody>
@@ -19,7 +19,6 @@
         <td class="table-data" data-label="Ravimi doos">{{ entry.medicationDosage }}</td>
         <td class="table-data" data-label="Kustuta">
           <div class="edit-buttons">
-            <button class="green-button" @click="updateFeverRecord(entry.id)">Muuda</button>
             <button class="delete-button" @click="deleteFeverRecord(entry.id)">Kustuta</button>
           </div>
         </td>

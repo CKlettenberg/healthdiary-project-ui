@@ -6,9 +6,6 @@
         <button class="green-button" @click="navigateToAddPatient">Lisa patsient</button>
         <button class="green-button" @click="navigateToPatients">Kõik patsiendid</button>
       </div>
-      <div class="swipe-hint">
-        <p>Libistage vasakule, et vaadata kõige hiljutisemat patsienti.</p>
-      </div>
     </div>
   </div>
 </template>
@@ -88,43 +85,15 @@ export default {
   text-align: center;
 }
 
-.title {
-  font-size: 2.5rem;
-  color: #a1ff2e;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.7);
-  margin-bottom: 30px;
-}
-
-.action-buttons {
-  width: 170px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 15px;
-}
 
 .green-button {
-  width: 170px;
-  background-color: #2ecc71;
-  color: white;
-  padding: 12px 25px;
-  border: none;
-  border-radius: 25px;
-  font-size: 1.1rem;
-  cursor: pointer;
-  transition: background-color 0.3s, transform 0.2s;
-}
+  width: 400px;
+  font-size: 2rem;
+  }
 
 .green-button:hover {
-  background-color: #39ae27;
+  background-color: #66ff3f;
   transform: scale(1.05);
 }
 
-.swipe-hint {
-  font-size: 1rem;
-  color: #ffffff;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.7);
-  margin-top: 20px;
-  text-align: center;
-}
 </style>

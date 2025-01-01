@@ -38,7 +38,6 @@
       <br>
       <button class="secondary-button" @click="navigateBack">Tagasi</button>
       <br>
-
       <button class="delete-button" @click="deletePatient">Kustuta patsient</button>
     </div>
   </div>

@@ -1,6 +1,6 @@
 <template>
   <div class="change-password">
-    <h2 class="title">Muuda parool</h2>
+    <h2 class="title">Muuda parooli</h2>
     <form @submit.prevent="changePassword">
       <div class="input-group">
         <label for="current-password" class="label">Praegune parool:</label>
@@ -32,13 +32,14 @@
             required
         />
       </div>
-      <button class="green-button" type="submit">Parooli muutmine</button>
     </form>
-    <br>
-    <button class="secondary-button" @click="navigateBack">Tagasi</button>
+    <div class="action-buttons">
+      <button class="green-button" type="submit">Parooli muutmine</button>
+      <button class="secondary-button" @click="navigateBack">Tagasi</button>
     <br>
     <p v-if="errorMessage" class="error">{{ errorMessage }}</p>
     <p v-if="successMessage" class="success">{{ successMessage }}</p>
+  </div>
   </div>
 </template>
 
