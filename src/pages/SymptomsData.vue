@@ -1,5 +1,6 @@
 <template>
   <div class="table-container">
+    <h2 class="table-title">Sümptomid</h2>
     <table class="custom-table">
       <thead>
       <tr>
@@ -19,7 +20,7 @@
       </tbody>
     </table>
     <div class="table-footer" v-if="symptoms.length > visibleCount">
-      <button class="green-button" @click="showAll">Kuva rohkem</button>
+      <button class="secondary-button" @click="showAll">Kuva rohkem</button>
     </div>
   </div>
 </template>
@@ -92,18 +93,15 @@ export default {
 </script>
 
 <style scoped>
-.delete-button {
-  font-size: 18px;
-  color: white;
-  background-color: #22df74;
-  border: none;
-  border-radius: 5px;
-  padding: 10px 15px;
-  cursor: pointer;
-}
 
-.delete-button:hover {
-  background-color: #aa1a1a;
+.secondary-button {
+  margin-top: 10px;
+  margin-bottom: 0px;
+}
+.delete-button {
+  text-align: center;
+  font-size: 1rem;
+  padding: 6px 12px;
 }
 
 .table-container {
@@ -116,14 +114,23 @@ export default {
   background-color: #ffffff;
 }
 
+.table-title {
+  font-size: 2rem;
+  text-align: center;
+  margin-bottom: 10px;
+  color: #333;
+}
+
 .custom-table {
   width: 100%;
   border-collapse: collapse;
+  text-align: left;
+  font-size: 0.9rem;
 }
 
 .custom-table th,
 .custom-table td {
-  padding: 12px 16px;
+  padding: 5px 16px;
   border: 1px solid #ddd;
   text-align: center;
   font-size: 17px;
@@ -135,7 +142,7 @@ export default {
   text-align: center;
   color: #ffffff;
   font-weight: bold;
-  font-size: 19px;
+  font-size: 17px;
 }
 
 .custom-table tr:nth-child(odd) {
@@ -151,19 +158,45 @@ export default {
   background-color: #e6f7ff;
 }
 
-.table-footer {
-  display: flex;
-  justify-content: space-around;
-}
+@media (max-width: 767px) {
+  .table-container {
+    max-width: 100%;
+    margin: 10px;
+    padding: 12px;
+    border: none; /* Remove border for a cleaner mobile look */
+    box-shadow: none; /* Simplify the layout */
+  }
 
-.green-button {
-  background-color: #2ecc71;
-  color: white;
-  padding: 7px 13px;
-  border: none;
-  border-radius: 25px;
-  font-size: 1.1rem;
-  cursor: pointer;
-  transition: background-color 0.3s, transform 0.2s;
+  .table-title {
+    font-size: 1.3rem;
+    margin-bottom: 10px;
+  }
+
+  .custom-table {
+    font-size: 0.8rem;
+    border-collapse: collapse;
+    width: 100%;
+    overflow-x: auto;
+    display: block; /* Allow table to scroll horizontally */
+  }
+  .custom-table tr:nth-child(odd) {
+    background-color: #ebffe8;
+  }
+
+  .custom-table tr:nth-child(even) {
+    background-color: #ffffff;
+  }
+
+  /* Make Delete Button Smaller */
+  .delete-button {
+    font-size: 0.8rem;
+    padding: 2px 10px;
+  }
+
+  .secondary-button {
+    font-size: 0.9rem;
+    padding: 8px 15px;
+    width: 100%; /* Full width on smaller screens */
+  }
 }
 </style>

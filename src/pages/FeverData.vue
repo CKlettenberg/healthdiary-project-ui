@@ -169,58 +169,7 @@ export default {
 </script>
 
 <style scoped>
-.table-container {
-  max-width: 600px;
-  margin: 20px auto;
-  padding: 16px;
-  border: 1px solid #ddd;
-  border-radius: 25px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  background-color: #ffffff;
-}
 
-.table-title {
-  font-size: 2rem;
-  text-align: center;
-  margin-bottom: 16px;
-  color: #333;
-}
-
-.custom-table {
-  width: 100%;
-  border-collapse: collapse;
-  text-align: left;
-  font-size: 0.9rem;
-}
-
-.custom-table th,
-.custom-table td {
-  padding: 5px 16px;
-  border: 1px solid #ddd;
-}
-
-.custom-table th {
-  background-color: #2ecc71;
-  color: #ffffff;
-  font-weight: bold;
-}
-
-.custom-table tr:nth-child(odd) {
-  background-color: #ebffe8;
-}
-
-.custom-table tr:nth-child(even) {
-  background-color: #ffffff;
-}
-
-.custom-table tr:hover {
-  background-color: #e6f7ff;
-}
-
-.table-footer {
-  display: flex;
-  justify-content: space-around;
-}
 .secondary-button {
   justify-content: space-evenly;
   margin-top: 10px;
@@ -237,6 +186,56 @@ export default {
   justify-content: space-between;
 }
 
+.table-container {
+  max-width: 600px;
+  margin: 20px auto;
+  padding: 16px;
+  border: 1px solid #ddd;
+  border-radius: 25px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background-color: #ffffff;
+}
+
+.table-title {
+  font-size: 2rem;
+  text-align: center;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.custom-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: 0.9rem;
+}
+
+.custom-table th,
+.custom-table td {
+  padding: 5px 16px;
+  border: 1px solid #ddd;
+  text-align: center;
+}
+
+.custom-table th {
+  background-color: #2ecc71;
+  text-align: center;
+  color: #ffffff;
+  font-weight: bold;
+}
+
+.custom-table tr:nth-child(odd) {
+  background-color: #ebffe8;
+}
+
+.custom-table tr:nth-child(even) {
+  background-color: #ffffff;
+}
+
+.custom-table tr:hover {
+  background-color: #e6f7ff;
+}
+
 .header-cell {
   font-size: 16px;
   text-align: center;
@@ -245,7 +244,7 @@ export default {
 }
 
 .table-data {
-  font-size: 16px;
+  font-size: 17px;
   text-align: center;
   vertical-align: middle;
 }
@@ -300,12 +299,6 @@ export default {
     padding: 2px 10px;
   }
 
-  /* Adjust Footer Buttons */
-  .table-footer {
-    flex-direction: column; /* Stack buttons vertically */
-    align-items: center;
-    gap: 5px; /* Add space between buttons */
-  }
 
   .secondary-button {
     font-size: 0.9rem;
