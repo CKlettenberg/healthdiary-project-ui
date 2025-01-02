@@ -5,11 +5,9 @@
       <div class="action-buttons">
         <button class="green-button" @click="navigateToAddPatient">Lisa patsient</button>
       </div>
-
       <div v-if="!patients.length" class="no-patients">
         <p>Patsiente pole leitud. Vajutage "Lisa patsient", et luua uus patsient.</p>
       </div>
-
       <div v-else>
         <h2 class="title">Kõik patsiendid</h2>
         <ul class="patients-list">
@@ -79,13 +77,6 @@ export default {
 </script>
 
 <style scoped>
-.title {
-  font-size: 2.5rem;
-  color: #a1ff2e;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.7); /* Shadow for contrast */
-  margin-bottom: 30px;
-}
-
 .patients-list {
   margin: 20px 0;
   list-style: none;
@@ -99,7 +90,7 @@ export default {
   margin: 10px 0;
   cursor: pointer;
   text-align: center;
-  font-size: 1.2rem;
+  font-size: 2rem;
 }
 
 .patients-list li:hover {
@@ -107,29 +98,13 @@ export default {
   color: white;
 }
 
-.action-buttons {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 15px;
-}
-
 .green-button {
-  width: 180px;
-  height: 45px;
-  background-color: #2ecc71;
-  color: white;
+  width: 400px;
+  height: 60px;
   padding: 12px 25px;
-  border: none;
-  border-radius: 25px;
-  font-size: 1.1rem;
+  font-size: 2rem;
   cursor: pointer;
   transition: background-color 0.3s, transform 0.2s;
-}
-
-.green-button:hover {
-  background-color: #27ae60;
-  transform: scale(1.05);
 }
 
 .no-patients {
