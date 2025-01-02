@@ -111,7 +111,7 @@ export default {
   margin: 20px auto;
   padding: 16px;
   border: 1px solid #ddd;
-  border-radius: 8px;
+  border-radius: 25px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   background-color: #ffffff;
 }
@@ -139,7 +139,8 @@ export default {
 }
 
 .custom-table tr:nth-child(odd) {
-  background-color: #f9f9f9;
+  background-color: #ebffe8;
+
 }
 
 .custom-table tr:nth-child(even) {
@@ -153,7 +154,6 @@ export default {
 .table-footer {
   display: flex;
   justify-content: space-around;
-  margin-top: 10px;
 }
 
 .green-button {

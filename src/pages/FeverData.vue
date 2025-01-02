@@ -4,7 +4,7 @@
     <table class="custom-table">
       <thead>
       <tr>
-        <th class="header-cell">Kellaaeg</th>
+        <th class="header-cell">Kuupäev ja kellaaeg</th>
         <th class="header-cell">Temperatuur (°C)</th>
         <th class="header-cell">Ravimi nimetus</th>
         <th class="header-cell">Ravimi doos</th>
@@ -13,7 +13,7 @@
       </thead>
       <tbody>
       <tr v-for="(entry, index) in sortedAndSlicedRecords" :key="index">
-        <td class="table-data" data-label="Kellaaeg">{{ convertToIso(entry.time) }}</td>
+        <td class="table-data" data-label="Kuupäev ja kellaaeg">{{ convertToIso(entry.time) }}</td>
         <td class="table-data" data-label="Temperatuur (°C)">{{ entry.temperature }} (°C)</td>
         <td class="table-data" data-label="Ravimi nimetus">{{ entry.medicationName }}</td>
         <td class="table-data" data-label="Ravimi doos">{{ entry.medicationDosage }}</td>
@@ -26,8 +26,8 @@
       </tbody>
     </table>
     <div class="table-footer">
-      <button v-if="feverRecords.length > 0" class="green-button" @click="downloadPDF">Lae alla pdf</button>
-      <button v-if="feverRecords.length > visibleCount" class="green-button" @click="showAll">Kuva rohkem</button>
+      <button v-if="feverRecords.length > 0" class="secondary-button" @click="downloadPDF">Lae alla pdf</button>
+      <button v-if="feverRecords.length > visibleCount" class="secondary-button" @click="showAll">Kuva rohkem</button>
     </div>
   </div>
 </template>
@@ -135,7 +135,7 @@ export default {
             const pageHeight = pdf.internal.pageSize.height;
             pdf.setFontSize(13);
             pdf.setTextColor(40);
-            pdf.text("Tervise päevik - " + formattedDate, pageWidth / 2, 1, {align: "center"});
+            pdf.text("Tervise päeviku andmed seisuga: " + formattedDate, pageWidth / 2, 1, {align: "center"});
             pdf.text("Nimi: " + selectedName, 2, 1.5, {align: "left"});
             pdf.setFontSize(13);
             pdf.text("Aitäh, et kasutasite Tervise päevikut!",
@@ -169,13 +169,13 @@ export default {
   margin: 20px auto;
   padding: 16px;
   border: 1px solid #ddd;
-  border-radius: 8px;
+  border-radius: 25px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   background-color: #ffffff;
 }
 
 .table-title {
-  font-size: 1.5rem;
+  font-size: 2rem;
   text-align: center;
   margin-bottom: 16px;
   color: #333;
@@ -190,7 +190,7 @@ export default {
 
 .custom-table th,
 .custom-table td {
-  padding: 12px 16px;
+  padding: 5px 16px;
   border: 1px solid #ddd;
 }
 
@@ -201,7 +201,7 @@ export default {
 }
 
 .custom-table tr:nth-child(odd) {
-  background-color: #f9f9f9;
+  background-color: #ebffe8;
 }
 
 .custom-table tr:nth-child(even) {
@@ -215,9 +215,17 @@ export default {
 .table-footer {
   display: flex;
   justify-content: space-around;
-  margin-top: 10px;
 }
-
+.secondary-button {
+  justify-content: space-evenly;
+  margin-top: 10px;
+  margin-bottom: 0px;
+}
+.delete-button {
+  text-align: center;
+  font-size: 1rem;
+  padding: 6px 12px;
+}
 
 .edit-buttons {
   display: flex;
@@ -247,7 +255,7 @@ export default {
   }
 
   .table-title {
-    font-size: 1.2rem;
+    font-size: 1.3rem;
     margin-bottom: 10px;
   }
 
@@ -284,18 +292,17 @@ export default {
   /* Make Delete Button Smaller */
   .delete-button {
     font-size: 0.8rem;
-    padding: 6px 10px;
+    padding: 2px 10px;
   }
 
   /* Adjust Footer Buttons */
   .table-footer {
     flex-direction: column; /* Stack buttons vertically */
     align-items: center;
-    gap: 10px; /* Add space between buttons */
-    margin-top: 15px;
+    gap: 5px; /* Add space between buttons */
   }
 
-  .green-button {
+  .secondary-button {
     font-size: 0.9rem;
     padding: 8px 15px;
     width: 100%; /* Full width on smaller screens */
@@ -318,7 +325,7 @@ export default {
   .custom-table td {
     display: flex;
     justify-content: space-between;
-    padding: 10px;
+    padding: 5px 20px 5px 20px;
     border: none; /* Remove inner borders */
   }
 
@@ -327,6 +334,15 @@ export default {
     font-weight: bold;
     flex: 0 0 40%;
     text-align: left;
+  }
+  .custom-table tr:nth-child(odd) {
+    background-color: #ebffe8;
+    border-radius: 25px;
+  }
+
+  .custom-table tr:nth-child(even) {
+    background-color: #ffffff;
+    border-radius: 25px;
   }
 }
 

@@ -35,7 +35,7 @@
       </form>
       <p v-if="errorMessage" class="error-message">{{ errorMessage }}</p>
     </div>
-    <div>
+    <div class="action-buttons">
     <button class="secondary-button" @click="navigateBack">Tagasi</button>
     </div>
   </div>
@@ -109,4 +109,11 @@ export default {
   margin-top: 10px;
   text-align: center;
 }
+
+@media (max-width: 767px) {
+  .title {
+    margin-top: 100px;
+  }
+}
+
 </style>

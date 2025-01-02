@@ -35,7 +35,6 @@
         </div>
         <button type="submit" class="green-button">Salvesta</button>
       </form>
-      <br>
       <button class="secondary-button" @click="navigateBack">Tagasi</button>
       <br>
       <button class="delete-button" @click="deletePatient">Kustuta patsient</button>
