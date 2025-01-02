@@ -18,20 +18,13 @@
 
     <div class="patient-details">
       <h1 class="title">{{ currentPatient.patientFullName }}</h1>
-      <p><strong>Sünniaeg:</strong> {{ currentPatient.dateOfBirth }}</p>
-      <p><strong>Kaal:</strong> {{ currentPatient.weight }} kg</p>
-    </div>
-    <div class="green-button-container">
-      <button class="green-button" @click="editPatient">Muuda patsiendi andmeid</button>
-    </div>
+      <button class="secondary-button" @click="editPatient">Muuda patsiendi andmeid</button>
 
-    <div class="swipe-instructions">
-      <p>Libistage vasakule või paremale, või vajutage nooleklahve, et vaadata teisi patsiente.</p>
+      <p><strong>Sünniaeg:</strong> {{ currentPatient.dateOfBirth }}</p>
+        <p><strong>Kaal:</strong> {{ currentPatient.weight }} kg</p>
     </div>
-    <div class="green-button-container">
+    <div class="top-buttons">
       <button class="green-button" @click="addFeverRecord">Lisa palavik ja ravimid</button>
-    </div>
-    <div class="green-button-container">
       <button class="green-button" @click="saveSymptoms">Lisa sümptomid</button>
     </div>
 
@@ -165,42 +158,26 @@ export default {
 
 <style scoped>
 .patient-details {
-  font-size: 1rem;
+  font-size: 1.3rem;
   color: black;
-  margin-bottom: 30px;
+  margin-bottom: 10px;
   text-align: center;
-}
 
-.swipe-instructions {
-  font-size: 1rem;
-  color: #ffffff;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.7);
-  margin-top: 10px;
-  text-align: center;
-}
-
-.green-button-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 20px;
-  margin-top: 30px;
 }
 
 .green-button {
-  background-color: #2ecc71;
-  color: white;
-  padding: 12px 25px;
-  border: none;
-  border-radius: 25px;
-  font-size: 1.1rem;
-  cursor: pointer;
-  transition: background-color 0.3s, transform 0.2s;
-  width: 300px;
+  padding: 20px 50px;
+  font-size: 1.7rem;
 }
 
-.green-button:hover {
-  background-color: #27ae60;
-  transform: scale(1.1);
+@media (max-width: 767px) {
+  .green-button {
+    font-size: 1.5rem;
+    justify-content: space-around;
+    padding: 10px 15px;
+}
+  .top-buttons {
+    width: 90%;
+  }
 }
 </style>

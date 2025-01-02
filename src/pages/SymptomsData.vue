@@ -160,8 +160,8 @@ export default {
 
 @media (max-width: 767px) {
   .table-container {
-    max-width: 100%;
-    margin: 10px;
+    max-width: 90%;
+    margin: 10px auto;
     padding: 12px;
     border: none; /* Remove border for a cleaner mobile look */
     box-shadow: none; /* Simplify the layout */
@@ -179,24 +179,64 @@ export default {
     overflow-x: auto;
     display: block; /* Allow table to scroll horizontally */
   }
-  .custom-table tr:nth-child(odd) {
-    background-color: #ebffe8;
+
+  .custom-table th,
+  .custom-table td {
+    padding: 8px 10px;
+    text-align: left;
+    word-wrap: break-word;
   }
 
-  .custom-table tr:nth-child(even) {
-    background-color: #ffffff;
+  .custom-table th {
+    font-size: 0.9rem;
+  }
+
+  .custom-table tr:hover {
+    background-color: #f2f2f2; /* Subtle hover effect */
   }
 
   /* Make Delete Button Smaller */
   .delete-button {
     font-size: 0.8rem;
     padding: 2px 10px;
+
   }
 
   .secondary-button {
     font-size: 0.9rem;
     padding: 8px 15px;
     width: 100%; /* Full width on smaller screens */
+  }
+
+  /* Hide Table Header for Narrow Screens and Stack Data */
+  .custom-table thead {
+    display: none;
+  }
+
+  .custom-table tr {
+    display: flex;
+    flex-direction: column; /* Stack cells vertically */
+    margin-bottom: 20px;
+    border: 1px solid #ddd; /* Add border around each entry */
+    border-radius: 5px;
+    background-color: #fff;
+  }
+
+  .custom-table td {
+    display: flex;
+    padding: 3px 40px 3px 40px;
+    border: none;
+    justify-content: space-evenly/* Remove inner borders */
+  }
+
+  .custom-table tr:nth-child(odd) {
+    background-color: #ebffe8;
+    border-radius: 25px;
+  }
+
+  .custom-table tr:nth-child(even) {
+    background-color: #ffffff;
+    border-radius: 25px;
   }
 }
 </style>

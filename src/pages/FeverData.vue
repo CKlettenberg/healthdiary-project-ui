@@ -251,8 +251,8 @@ export default {
 
 @media (max-width: 767px) {
   .table-container {
-    max-width: 100%;
-    margin: 10px;
+    max-width: 90%;
+    margin: 10px auto;
     padding: 12px;
     border: none; /* Remove border for a cleaner mobile look */
     box-shadow: none; /* Simplify the layout */
