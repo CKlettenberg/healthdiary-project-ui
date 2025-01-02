@@ -131,17 +131,22 @@ export default {
           .toPdf()
           .get("pdf")
           .then((pdf) => {
+            const pageCount = pdf.getNumberOfPages();
             const pageWidth = pdf.internal.pageSize.getWidth();
             const pageHeight = pdf.internal.pageSize.height;
-            pdf.setFontSize(13);
-            pdf.setTextColor(40);
-            pdf.text("Tervise päeviku andmed seisuga: " + formattedDate, pageWidth / 2, 1, {align: "center"});
-            pdf.text("Nimi: " + selectedName, 2, 1.5, {align: "left"});
-            pdf.setFontSize(13);
-            pdf.text("Aitäh, et kasutasite Tervise päevikut!",
-                pdf.internal.pageSize.getWidth() / 2, pageHeight - 1, {
-                  align: "center",
-                });
+            for (let i=1; i <= pageCount; i++) {
+              pdf.setPage(1);
+              pdf.setFontSize(13);
+              pdf.setTextColor(40);
+              pdf.text("Tervise päeviku andmed seisuga: " + formattedDate, pageWidth / 2, 1, {align: "center"});
+              pdf.text("Nimi: " + selectedName, 2, 1.5, {align: "left"});
+              pdf.setPage(pageCount);
+              pdf.setFontSize(13);
+              pdf.text("Aitäh, et kasutasite Tervise päevikut enda haiguse jälgimisel!",
+                  pdf.internal.pageSize.getWidth() / 2, pageHeight - 1, {
+                    align: "center",
+                  });
+            }
             pdf.save("Tervisepäevik.pdf");
           });
     },
@@ -285,8 +290,8 @@ export default {
   .header-cell,
   .table-data {
     text-align: left;
-    font-size: 0.9rem;
-    padding: 8px;
+    font-size: 1rem;
+    padding: 2px;
   }
 
   /* Make Delete Button Smaller */
@@ -316,7 +321,7 @@ export default {
   .custom-table tr {
     display: flex;
     flex-direction: column; /* Stack cells vertically */
-    margin-bottom: 10px;
+    margin-bottom: 20px;
     border: 1px solid #ddd; /* Add border around each entry */
     border-radius: 5px;
     background-color: #fff;
@@ -325,7 +330,7 @@ export default {
   .custom-table td {
     display: flex;
     justify-content: space-between;
-    padding: 5px 20px 5px 20px;
+    padding: 3px 25px 3px 25px;
     border: none; /* Remove inner borders */
   }
 
