@@ -47,7 +47,7 @@ export default {
       try {
         await axios.post("http://localhost:8091/api/users/register", this.user);
         alert("Registreerimine õnnestus! Nüüd saate sisse logida.");
-        this.$router.push("/"); // Navigate back to login screen
+        this.$router.push("/"); 
       } catch (error) {
         this.errorMessage =
             error.response && error.response.status === 409
@@ -56,7 +56,7 @@ export default {
       }
     },
     goBack() {
-      this.$router.push("/"); // Navigate back to the login screen
+      this.$router.push("/"); 
     },
   },
 };
@@ -73,7 +73,7 @@ export default {
 }
 
 .input-field [placeholder="Username"] {
-  font-family: monospace; /* Example styling */
+  font-family: monospace; 
 }
 
 .error-message {
