@@ -76,7 +76,6 @@ export default {
 
           this.successMessage = 'Password successfully changed!';
           this.errorMessage = '';
-          // Clear inputs after successful password change
           this.currentPassword = '';
           this.newPassword = '';
           this.confirmPassword = '';
