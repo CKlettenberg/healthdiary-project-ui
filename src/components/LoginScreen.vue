@@ -3,13 +3,13 @@
     <h1 class="title">TERVISE PÄEVIK</h1>
     <h3 class="subtitle"> Tervise päevik aitab teil hoida silma peal enda ja kogu pere palavikul ja olulistel tervisenäitajatel. </h3>
 
-    <!-- Initial Buttons -->
+  
     <div v-if="!showLogin" class="button-container">
       <button class="green-button" @click="toggleLogin">Logi sisse</button>
       <button class="green-button" @click="goToRegister">Registreeri</button>
     </div>
 
-    <!-- Login Form -->
+ 
     <form v-if="showLogin" @submit.prevent="handleLogin" class="form-container">
       <div class="input-group">
         <label for="username" class="label">Kasutaja:</label>
