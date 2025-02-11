@@ -5,31 +5,31 @@
     align-items: center;
     justify-content: center;
     height: 100vh;
-    background-image: url("@/assets/background.png"); /* Path to your background image */
+    background-image: url("@/assets/background.png"); 
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    position: fixed; /* Keep the background fixed */
+    position: fixed; 
     top: 0;
     left: 0;
     width: 100%;
-    z-index: -1; /* Ensure it's behind the content */
+    z-index: -1; 
 }
 
 .router-view-container {
     position: relative;
     width: 100%;
     height: 100%;
-    display: flex; /* Use Flexbox for alignment */
-    flex-direction: column; /* Align items vertically */
-    align-items: center; /* Center items horizontally */
-    overflow-y: auto; /* Enable vertical scrolling */
-    z-index: 1; /* Ensure content is above the background */
-    padding: 20px; /* Optional: Add some padding for better aesthetics */
-    box-sizing: border-box; /* Ensure padding doesn't affect width/height */
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
+    overflow-y: auto; 
+    z-index: 1; 
+    padding: 20px; 
+    box-sizing: border-box; 
 }
 
-/* Utility styles */
+
 .text-center {
     text-align: center;
 }
@@ -55,7 +55,7 @@
 }
 
 .icon-button {
-    background-color: #2ecc71; /* Green button */
+    background-color: #2ecc71; 
     color: white;
     padding: 12px 60px;
     border: none;
@@ -63,14 +63,14 @@
     font-size: 2rem;
     cursor: pointer;
     transition: background-color 0.3s, transform 0.2s;
-    margin: 0 100px; /* Add spacing between buttons */
-    width: auto; /* Prevent stretching */
+    margin: 0 100px; 
+    width: auto; 
     white-space: nowrap;
 }
 
 .icon-button:hover {
     background-color: #27ae60;
-    transform: scale(1.1); /* Slight zoom effect */
+    transform: scale(1.1); 
 }
 
 .green-button-container {
@@ -111,9 +111,9 @@
 }
 
 .secondary-button:hover {
-    background-color: #69f34c; /* Green background on hover */
-    color: white; /* White text on hover */
-    transform: scale(1.05); /* Slight zoom effect */
+    background-color: #69f34c; 
+    color: white; 
+    transform: scale(1.05); 
 }
 
 
@@ -195,7 +195,7 @@ button:hover {
 }
 
 .close-btn:hover {
-    color: #000000; /* Darker color on hover */
+    color: #000000; 
 }
 
 .action-buttons {
@@ -256,8 +256,8 @@ h2 {
 .dropdown-menu li {
     padding: 10px;
     cursor: pointer;
-    width: auto;  /* Ensure full width */
-    background-color: #2ecc71;  /* Default background */
+    width: auto;  
+    background-color: #2ecc71;  
     border-bottom: 1px solid #ccc;
 }
 
@@ -278,7 +278,7 @@ h2 {
     }
 }
 
-/* Styles for Mobile */
+
 @media (max-width: 767px) {
     .health-diary-app {
         padding: 10px;
@@ -286,8 +286,8 @@ h2 {
         background-size: auto;
         background-position: bottom left;
         height: 100%;
-        justify-content: flex-start; /* Align content at the top */
-        overflow-y: auto; /* Ensure scrolling for content */
+        justify-content: flex-start; 
+        overflow-y: auto; 
     }
 
     .dropdown-container {
@@ -298,30 +298,30 @@ h2 {
     .dropdown-menu {
         position: static;
         padding: 0;
-        top: 100%; /* Ava ülespoole */
-        width: auto; /* Kasuta kogu laius */
+        top: 100%; 
+        width: auto; 
         z-index: 1000;
-        display: flex; /* Use flexbox for vertical alignment */
-        flex-direction: column; /* Stack items vertically */
+        display: flex; 
+        flex-direction: column; 
     }
 
     .dropdown-menu li {
-        padding: 10px; /* Add some padding to the items for better click area */
-        text-align: center; /* Optionally, align text */
+        padding: 10px; 
+        text-align: center; 
     }
 
-    /* Content Container */
+    
     .router-view-container {
         position: relative;
         width: 100%;
-        height: auto; /* Allow height to adjust to content */
+        height: auto; 
         display: flex;
         flex-direction: column;
         align-items: center;
         padding: 10px;
         overflow-y: auto;
         box-sizing: border-box;
-        gap: 15px; /* Space between elements */
+        gap: 15px; 
     }
     .title {
         font-size: 2.4rem;
@@ -339,24 +339,24 @@ h2 {
         font-size: 1.5rem;
         cursor: pointer;
         transition: background-color 0.3s, transform 0.2s;
-        width: auto; /* Full width with padding */
-        white-space: nowrap; /* Tekst ei lähe üle ridade */
-        margin: 10px; /* Ruumi nuppude vahel */ /* Kasuta flexboxi */
+        width: auto; 
+        white-space: nowrap; 
+        margin: 10px; 
         justify-content: center;
         display: inline-block;
     }
 
     .icon-button:hover {
-        transform: scale(1.05); /* Slight hover effect */
+        transform: scale(1.05); 
     }
 
-    /* Header Buttons */
+    
     .top-buttons {
         display: flex;
-        flex-direction: row; /* Stack buttons vertically */
+        flex-direction: row; 
         align-items: center;
-        gap: 20px; /* Space between buttons */
-        position: static; /* Remove absolute positioning for better stacking */
+        gap: 20px; 
+        position: static;
         width: 100%;
         font-size: 1.5rem;
     }
@@ -385,11 +385,11 @@ h2 {
     }
 
     h2 {
-        font-size: 1.8rem; /* Adjust title size */
+        font-size: 1.8rem; 
         margin-bottom: 5px;
     }
 
-    /* Main Content */
+    
     .content {
         text-align: center;
         padding: 10px;
@@ -409,24 +409,24 @@ h2 {
         color: #555;
     }
 
-    /* Footer Button */
+    
     .button {
-        background-color: #3498db; /* Blue button */
+        background-color: #3498db; 
         color: white;
         padding: 12px 20px;
         font-size: 1rem;
         border: none;
         border-radius: 5px;
         cursor: pointer;
-        width: 90%; /* Full width with padding */
+        width: 90%; 
         margin-top: 20px;
     }
 
     .button:hover {
-        background-color: #2980b9; /* Darker blue on hover */
+        background-color: #2980b9; 
     }
 
-    /* Utility Classes */
+    
     .text-center {
         text-align: center;
     }
@@ -435,16 +435,16 @@ h2 {
         width: 100%;
     }
 
-    /* Avoid Horizontal Overflow */
+    
     body {
         margin: 0;
         padding: 0;
-        overflow-x: hidden; /* Prevent horizontal scrolling */
+        overflow-x: hidden; 
     }
     .table-footer {
-        flex-direction: column; /* Stack buttons vertically */
+        flex-direction: column; 
         align-items: center;
-        gap: 5px; /* Add space between buttons */
+        gap: 5px; 
     }
 
 }
