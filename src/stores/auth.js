@@ -3,21 +3,21 @@ import {defineStore} from "pinia";
 export const useAuthStore = defineStore("auth", {
     state: () => ({
         isAuthenticated: !!localStorage.getItem("token") && localStorage.getItem("token") !== "undefined",
-        token: localStorage.getItem("token") || null, // Ensure token is fetched on store load
+        token: localStorage.getItem("token") || null, 
     }),
     actions: {
         login(user) {
             this.isAuthenticated = true;
             this.token = user.token;
-            localStorage.setItem("token", user.token); // Store the token
-            localStorage.setItem("user", user.userId); // Store user ID
+            localStorage.setItem("token", user.token); 
+            localStorage.setItem("user", user.userId); 
         },
         logout(router) {
             this.isAuthenticated = false;
             this.token = null;
             localStorage.removeItem("user");
             localStorage.removeItem("token");
-            router.push('/login'); // Navigate to home page
+            router.push('/login'); 
         },
     },
 });
