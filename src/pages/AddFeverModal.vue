@@ -7,13 +7,13 @@
           <div class="left-panel">
             <div class="thermometer-container">
               <div class="thermometer">
-                <div class="thermometer-fill"
-                     :style="{
+              <div
+                class="thermometer-fill"
+                :style="{
                   height: `${(newFeverRecord.temperature - 35) * 100 / 7}%`,
-              background: `linear-gradient(to top, #70ff50, #d12222{
-                {((temperature - 35) / 2) * 100}%, #e74c3c 100%)`
-            }"
-                ></div>
+                  background: `linear-gradient(to top, #70ff50, #d12222 ${((newFeverRecord.temperature - 35) / 7) * 100}%, #e74c3c 100%)`
+                }"
+              ></div>
               </div>
               <input
                   type="range"
@@ -333,6 +333,22 @@ li {
   align-items: center;
   gap: 5px;
   position: relative;
+}
+
+.thermometer {
+  position: relative;
+  width: 30px;
+  height: 200px;
+  background: #e6e6e6;
+  border-radius: 15px;
+  overflow: hidden;
+}
+
+.thermometer-fill {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  border-radius: inherit;
 }
 
 .temperature-slider {

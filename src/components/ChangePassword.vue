@@ -32,14 +32,14 @@
             required
         />
       </div>
+      <div class="action-buttons">
+        <button class="green-button" type="submit">Parooli muutmine</button>
+        <button class="secondary-button" @click="navigateBack">Tagasi</button>
+        <br>
+        <p v-if="errorMessage" class="error">{{ errorMessage }}</p>
+        <p v-if="successMessage" class="success">{{ successMessage }}</p>
+      </div>
     </form>
-    <div class="action-buttons">
-      <button class="green-button" type="submit">Parooli muutmine</button>
-      <button class="secondary-button" @click="navigateBack">Tagasi</button>
-    <br>
-    <p v-if="errorMessage" class="error">{{ errorMessage }}</p>
-    <p v-if="successMessage" class="success">{{ successMessage }}</p>
-  </div>
   </div>
 </template>
 
